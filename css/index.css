@@ -1,0 +1,115 @@
+*{
+	padding: 0px;
+	margin: 0px;
+	
+}
+ul li{
+	list-style: none;
+}
+.clearBoth{
+	clear: both;
+}
+.clearl{
+	clear: left;
+}
+a{
+	color: #000000;
+	text-decoration: none;
+}
+/*附近门店*/
+#store{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100;
+}
+/*地图*/
+.map{
+	width:100%;
+	height: 42%;
+	background-color: white;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	font-size: 20px;
+}
+/*门店列表*/
+.storeBox{
+	width: 100%;
+	height: 58%;
+	background-color: #f3f3f3;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+/*列表详情*/
+.storeBox .storeList{
+	width: 91.25%;
+	margin: 0 auto;
+	margin-top:20px;
+	background-color: white;
+	border-radius: 3%;
+}
+.storeBox .storeList .storeName{
+	margin-left: 2.5%;
+	font-size: 18px;
+	line-height: 44px;
+	padding-top: 10px;
+	font-weight: bold;
+}
+.storeBox .storeList .storeAddress{	
+	font-size: 14px;
+	line-height: 36px;
+	color: #999999;
+	border-bottom: 1px solid #cfcfcf;
+	padding-bottom: 10px;
+}
+.storeBox .storeList .storeAddress p:nth-child(1){
+	width: 70%;
+	float: left;
+	margin-left: 2.5%;
+	
+}
+.storeBox .storeList .storeAddress p:nth-child(2){
+	width: 25%;
+	float: right;
+	background: url(../img/address.png) no-repeat;
+	line-height: 20px;
+	text-indent: 18px;
+	margin-top: 8px;
+	background-size: auto 100%;
+	margin-right: 2.5%;
+}
+.storeList ul li:nth-child(3) a{
+	height: 60px;
+	width: 49.5%;
+	float: left;
+	font-size: 16px;
+	font-weight: bold;
+	text-align: center;
+	line-height: 60px;
+}
+.storeList ul li:nth-child(3) a:first-child{
+	border-right: 1px solid #cfcfcf;
+	background: url(../img/phone.png) no-repeat;
+	background-position-y: center;
+	background-position-x: 31%;
+	text-indent:14%;
+}
+.storeList ul li:nth-child(3) a:nth-child(2){
+	background: url(../img/go.png) no-repeat;
+	background-position-y: center;
+	background-position-x: 30%;
+	text-indent:15%;
+}
+/*内嵌框*/
+#personInfor{
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	border: 0;
+	top: 0;
+	left: 0;
+}

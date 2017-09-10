@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+		<title>好太太</title>
+		<link rel="stylesheet" href="css/index.css" />		
+		<script type="text/javascript" src="js/lufylegend-1.10.1.min.js" ></script>	
+		<script type="text/javascript" src="js/lufylegend.ui-0.14.1.min.js" ></script>
+		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+	</head>
+	<body>
+		<div id="good"></div>
+		<audio id="Jaudio"  preload loop="loop" src="music/bg.mp3" hidden="hidden"></audio >
+		<div id="store" hidden="hidden">
+			<div class="map">
+				<p>获取地图数据失败！</p>
+			</div>
+			<div class="storeBox">
+				<div class="storeList">
+					<ul>
+						<li>
+							<p class="storeName">五洲建材店</p>
+						</li>
+						<li>
+							<div class="storeAddress">
+								<p>广东省广州市天河区科韵路五洲建材...</p>
+								<p>101.6km</p>
+								<div class="clearBoth"></div>
+							</div>
+						</li>
+						<li>
+							<a href="###">打电话</a>
+							<a href="###">到这里</a>
+							<div class="clearl"></div>
+						</li>
+					</ul>
+				</div>
+				<div class="storeList">
+					<ul>
+						<li>
+							<p class="storeName">五洲建材店</p>
+						</li>
+						<li>
+							<div class="storeAddress">
+								<p>广东省广州市天河区科韵路五洲建材...</p>
+								<p>101.6km</p>
+								<div class="clearBoth"></div>
+							</div>
+						</li>
+						<li>
+							<a href="###">打电话</a>
+							<a href="###">到这里</a>
+							<div class="clearl"></div>
+						</li>
+					</ul>
+				</div>
+				<div class="storeList">
+					<ul>
+						<li>
+							<p class="storeName">五洲建材店</p>
+						</li>
+						<li>
+							<div class="storeAddress">
+								<p>广东省广州市天河区科韵路五洲建材...</p>
+								<p>101.6km</p>
+								<div class="clearBoth"></div>
+							</div>
+						</li>
+						<li>
+							<a href="###">打电话</a>
+							<a href="###">到这里</a>
+							<div class="clearl"></div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<iframe id="personInfor" src="person.html" hidden="hidden"></iframe>
+	</body>	
+	<script type="text/javascript" src="js/publicFun.js" ></script>
+	<script type="text/javascript" src="js/resource.js" ></script>
+	<script type="text/javascript" src="js/target.js" ></script>
+	<script type="text/javascript" src="js/musicBtn.js" ></script>
+	<script type="text/javascript" src="js/gift.js" ></script>
+	<script type="text/javascript" src="js/awardAndCard.js" ></script>
+	<script type="text/javascript" src="js/compose.js" ></script>
+	<script type="text/javascript" src="js/sendToFriend.js" ></script>
+	<script type="text/javascript" src="js/main.js" ></script>
+	<script>
+			function audioAutoPlay(id,v){
+			    var audio = document.getElementById(id);
+			    audio.play();
+			    if(v==0)
+			    {
+			    	audio.pause();
+			    }
+			    document.addEventListener("WeixinJSBridgeReady", function () {
+			            audio.play();
+			            if(v==0)
+					    {
+					    	audio.pause();
+					    }
+			    }, false);
+			}
+//			audioAutoPlay('Jaudio');
+	</script>
+</html>
