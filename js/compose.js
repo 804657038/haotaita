@@ -1,6 +1,7 @@
 //我要合成
 var ConposeCardNumber = 0;
 //我的卡片
+var cardList = [];
 function ConposeMyCard(){
 	//清除所有
 	backLayer.die();
@@ -38,7 +39,7 @@ function ConposeMyCard(){
 		LTweenLite.to(conposeTexts[conposeIndex],1.0,{alpha:1.0});
 	}});
 	//我的卡片
-	var cardList = [];
+
 	for(var i=0;i<5;i++)
 	{
 		cardList[i] = new longCardClass(47+124.5*i,273,i+1);
@@ -85,6 +86,7 @@ function ConposeMyCard(){
                     {
                         ConposeCardNumber++;
                         cardList[index-1].visible = true;
+                        cardList[index-1].id=this.sp.id;
                         this.sp.cardNumber--;
                         if(this.sp.cardNumber==0)
                         {
@@ -222,8 +224,13 @@ function confirmConposed(){
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		cardLayer.removeAllChild();
 		cardLayer.remove();
-
-		AjaxR(window.link+'synthesis','POST',{"__token__":window.token,"ids":[9,10]},function(res){
+		var ids=[];
+		for (i in cardList){
+			if(cardList[i].visible==true){
+                ids.push(cardList[i].id);
+			}
+		};
+		AjaxR(window.link+'synthesis','POST',{"__token__":window.token,"ids":ids},function(res){
 			if(res.code==1){
                 composeSuccess("coupon"+res.msg);
 			}else{

@@ -214,68 +214,12 @@ function myAward(){
 	var giftes = [1,2,5,10,20,"好太太抱枕价值58元（1个）","获得安迪大礼包（价值188元）","获得安迪大礼包（价值388元）","coupon000","coupon188","coupon688"];
 	awardLists = [];
 	var k=0;
-	$.get('json/person.json',function(data){
-		if(data.awardList.length>0)
-		{
-			for(var i=0;i<data.awardList.length;i++)
-			{
-				var index = data.awardList[i].index;
-				switch(index)
-				{
-					case 0:
-					case 1:
-					case 2:
-					case 3:
-					case 4:
-						if(i==0)
-						{
-							awardLists[k] = new redClass(20,giftes[index],i,index);
-						}else{
-							awardLists[k] = new redClass(20+awardLists[k-1].getHeight()+awardLists[k-1].y,giftes[index],i,index);
-						}						
-						activityLayer.addChild(awardLists[k]);
-						k++;
-						break;
-					case 5:
-					case 6:
-					case 7:
-						if(i==0)
-						{
-							awardLists[k] = new package(20,packageName[index],giftes[index],data.awardList[i].odd,i,index);
-						}else{
-							awardLists[k] = new package(20+awardLists[k-1].getHeight()+awardLists[k-1].y,packageName[index],giftes[index],data.awardList[i].odd,i,index);
-						}						
-						activityLayer.addChild(awardLists[k]);
-						k++;
-						break;
-					case 8:
-					case 9:
-					case 10:
-						if(i==0)
-						{
-							if(index == 9)
-							{
-								awardLists[k] = new Coupon(20,giftes[index],data.awardList[i].hasUse,i,index,data.awardList[i].code);
-							}else{
-								awardLists[k] = new Coupon(20,giftes[index],data.awardList[i].hasUse,i,index);
-							}
-							
-						}else{
-							if(index == 9)
-							{
-								awardLists[k] = new Coupon(20+awardLists[k-1].getHeight()+awardLists[k-1].y,giftes[index],data.awardList[i].hasUse,i,index,data.awardList[i].code);
-							}else{
-								awardLists[k] = new Coupon(20+awardLists[k-1].getHeight()+awardLists[k-1].y,giftes[index],data.awardList[i].hasUse,i,index);
-							}
-							
-						}						
-						activityLayer.addChild(awardLists[k]);
-						k++;
-						break;
-				}
-			}
-		}
-	})
+	//向服务器请求奖品数据
+	AjaxR(window.link+'myprize','GET',false,function(data){
+        $.get('json/person.json',function(data){
+
+        })
+	});
 }
 function setwm(target,index){
 	return (LGlobal.width-target.getWidth())/index;
