@@ -65,34 +65,39 @@ function ConposeMyCard(){
 	var conposeCheck = [true,true,true,true,true];
 	//向服务器请求个人数据
 	var cards = new Array(5);
-	$.get('json/person.json',function(data){
-		for(var i=0;i<cards.length;i++)
-		{
-			AllCardNumber+=data.cardNumber[i];
-			cards[i] = new cardClass(42+i*128,794,i+1,data.cardNumber[i]);
-			backLayer.addChild(cards[i]);
-			cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-				
-				var index = this.sp.index;
-				if(conposeCheck[index-1]==true)
-				{
-					conposeCheck[index-1]= false;
-					if(this.sp.cardNumber>0)
-					{
-						ConposeCardNumber++;
-						cardList[index-1].visible = true;
-						this.sp.cardNumber--;
-						if(this.sp.cardNumber==0)
-						{
-							this.sp.changeStatus();
-						}else{
-							this.sp.changeTxet();
-						}
-					}
-				}
-			})
-		}
+	var ids=[];
+	AjaxR(window.link+'/getMyCard','GET',false,function(data){
+        for(var i=0;i<cards.length;i++)
+        {
+            var num=data[i+1]?data[i+1].num:0;
+            var id=data[i+1]?data[i+1].id:0;
+            AllCardNumber+=num;
+            cards[i] = new cardClass(42+i*128,794,i+1,num,false,id);
+            backLayer.addChild(cards[i]);
+            cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+
+                var index = this.sp.index;
+                if(conposeCheck[index-1]==true)
+                {
+                    conposeCheck[index-1]= false;
+
+                    if(this.sp.cardNumber>0)
+                    {
+                        ConposeCardNumber++;
+                        cardList[index-1].visible = true;
+                        this.sp.cardNumber--;
+                        if(this.sp.cardNumber==0)
+                        {
+                            this.sp.changeStatus();
+                        }else{
+                            this.sp.changeTxet();
+                        }
+                    }
+                }
+            })
+        }
 	});
+
 	//合成按钮
 	var conposing = new LButton(new LBitmap(new LBitmapData(imgList['conposing'])));
 	conposing.x = 85;
@@ -217,9 +222,16 @@ function confirmConposed(){
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		cardLayer.removeAllChild();
 		cardLayer.remove();
-		$.get('json/giftReturn.json',function(data){
-			composeSuccess("coupon"+data.index);
+
+		AjaxR(window.link+'synthesis','POST',{"__token__":window.token,"ids":[9,10]},function(res){
+			if(res.code==1){
+                composeSuccess("coupon"+res.msg);
+			}else{
+                conposeErrors();
+			}
+
 		});
+
 		
 	});
 	//取消按钮

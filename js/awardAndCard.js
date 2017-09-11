@@ -43,27 +43,30 @@ function myCard(){
 	//添加小卡片
 	//向服务器请求个人数据
 	var cards = new Array(5);
-	$.get('json/person.json',function(data){
-		for(var i=0;i<cards.length;i++)
-		{
-			AllCardNumber+=data.cardNumber[i];
-			cards[i] = new cardClass(42+i*128,860,i+1,data.cardNumber[i],!i);
-			backLayer.addChild(cards[i]);
-			cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-				var index = this.sp.index;
-				for(var i=0;i<5;i++)
-				{
-					if(i+1==index){
-						this.sp.hasChoice.alpha = 1;
-						cardList[i].alpha = 1;
-					}else{
-						cards[i].hasChoice.alpha = 0;
-						cardList[i].alpha = 0;
-					}
-				}
-			})
-		}
+	AjaxR(window.link+'/getMyCard','GET',false,function(data){
+        for(var i=0;i<cards.length;i++)
+        {
+        	var num=data[i+1]?data[i+1].num:0;
+
+            AllCardNumber+=num;
+            cards[i] = new cardClass(42+i*128,860,i+1,num,!i);
+            backLayer.addChild(cards[i]);
+            cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+                var index = this.sp.index;
+                for(var i=0;i<5;i++)
+                {
+                    if(i+1==index){
+                        this.sp.hasChoice.alpha = 1;
+                        cardList[i].alpha = 1;
+                    }else{
+                        cards[i].hasChoice.alpha = 0;
+                        cardList[i].alpha = 0;
+                    }
+                }
+            })
+        }
 	});
+
 	//我要合成按钮
 	var compose = new LButton(new LBitmap(new LBitmapData(imgList['compose'])));
 	compose.x = 85;
@@ -93,13 +96,15 @@ function myCard(){
 	useTipes.addEventListener(LMouseEvent.MOUSE_DOWN,showUseContent);
 }
 //卡类
-function cardClass(x,y,cardOrder,cardNumber,choiced='false'){
+function cardClass(x,y,cardOrder,cardNumber,choiced,id){
+    choiced=choiced?choiced:false;
 	base(this,LSprite,[]);
 	var self = this;
 	self.x = x;
 	self.y = y;
 	self.index = cardOrder;
 	self.cardNumber = cardNumber;//卡数量
+	self.id=id;
 	//有卡
 	self.hasCard = new LBitmap(new LBitmapData(imgList['samllCard'+cardOrder]));
 	self.addChild(self.hasCard);

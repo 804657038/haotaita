@@ -11,8 +11,10 @@
 		<link rel="stylesheet" href="css/demo.css" />
 		<link rel="stylesheet" href="css/ydui.css" />
 		<script src="js/ydui.flexible.js"></script>
-		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<!--		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
+		<script src="js/jquery.min.js"></script>
 		<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
+<!--		<script src="js/layer.min.js"></script>-->
 	</head>
 	<body>
 		<!--填写个人信息-->
@@ -140,7 +142,9 @@
 	<script>
 		$(function(){
 			//我也要玩
-			$(document).on("touchstart",".inforClose",function(){
+//            var event="touchstart"；
+            var event="click";
+			$(document).on(event,".inforClose",function(){
 				window.parent.$('#personInfor').hide();
 				$('#box1 input').val("");
 				$('#box1 textarea').val("");
@@ -152,9 +156,10 @@
 				$('#box4 textarea').val("");
 			});
 			//运单提交
-			$(document).on("touchstart","#submit",function(){
+			$(document).on(event,"#submit",function(){
 				//向服务器发送数据成功执行以下语句
 				//在我的奖品页面提交
+
 				if(window.parent.gameOrAward==false)
 				{
 					var self =window.parent.awardLists[window.parent.wordIndex];

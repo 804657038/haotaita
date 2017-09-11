@@ -217,6 +217,10 @@ function mainGame(){
 	//文字摇一摇
 	var shankText = new setText(395,745,24,"摇一摇",'#ffffff');
 	backLayer.addChild(shankText);
+    shankText.addEventListener(LMouseEvent.MOUSE_DOWN,function(){  //模拟中奖
+    	window.l_ID=261;
+        giftCash('giftCash188');
+    });
 	//剩余
 	var remain = new setText(230,745,24,"剩余",'#ffffff');
 	backLayer.addChild(remain);
@@ -224,55 +228,68 @@ function mainGame(){
 	backLayer.addChild(ge);
 	//目标人物	
 	var target;
+
+	var step=0;
 	//向服务器请求个人信息数据
-	$.get('json/person.json',function(data){
-		target = new Target(targetX[data.nowStep],targetY[data.nowStep],'target',0);
-		backLayer.addChild(target);
-		//设置骰子个数
-		if(data.diceNumber>=10)
-		{
-			diceNumberWord = new setText(287,743,26,data.diceNumber,'#ffeb00',true);
-		}else{
-			diceNumberWord = new setText(295,743,26,data.diceNumber,'#ffeb00',true);
+	function getAuth(res,m){
+        target = new Target(targetX[res.step],targetY[res.step],'target',0);
+        if(m==true){
+            target.moving(res.lattice);
 		}
-		backLayer.addChild(diceNumberWord);
-		//提示
-		var tipLayer = new LSprite();
-		backLayer.addChild(tipLayer);
-		tipLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);	
-		var tips = new LBitmap(new LBitmapData(imgList['tips']));
-		tipLayer.addChild(tips);
-		var star = new LBitmap(new LBitmapData(imgList['star']));
-		tipLayer.addChild(star);
-		bling(star,0.4,0.5,1.0);
-		//摇一摇
-		var shank = new LBitmap(new LBitmapData(imgList['shank']));
-		tipLayer.addChild(shank);
-		shank.x = 270;
-		shank.y = 130;
-		shank.rotate = -20;
-		LTweenLite.to(shank,0.3,{rotate:20,loop:true}).to(shank,0.3,{rotate:-20});
-		//知道
-		var know = new LButton(new LBitmap(new LBitmapData(imgList['know'])));
-		tipLayer.addChild(know);
-		know.y = 885;
-		know.x = (LGlobal.width-know.getWidth())/2;
-		bigAndSmall(know,2,2,1.0,0.1,0,true);
-		know.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-			tipLayer.remove();
-			shankOpen=true;
-		});
-		//骰子
-		var diceLayer = new LSprite();
-		backLayer.addChild(diceLayer);
-		var diceList = [];
-		for(i=0;i<6;i++)
-		{
-			diceList[i]=new LBitmap(new LBitmapData(imgList['dice'+(i+1)]));
-			diceLayer.addChild(diceList[i]);
-			diceLayer.visible=false;
-		}
-	},'json');	
+        backLayer.addChild(target);
+        //设置骰子个数
+
+        if(res.dice>=10)
+        {
+            diceNumberWord = new setText(287,743,26,res.dice,'#ffeb00',true);
+        }else{
+            diceNumberWord = new setText(295,743,26,res.dice,'#ffeb00',true);
+        }
+        backLayer.addChild(diceNumberWord);
+        //提示
+        var tipLayer = new LSprite();
+        backLayer.addChild(tipLayer);
+        tipLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+        var tips = new LBitmap(new LBitmapData(imgList['tips']));
+        tipLayer.addChild(tips);
+        var star = new LBitmap(new LBitmapData(imgList['star']));
+        tipLayer.addChild(star);
+        bling(star,0.4,0.5,1.0);
+        //摇一摇
+        var shank = new LBitmap(new LBitmapData(imgList['shank']));
+
+        tipLayer.addChild(shank);
+        shank.x = 270;
+        shank.y = 130;
+        shank.rotate = -20;
+        LTweenLite.to(shank,0.3,{rotate:20,loop:true}).to(shank,0.3,{rotate:-20});
+        //知道
+        var know = new LButton(new LBitmap(new LBitmapData(imgList['know'])));
+        tipLayer.addChild(know);
+        know.y = 885;
+        know.x = (LGlobal.width-know.getWidth())/2;
+        bigAndSmall(know,2,2,1.0,0.1,0,true);
+        know.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+            tipLayer.remove();
+            shankOpen=true;
+        });
+        //骰子
+        var diceLayer = new LSprite();
+        backLayer.addChild(diceLayer);
+
+
+        for(i=0;i<6;i++)
+        {
+            diceList[i]=new LBitmap(new LBitmapData(imgList['dice'+(i+1)]));
+            diceLayer.addChild(diceList[i]);
+            diceLayer.visible=false;
+        }
+	}
+    AjaxR(window.link+'getAuth','GET',false,function(res){
+		getAuth(res);
+    });
+
+
 	
 	//获奖信息信息论
 	var banners = new Array(2);
@@ -316,13 +333,18 @@ function mainGame(){
 
 	}});
 	//
-		(function init() {  
+	/*
+	* @手机运动监听，摇一摇开始
+	* */
+		(function init() {
+
             if (window.DeviceMotionEvent) {  
                 window.addEventListener('devicemotion', deviceMotionHandler, false);  
             } else {  
                 alert('not support mobile event');  
             }  
-        })();  
+        })();
+
         function deviceMotionHandler(eventData) {  
             var acceleration = eventData.accelerationIncludingGravity;  
             var curTime = new Date().getTime();  

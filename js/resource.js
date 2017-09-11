@@ -107,9 +107,11 @@ var gameImg = [
 	{path:'img/writeError.png',type:'img',name:'writeError'},//输入错误
 	{path:'img/continue.png',type:'img',name:'continue'},//继续
 	{path:'img/cancel.png',type:'img',name:'cancel'},//取消
-	{path:'img/coupon1.png',type:'img',name:'coupon0'},//优惠券
-	{path:'img/coupon1.png',type:'img',name:'coupon1'},//优惠券
-	{path:'img/coupon1.png',type:'img',name:'coupon2'},//优惠券
+
+	{path:'img/coupon0.png',type:'img',name:'coupon10'},//免单券
+	{path:'img/coupon1.png',type:'img',name:'coupon8'},//188
+	{path:'img/coupon2.png',type:'img',name:'coupon9'},//688
+
 	{path:'img/continueCompose.png',type:'img',name:'continueCompose'},//继续合成
 	{path:'img/composeError.png',type:'img',name:'composeError'},//合成错误
 	{path:'img/confirmCompose.png',type:'img',name:'confirmCompose'},//是否合成
@@ -189,7 +191,8 @@ for(var i=0;i<targetX.length;i++)
 	}
 }
 //摇一摇数据
-var SHAKE_THRESHOLD = 3000;  
+var SHAKE_THRESHOLD = 0;
 var last_update = 0;  
 var x = y = z = last_x = last_y = last_z = 0;  
 var gameOrAward;
+var diceList = [];
