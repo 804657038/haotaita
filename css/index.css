@@ -70,7 +70,7 @@ a{
 	width: 70%;
 	float: left;
 	margin-left: 2.5%;
-	
+	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 }
 .storeBox .storeList .storeAddress p:nth-child(2){
 	width: 25%;

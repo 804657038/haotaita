@@ -5,5 +5,13 @@
 	"invite":1,
 	"cardNumber":[0,1,0,2,3],
 	"awardInfor":["王志恒","13792837465","广东省广州市海珠区琶洲商业广场11栋","无的撒打按时撒所所"],
-	"awardList":[{"index":1},{"index":3},{"index":6,"odd":""},{"index":7,"odd":""},{"index":8,"odd":""},{"index":9,"odd":"","code":"123456"},{"index":10,"hasUse":false}]
+	"awardList":[
+		{"index":1},
+		{"index":3},
+		{"index":6,"odd":""},
+		{"index":7,"odd":""},
+		{"index":8,"odd":""},
+		{"index":9,"odd":"","code":"123456"},
+		{"index":10,"hasUse":false}
+	]
 }

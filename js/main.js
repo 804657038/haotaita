@@ -166,13 +166,14 @@ function mainGame(){
 	smallNoMoney.x = 126;
 	smallNoMoney.y = 140;
 	bigAndSmall(smallNoMoney,2,2,1.5,0.1,0,true);
-	//我要骰子
+	//摇一摇事件
 	var wantToDice = new LButton(new LBitmap(new LBitmapData(imgList['wantToDice'])));//实例化背景
 	backLayer.addChild(wantToDice);//添加到背景层
 	wantToDice.x = 239;
 	wantToDice.y = 805;
+
 	wantToDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		wantPop();
+		// wantPop();
 	});
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景

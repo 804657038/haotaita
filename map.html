@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>好太太</title>
+    <link rel="stylesheet" href="css/index.css?v=2" />
+    <script src="js/jquery.min.js"></script>
+    <script type="text/javascript">
+        window.link="http://www.haotaitai.cnm/";
+
+    </script>
+    <script type="text/javascript" src="js/lib.js"></script>
+    <script type="text/javascript" src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4ouritgUuGdmPMDcljgrnMBd"></script>
+    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=6DQBZ-26GWU-743VO-2OP6P-YWINS-CKFD3&libraries=convertor"></script>
+</head>
+<body>
+<div id="store">
+    <div class="map" id="map">
+<!--        <p>获取地图数据失败！</p>-->
+    </div>
+    <div class="storeBox">
+
+        <div class="storeList" v-for="item in shopList">
+            <ul>
+                <li>
+                    <p class="storeName">{{item.tags}}</p>
+                </li>
+                <li>
+                    <div class="storeAddress">
+                        <p>{{item.address}}</p>
+                        <p>{{(item.distance/1000).toFixed(2)}}km</p>
+                        <div class="clearBoth"></div>
+                    </div>
+                </li>
+                <li>
+                    <a href="tel:{{item.phone}}">打电话</a>
+                    <a href="javascript:;" onclick="gomap({{item.location[0]}},{{item.location[1]}},'{{item.title}}','{{item.address}}')">到这里</a>
+                    <div class="clearl"></div>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+</div>
+<script type="text/javascript">
+    function gomap(x,y,title,addres){
+        qq.maps.convertor.translate(new qq.maps.LatLng(y,x), 3, function(res){
+            latlng = res[0];
+
+            wx.openLocation({
+                latitude: latlng.lat,
+                longitude: latlng.lng,
+                name: title,
+                address: addres,
+                scale: 28,
+                infoUrl: 'http://weixin.qq.com'
+            });
+        });
+
+
+    }
+    var data={
+        // url:"http://hotata.hengdikeji.com/",
+        url:"http://www.haotaitai.cnm/",
+        shopList:''
+    };
+    var all=new Vue({
+        el: '#store',
+        data:data,
+        created:function(){
+            var $this=this;
+            var url=$this.url+"shoplist/";
+
+            getUserLocation({historyTime:120},function(res){
+                $.get(url,function(data){
+                    $('.loadings').hide();
+                    $this.map(data.x,data.y,data.list);
+                    $this.shopList=data.list.contents;
+                });
+
+            });
+        } ,
+        methods:{
+            map:function(x,y,list){
+                // 百度地图API功能
+                // var map = new BMap.Map("maps");
+                // var point = new BMap.Point(x, y);
+                var map;
+                qq.maps.convertor.translate(new qq.maps.LatLng(y,x), 3, function(res){
+                    latlng = res[0];
+                    var center = new qq.maps.LatLng(latlng.lat,latlng.lng);
+                    map = new qq.maps.Map(document.getElementById('maps'),{
+                        center: center,
+                        zoom: 13
+                    });
+
+                });
+                if(list.size>=1){
+                    var lists=list.contents;
+                    for(item in lists){
+                        qq.maps.convertor.translate(new qq.maps.LatLng(lists[item].location[1],lists[item].location[0]), 3, function(res2){
+                            latlng2 = res2[0];
+                            center2 = new qq.maps.LatLng(latlng2.lat,latlng2.lng);
+                            var marker = new qq.maps.Marker({
+                                position: center2,
+                                map: map
+                            });
+                        })
+                    }
+                }
+                // map.centerAndZoom(point, 15);
+                //
+                // // 编写自定义函数,创建标注
+                // function addMarker(point){
+                //     var marker = new BMap.Marker(point);
+                //     map.addOverlay(marker);
+                // }
+
+                // if(list.size>=1){
+                //     var lists=list.contents;
+                //     for(item in lists){
+                //         var point = new BMap.Point(lists[item].location[0],lists[item].location[1]);
+                //         addMarker(point);
+                //     }
+                // }
+
+            },
+            daohan:function(x,y,title,addres){
+                alert(111);
+                wx.ready(function(){
+                    wx.openLocation({
+                        latitude:x, // 纬度，浮点数，范围为90 ~ -90
+                        longitude:y, // 经度，浮点数，范围为180 ~ -180。
+                        name: title, // 位置名
+                        address: addres, // 地址详情说明
+                        scale: 28, // 地图缩放级别,整形值,范围从1~28。默认为最大
+                        infoUrl: '' // 在查看位置界面底部显示的超链接,可点击跳转
+                    });
+                })
+            }
+        }
+    });
+</script>
+</body>
+</html>

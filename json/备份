@@ -1,0 +1,59 @@
+  {
+            for(var i=0;i<data.length;i++)
+            {
+                var index = data[i].index;
+                switch(index)
+                {
+                    case 0:
+                    case 1:
+                    case 2:
+                    case 3:
+                    case 4:
+                        if(i==0)
+                        {
+                            awardLists[k] = new redClass(20,giftes[index],i,index);
+                        }else{
+                            awardLists[k] = new redClass(20+awardLists[k-1].getHeight()+awardLists[k-1].y,giftes[index],i,index);
+                        }
+                        activityLayer.addChild(awardLists[k]);
+                        k++;
+                        break;
+                    case 5:
+                    case 6:
+                    case 7:
+                        if(i==0)
+                        {
+                            awardLists[k] = new package(20,packageName[index],giftes[index],data.awardList[i].odd,i,index);
+                        }else{
+                            awardLists[k] = new package(20+awardLists[k-1].getHeight()+awardLists[k-1].y,packageName[index],giftes[index],data.awardList[i].odd,i,index);
+                        }
+                        activityLayer.addChild(awardLists[k]);
+                        k++;
+                        break;
+                    case 8:
+                    case 9:
+                    case 10:
+                        if(i==0)
+                        {
+                            if(index == 9)
+                            {
+                                awardLists[k] = new Coupon(20,giftes[index],data.awardList[i].hasUse,i,index,data.awardList[i].code);
+                            }else{
+                                awardLists[k] = new Coupon(20,giftes[index],data.awardList[i].hasUse,i,index);
+                            }
+
+                        }else{
+                            if(index == 9)
+                            {
+                                awardLists[k] = new Coupon(20+awardLists[k-1].getHeight()+awardLists[k-1].y,giftes[index],data.awardList[i].hasUse,i,index,data.awardList[i].code);
+                            }else{
+                                awardLists[k] = new Coupon(20+awardLists[k-1].getHeight()+awardLists[k-1].y,giftes[index],data.awardList[i].hasUse,i,index);
+                            }
+
+                        }
+                        activityLayer.addChild(awardLists[k]);
+                        k++;
+                        break;
+                }
+            }
+        }

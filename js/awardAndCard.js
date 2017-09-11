@@ -207,24 +207,75 @@ function myAward(){
 	nearlyBtn.y = 1026;
 	nearlyLayer.addChild(nearlyBtn);//添加到背景层
 	nearlyBtn.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		$('#store').show();
+		window.location.href="map.html";
 	});
 	//现金
-	var packageName = ["","","","","","packageBkgHug","packageBkgBig","packageBkgBig"];
-	var giftes = [1,2,5,10,20,"好太太抱枕价值58元（1个）","获得安迪大礼包（价值188元）","获得安迪大礼包（价值388元）","coupon000","coupon188","coupon688"];
+
+    var Packs=[];
+    Packs[2]="好太太抱枕价值58元（1个）";
+    Packs[0]="获得安迪大礼包（价值188元）";
+    Packs[1]="获得安迪大礼包（价值388元）";
+
 	awardLists = [];
 	var k=0;
+    var ids1=[1,2,3];  //实物
+	var ids2=[8,9,10]; //优惠券
+	var couponList={
+		"coupon10":"coupon000",
+		"coupon8":"coupon188",
+		"coupon9":"coupon688"
+	};
 	//向服务器请求奖品数据
 	AjaxR(window.link+'myprize','GET',false,function(data){
-        $.get('json/person.json',function(data){
+        if(data.length>0)
+        {
+            for(i in data)
+            {
+                var prize_id = data[i].prize_id;
+                var id=data[i].id;
+                if(k>0){
+                    var y=20+awardLists[k-1].getHeight()+awardLists[k-1].y;
+                }else{
+                    var y=20;
+                }
+				if($.inArray(prize_id,ids1)>=0){
+					var name=prize_id==3?"packageBkgHug":"packageBkgBig";
+                    var odd=data[i].logistics?data[i].logistics:false;
 
-        })
+                    awardLists[k]= new package(y,name,Packs[prize_id-1],odd,i,id);
+				}else if(prize_id==6){
+                    awardLists[k]= new redClass(y,data[i].redValue,i,id);
+                }else if($.inArray(prize_id,ids2)>=0){
+					var name="coupon"+prize_id;
+
+					var hasUse=data[i].mobile==null?"true":"false";
+					var hasD=data[i].status==1?"true":"false";
+					var has=false;
+					if(hasUse=="false"||hasD=="false"){
+                        has=true;
+					}
+
+                    awardLists[k]= new Coupon(y,couponList[name],has,i,id,data[i].code);
+				}
+
+                activityLayer.addChild(awardLists[k]);
+                k++;
+            }
+        }
 	});
+
 }
 function setwm(target,index){
 	return (LGlobal.width-target.getWidth())/index;
 }
-//红包类
+/*
+* @红包类
+* @param
+* 	y:(20+awardLists[k-1].getHeight()+awardLists[k-1].y)，
+* 	money:金额,
+* 	order:排序,
+* 	index:索引
+* **/
 function redClass(y,money,order,index)
 {
 	base(this,LSprite,[]);
@@ -239,7 +290,16 @@ function redClass(y,money,order,index)
 	self.addChild(new setText(135,48,24,"红包以好太太公众号形式发送","#333333",true));
 	self.addChild(new setText(135,78,24,"请注意查收！","#333333",true));
 }
-//礼包类
+/*
+* @礼包类
+* @param
+* 	y:(20+awardLists[k-1].getHeight()+awardLists[k-1].y)
+* 	name:'礼包name(packageBkgHug:抱枕，packageBkgBig：'大礼包')',
+* 	text：礼包文字描述，
+* 	odd：订单号（number／false），
+* 	order：排序，
+* 	index：索引,
+* */
 function package(y,name,text,odd,order,index)
 {
 	base(this,LSprite,[]);
@@ -288,7 +348,17 @@ function package(y,name,text,odd,order,index)
 		document.getElementById('personInfor').contentWindow.document.getElementById('box4').style.display="none";
 	});
 }
-//免费券
+/*
+* @免费券
+* @param
+* 	y:20+awardLists[k-1].getHeight()+awardLists[k-1].y,
+*   name:'图片名称（coupon10：免单券，coupon8：188券，coupon9：688券）'	,
+*   hasUse:布尔值（true/false） 是否已经使用／赠送
+*   hasDonate:是否可赠送,
+*   order:排序，
+*   index:索引,
+*   code:卡券编码
+* */
 function Coupon(y,name,hasUse,order,index,code)
 {
 	base(this,LSprite,[]);
@@ -306,15 +376,15 @@ function Coupon(y,name,hasUse,order,index,code)
 	self.donate = new LButton(new LBitmap(new LBitmapData(imgList["donate"])));
 	self.donate.x = 488;
 	self.donate.y = 99;
-	self.addChild(self.donate);
+    self.addChild(self.donate);
+
 	self.look = new LButton(new LBitmap(new LBitmapData(imgList["look"])));
 	self.look.x = 488;
 	self.look.y = 55;
 	self.addChild(self.look);
-	if(name=='coupon188')
-	{
-		self.addChild(new setText(125,125,24,"优惠编码："+code,"#333333",true));
-	}
+
+    self.addChild(new setText(125,130,22,"优惠编码："+code,"#333333",true));
+
 	//使用
 	self.use.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(name=="coupon000")
@@ -349,10 +419,19 @@ function Coupon(y,name,hasUse,order,index,code)
 		document.getElementById('personInfor').contentWindow.document.getElementById('box3').style.display="none";
 		document.getElementById('personInfor').contentWindow.document.getElementById('box4').style.display="none";
 	});
+
 	//赠送礼物
 	self.donate.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		self.use.visible = false;
-		self.donate.visible = false;
+        AjaxR(window.link+'readyGive','POST',{id:self.index,"type":2,"__token__":window.token},function(res){
+        	if(res.code==1){
+        		alert(res.msg);
+                self.use.visible = false;
+                self.donate.visible = false;
+			}else{
+        		alert("操作失败，请重新操作");
+			}
+		});
+
 	});
 	if(hasUse==true)
 	{

@@ -129,9 +129,11 @@ var gameImg = [
 	{path:'img/look.png',type:'img',name:'look'},//查看
 	{path:'img/donate.png',type:'img',name:'donate'},//赠送
 	{path:'img/use.png',type:'img',name:'use'},//使用
+
 	{path:'img/coupon000.png',type:'img',name:'coupon000'},//免单券
 	{path:'img/coupon188.png',type:'img',name:'coupon188'},//券188
 	{path:'img/coupon688.png',type:'img',name:'coupon688'},//券688
+
 	{path:'img/inforClose.png',type:'img',name:'inforClose'},//关闭
 	{path:'img/inforTitle.png',type:'img',name:'inforTitle'},//标题
 	{path:'img/submit.png',type:'img',name:'submit'},//提交

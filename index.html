@@ -10,6 +10,7 @@
 		<script src="js/jquery.min.js"></script>
         <script type="text/javascript">
             window.link="http://www.haotaitai.cnm/";
+
             function AjaxR(url,type,data,callback){
                 $.ajax({
                     type:type,
@@ -22,6 +23,7 @@
                         }
                         if(res.token){
                             window.token=res.token;
+                            console.log("重置token");
                         }
                     },
                     error:function(XMLHttpRequest){
@@ -105,14 +107,14 @@
 				</div>
 			</div>
 		</div>
-<!--		<iframe id="personInfor" src="person.html" hidden="hidden"></iframe>-->
+		<iframe id="personInfor" src="person.html" hidden="hidden"></iframe>
 	</body>	
 	<script type="text/javascript" src="js/publicFun.js" ></script>
 	<script type="text/javascript" src="js/resource.js?v=1" ></script>
 	<script type="text/javascript" src="js/target.js" ></script>
 	<script type="text/javascript" src="js/musicBtn.js" ></script>
 	<script type="text/javascript" src="js/gift.js" ></script>
-	<script type="text/javascript" src="js/awardAndCard.js?v=3" ></script>
+	<script type="text/javascript" src="js/awardAndCard.js?v=8" ></script>
 	<script type="text/javascript" src="js/compose.js?v=3" ></script>
 	<script type="text/javascript" src="js/sendToFriend.js" ></script>
 	<script type="text/javascript" src="js/main.js?v=7" ></script>
