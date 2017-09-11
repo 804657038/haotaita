@@ -121,6 +121,9 @@ function ConposeMyCard(){
 	cancel.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		myCard();
 	});
+	//添加音乐
+	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
+	backLayer.addChild(music);
 }
 //没有卡片
 function hasNoCard()

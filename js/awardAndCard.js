@@ -80,13 +80,13 @@ function myCard(){
 			ConposeMyCard();
 		}
 	});
-	//我要邀请按钮
+	//送给好友
 	var send = new LButton(new LBitmap(new LBitmapData(imgList['send'])));
 	send.x = 362;
 	send.y = 1006;
 	backLayer.addChild(send);//添加到背景层
 	send.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-
+		shareToFriends();
 	});
 	//使用说明
 	var useTipes = new LButton(new LBitmap(new LBitmapData(imgList['useTips'])));
@@ -94,6 +94,9 @@ function myCard(){
 	useTipes.y = 405;
 	backLayer.addChild(useTipes);//添加到背景层
 	useTipes.addEventListener(LMouseEvent.MOUSE_DOWN,showUseContent);
+	//添加音乐
+	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
+	backLayer.addChild(music);	
 }
 //卡类
 function cardClass(x,y,cardOrder,cardNumber,choiced,id){
@@ -180,7 +183,6 @@ function myAward(){
 	myAwards.x = 155;
 	myAwards.y = 35;
 	backLayer.addChild(myAwards);//添加到背景层
-	
 	//我的卡片
 	var myCards= new LButton(new LBitmap(new LBitmapData(imgList['myCard'])));
 	myCards.x = 415;
@@ -263,7 +265,9 @@ function myAward(){
             }
         }
 	});
-
+	//添加音乐
+	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
+	backLayer.addChild(music);
 }
 function setwm(target,index){
 	return (LGlobal.width-target.getWidth())/index;
