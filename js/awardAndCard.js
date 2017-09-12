@@ -86,7 +86,7 @@ function myCard(){
 	send.y = 1006;
 	backLayer.addChild(send);//添加到背景层
 	send.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		shareToFriends();
+		confirmCardSend();
 	});
 	//使用说明
 	var useTipes = new LButton(new LBitmap(new LBitmapData(imgList['useTips'])));

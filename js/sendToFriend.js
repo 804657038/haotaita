@@ -64,7 +64,7 @@ function confirmCardSend(){
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		sendLayer.removeAllChild();
 		sendLayer.remove();
-		sendSuccessful();
+		enjoy();
 	});
 	//取消按钮
 	var cancelLayer = new LSprite();
@@ -93,5 +93,26 @@ function sendSuccessful()
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		sendLayer.removeAllChild();
 		sendLayer.remove();
+	})
+}
+//分享提示
+function enjoy()
+{
+	var sendLayer = new LSprite();
+	backLayer.addChild(sendLayer);
+	sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	sendLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
+	var inviteFriends = new LBitmap(new LBitmapData(imgList["inviteFriends"]));
+	sendLayer.addChild(inviteFriends);
+	//分享
+	sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		sendLayer.removeAllChild();
+		sendLayer.remove();
+		//如果成功
+		if(0){
+			sendSuccessful();
+		}else{
+			sendError();
+		}
 	})
 }

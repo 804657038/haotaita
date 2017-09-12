@@ -141,8 +141,8 @@ var yellowx = [33,253,473,33,253,478,33,253,473];
 var yellowy = [447,447,447,646,646,646,843,843,843];
 var tCount;
 var dScore;
-var playCheck = true;
 var playNumber = 0;
+var playCheck = true;
 var timenumber = 30;
 function hitMouse(){
 	//清除所有
@@ -176,12 +176,10 @@ function hitMouse(){
 	playing.x = 365;
 	playing.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		//playnumber为每天打地鼠的次数
-		if(playCheck==true&&playNumber==0)
+		if(playCheck==true)
 		{
 			playCheck=false;
 			startPlaying();			
-		}else if(playNumber==1){
-			gameOrInvite(false);
 		}
 	});
 	//
@@ -226,16 +224,27 @@ function startPlaying(){
 				if(timenumber==-1)
 				{
 					LTweenLite.remove(daoshu);
-					if(dScore.childList[0].text>=30)
+					//判断是否为今天第一次玩
+					if(playNumber==1)
 					{
-						gameResults('games3');
-					}else if(dScore.childList[0].text>=20){
-						gameResults('games2');
-					}else if(dScore.childList[0].text>=10){
-						gameResults('games1');
+						if(dScore.childList[0].text>=10){
+							gameResults('gameSuccess');
+						}else{
+							gameResults('gameError');
+						}
 					}else{
-						gameResults('gameError');
+						if(dScore.childList[0].text>=30)
+						{
+							gameResults('games3');
+						}else if(dScore.childList[0].text>=20){
+							gameResults('games2');
+						}else if(dScore.childList[0].text>=10){
+							gameResults('games1');
+						}else{
+							gameResults('gameError');
+						}
 					}
+					
 				}else{
 					tCount.childList[0].text=timenumber+'s';
 					timenumber--;
@@ -489,7 +498,22 @@ function gameResults(bkg){
 		playCheck=true;
 		dScore.childList[0].text=0;
 		timenumber=30;
-		playNumber=1;
 		tCount.childList[0].text=timenumber+'s';
 	})
+}
+//摇一摇
+function shankingOne(){
+	var shankLayer = new LSprite();
+	backLayer.addChild(shankLayer);
+	shankLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	shankLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
+	//背景
+	var shanking = new LBitmap(new LBitmapData(imgList["shanking"]));
+	shanking.y = (LGlobal.height-shanking.getHeight())/2;
+	shanking.x = (LGlobal.width-shanking.getWidth())/2;
+	shankLayer.addChild(shanking);
+	shanking.rotate=-30;
+	LTweenLite.to(shanking,0.4,{rotate:30,loop:true}).to(shanking,0.4,{rotate:-30});
+	document.getElementById('shanks').play();
+	return shankLayer;
 }

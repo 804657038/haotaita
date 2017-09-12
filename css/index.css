@@ -113,3 +113,86 @@ a{
 	top: 0;
 	left: 0;
 }
+/*朋友赠送*/
+#friendGrit{
+	width:100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background-color: rgba(0,0,0,0.75);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	z-index: 102;
+}
+.friendGrit{
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	line-height: 30px;
+	color: white;
+}
+.head{
+	display: block;
+	width: 24%;
+	border: 5px solid #ffc700;
+	border-radius: 50%;
+	margin: 0 auto;
+}
+.head img{
+	display: block;	
+	width: 100%;
+}
+.gifts{
+	display: block;
+	width: 74%;
+	margin: 0 auto;
+}
+.gifts img{
+	display: block;
+	width: 100%;
+}
+.nowget{
+	display: block;
+	width: 30%;	
+	margin: 0 auto;
+	margin-top: 20%;
+}
+.nowget img{
+	width: 100%;
+}
+.confirmBtn{
+	display: block;
+	width: 30%;	
+	margin: 0 auto;
+	margin-top: 20%;
+}
+.confirmBtn img{
+	width: 100%;
+}
+.getBoxF{
+	width: 75%;
+	margin: 0 auto;
+	position: relative;
+}
+.getBoxF img{
+	width: 100%;
+}
+.getBoxS{
+	width: 75%;
+	margin: 0 auto;
+	position: relative;
+}
+.getBoxS img{
+	width: 100%;
+}
+.fine{
+	display: block;
+	position: absolute;
+	width: 98%;
+	margin-left: 1%;
+	height: 39%;
+	top: 56%;
+	/*background-color: white;*/
+}
