@@ -304,42 +304,43 @@ function mainGame(){
 	 * 两个数据交替轮播
 	 */
 	//请求获奖人信息开始时请求获奖的信息
-	// $.get('json/awardInfor.json',function(data){
-	// 	banners[0] = new banner(673,302,data.information);
-	// 	bannerLayer.addChild(banners[0]);
-	// 	LTweenLite.to(banners[0],60,{x:-banners[0].getWidth(),onComplete:function(){
-	// 		banners[0].remove();
-	// 	}});
-	// });
+
+	$.get(window.link+'plog',function(data){
+		banners[0] = new banner(673,302,data);
+		bannerLayer.addChild(banners[0]);
+		LTweenLite.to(banners[0],60,{x:-banners[0].getWidth(),onComplete:function(){
+			banners[0].remove();
+		}});
+	});
  	//检测是否轮播完毕
 	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
 			/*
 			 * 判断上一轮轮播是否结束
 			 */
-			// if(bannerCheck==false)
-			// {
-			// 	if(banners[0].getWidth()+banners[0].x<=700){
-			// 		// $.get('json/awardInfor.json',function(data){
-			// 		// 	bannerCheck = true;
-			// 		// 	banners[1] = new banner(673,302,data.information1);
-			// 		// 	bannerLayer.addChild(banners[1]);
-			// 		// 	LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
-			// 		// 	banners[1].remove();
-			// 		// 	}});
-			// 		// });
-			// 	}
-			// }else{
-			// 	if(banners[1].getWidth()+banners[1].x<=700){
-			// 		// $.get('json/awardInfor.json',function(data){
-			// 		// 	bannerCheck = false;
-			// 		// 	banners[0] = new banner(673,302,data.information);
-			// 		// 	bannerLayer.addChild(banners[0]);
-			// 		// 	LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
-			// 		// 		banners[0].remove();
-			// 		// 	}});
-			// 		// });
-			// 	}
-			// }
+			if(bannerCheck==false)
+			{
+				if(banners[0].getWidth()+banners[0].x<=700){
+					$.get(window.link+'plog',function(data){
+						bannerCheck = true;
+						banners[1] = new banner(673,302,data);
+						bannerLayer.addChild(banners[1]);
+						LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
+						banners[1].remove();
+						}});
+					});
+				}
+			}else{
+				if(banners[1].getWidth()+banners[1].x<=700){
+					$.get(window.link+'plog',function(data){
+						bannerCheck = false;
+						banners[0] = new banner(673,302,data);
+						bannerLayer.addChild(banners[0]);
+						LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
+							banners[0].remove();
+						}});
+					});
+				}
+			}
 			
 
 	}});
