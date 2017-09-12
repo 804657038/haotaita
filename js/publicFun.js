@@ -132,3 +132,364 @@ function shareToFriends(){
 	var shareFriends = new LBitmap(new LBitmapData(imgList["shareFriends"]));
 	shareLayer.addChild(shareFriends);
 }
+//打地鼠
+var mouseylist = [];
+var mouseglist = [];
+var greenx = [33,253,473,33,253,473,33,253,473];
+var greeny = [428,428,428,627,627,627,824,824,824];
+var yellowx = [33,253,473,33,253,478,33,253,473];
+var yellowy = [447,447,447,646,646,646,843,843,843];
+var tCount;
+var dScore;
+var playCheck = true;
+var playNumber = 0;
+var timenumber = 30;
+function hitMouse(){
+	//清除所有
+	backLayer.die();
+	backLayer.removeAllEventListener();
+	backLayer.removeAllChild();
+	//
+	var mouseLayer = new LSprite();
+	backLayer.addChild(mouseLayer);
+	mouseLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	mouseLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
+	//背景
+	var mouseBkg = new LBitmap(new LBitmapData(imgList["mouseBkg"]));
+	mouseLayer.addChild(mouseBkg);
+	//返回首页
+	var returnToHome = new LButton(new LBitmap(new LBitmapData(imgList["returnToHome"])));
+	mouseLayer.addChild(returnToHome);
+	returnToHome.y = 1010;
+	returnToHome.x = 82;
+	returnToHome.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(playCheck==true)
+		{
+			playCheck=false;
+			setHomepage();			
+		}
+	});
+	//玩
+	var playing = new LButton(new LBitmap(new LBitmapData(imgList["playing"])));
+	mouseLayer.addChild(playing);
+	playing.y = 1010;
+	playing.x = 365;
+	playing.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		//playnumber为每天打地鼠的次数
+		if(playCheck==true&&playNumber==0)
+		{
+			playCheck=false;
+			startPlaying();			
+		}else if(playNumber==1){
+			gameOrInvite(false);
+		}
+	});
+	//
+	tCount = new setText(180,51,30,timenumber+"s",'#eb6855',true);
+	backLayer.addChild(tCount);
+	dScore = new setText(180,111,30,0,'#ffa500',true);
+	backLayer.addChild(dScore);
+	//
+	for(var i=0;i<greenx.length;i++)
+	{
+		mouseylist[i] = new mousey(yellowx[i],yellowy[i])
+		mouseLayer.addChild(mouseylist[i]);
+		mouseglist[i] = new mouse(greenx[i],greeny[i])
+		mouseLayer.addChild(mouseglist[i]);
+	}
+	 //添加音乐
+	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
+	backLayer.addChild(music);
+}
+function startPlaying(){
+	var mouseLayer = new LSprite();
+	backLayer.addChild(mouseLayer);
+	mouseLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	mouseLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
+	var timeCount = new setText(270,430,260,3,'#ffffff',true);
+	mouseLayer.addChild(timeCount);
+	var time = setInterval(function(){
+		timeCount.childList["0"].text--;
+		if(timeCount.childList["0"].text==-1)
+		{
+			clearInterval(time);
+			mouseLayer.remove();
+			mouseLayer.removeAllChild();	
+			var x1=-1;
+			var x2=-1;
+			var x3=-1;
+			var daoshu =  LTweenLite.to(backLayer,1.0,{onStart:function(){
+				/*
+				 * games3为3个骰子，games2为2个骰子，games1为1个骰子，gameError为0个骰子
+				 * 赢得骰子数发送到后台
+				 */
+				if(timenumber==-1)
+				{
+					LTweenLite.remove(daoshu);
+					if(dScore.childList[0].text>=30)
+					{
+						gameResults('games3');
+					}else if(dScore.childList[0].text>=20){
+						gameResults('games2');
+					}else if(dScore.childList[0].text>=10){
+						gameResults('games1');
+					}else{
+						gameResults('gameError');
+					}
+				}else{
+					tCount.childList[0].text=timenumber+'s';
+					timenumber--;
+					x1=parseInt(Math.random()*3);
+					x2=3+parseInt(Math.random()*3);
+					x3=6+parseInt(Math.random()*3);
+					if(parseInt(Math.random()*2)==0)
+					{
+						mouseglist[x1].showing();
+					}else{
+						mouseylist[x1].showing();
+					}
+					if(parseInt(Math.random()*2)==0)
+					{
+						mouseylist[x2].showing();
+					}else{
+						mouseglist[x2].showing();
+					}
+					if(parseInt(Math.random()*2)==0)
+					{
+						mouseglist[x3].showing();
+					}else{
+						mouseylist[x3].showing();
+					}
+				}			
+			},loop:true});
+		}
+	},1000);
+}
+function mouse(x,y){
+	base(this,LSprite,[]);
+	var self = this;
+	self.x = x;
+	self.y = y;
+	self.green1 = new LButton(new LBitmap(new LBitmapData(imgList["green1"])));
+	self.green1.visible=false;
+	self.addChild(self.green1);
+	self.green1.buttonMode = false;
+	self.green2 = new LButton(new LBitmap(new LBitmapData(imgList["green2"])));
+	self.green2.visible=false;
+	self.green2.y = -44;
+	self.addChild(self.green2);
+	self.green2.buttonMode = false;
+	self.green3 = new LButton(new LBitmap(new LBitmapData(imgList["green0"])));
+	self.green3.visible=false;
+	self.green3.y = -17;
+	self.addChild(self.green3);
+	self.green3.buttonMode = false;
+	self.s1 = new LButton(new LBitmap(new LBitmapData(imgList["s1"])));
+	self.s1.visible=false;
+	self.s1.x = 70;
+	self.s1.y = -20;
+	self.addChild(self.s1);
+	self.s1.buttonMode = false;
+	self.hitCheck = true;
+	self.green1.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(self.hitCheck == true)
+		{
+			self.hitCheck = false;
+			LTweenLite.remove(self.tween);
+			self.green1.visible = false;
+			self.green2.visible = false;
+			self.green3.visible = true;
+			self.s1.visible = true;
+			dScore.childList[0].text++;
+			LTweenLite.to(self.s1,0.25,{alpha:0,y:-40,onComplete:function(){
+				self.s1.visible=false;
+				self.s1.alpha=1.0;
+			}});
+			LTweenLite.to(self.green3,0.25,{alpha:0,onComplete:function(){
+				self.green3.visible=false;
+				self.green3.alpha = 1.0;
+				self.hitCheck = true;
+			}});
+		}
+		
+	});
+	self.green2.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(self.hitCheck == true)
+		{
+			self.hitCheck = false;
+			LTweenLite.remove(self.tween);
+			self.green1.visible = false;
+			self.green2.visible = false;
+			self.green3.visible = true;
+			self.s1.visible = true;
+			dScore.childList[0].text++;
+			LTweenLite.to(self.s1,0.25,{alpha:0,y:-40,onComplete:function(){
+				self.s1.visible=false;
+				self.s1.alpha=1.0;
+			}});
+			LTweenLite.to(self.green3,0.25,{alpha:0,onComplete:function(){
+				self.green3.visible=false;
+				self.green3.alpha = 1.0;
+				self.hitCheck = true;
+			}});
+		}
+	});
+}
+mouse.prototype.showing=function(){
+	var self = this;
+	var index = 0;
+	self.tween = LTweenLite.to(self,0.25,{onStart:function(){
+		index++;
+		switch(index){
+			case 1:
+			case 3:
+				self.green1.visible = true;
+				self.green2.visible = false;
+				self.green3.visible = false;
+				break;
+			case 2:
+				self.green1.visible = false;
+				self.green2.visible = true;
+				self.green3.visible = false;
+				break;
+			case 4:
+				self.green1.visible = false;
+				self.green2.visible = false;
+				self.green3.visible = false;
+				LTweenLite.remove(self.tween);
+				break;
+		}
+	},loop:true});
+}
+function mousey(x,y){
+	base(this,LSprite,[]);
+	var self = this;
+	self.x = x;
+	self.y = y;
+	self.yellow1 = new LButton(new LBitmap(new LBitmapData(imgList["yellow1"])));
+	self.yellow1.visible=false;
+	self.yellow1.buttonMode = false;
+	self.addChild(self.yellow1);
+	self.yellow2 = new LButton(new LBitmap(new LBitmapData(imgList["yellow2"])));
+	self.yellow2.visible=false;
+	self.yellow2.y = -13;
+	self.addChild(self.yellow2);
+	self.yellow2.buttonMode = false;
+	self.yellow3 = new LButton(new LBitmap(new LBitmapData(imgList["yellow0"])));
+	self.yellow3.visible=false;
+	self.yellow3.y = -30;
+	self.addChild(self.yellow3);
+	self.yellow3.buttonMode = false;
+	self.s1 = new LButton(new LBitmap(new LBitmapData(imgList["s1"])));
+	self.s1.visible=false;
+	self.s1.x = 70;
+	self.s1.y = -20;
+	self.addChild(self.s1);
+	self.s1.buttonMode = false;
+	self.hitCheck = true;
+	self.yellow1.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(self.hitCheck == true)
+		{
+			self.hitCheck = false;
+			LTweenLite.remove(self.tween);
+			self.yellow1.visible = false;
+			self.yellow2.visible = false;
+			self.yellow3.visible = true;
+			self.s1.visible = true;
+			dScore.childList[0].text++;
+			LTweenLite.to(self.s1,0.25,{alpha:0,y:-40,onComplete:function(){
+				self.s1.visible=false;
+				self.s1.alpha=1.0;
+			}});
+			LTweenLite.to(self.yellow3,0.25,{alpha:0,onComplete:function(){
+				self.yellow3.visible=false;
+				self.yellow3.alpha = 1.0;
+				self.hitCheck = true;
+			}});
+		}
+		
+	});
+	self.yellow2.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(self.hitCheck == true)
+		{
+			self.hitCheck = false;
+			LTweenLite.remove(self.tween);
+			self.yellow1.visible = false;
+			self.yellow2.visible = false;
+			self.yellow3.visible = true;
+			self.s1.visible = true;
+			dScore.childList[0].text++;
+			LTweenLite.to(self.s1,0.25,{alpha:0,y:-40,onComplete:function(){
+				self.s1.visible=false;
+				self.s1.alpha=1.0;
+			}});
+			LTweenLite.to(self.yellow3,0.25,{alpha:0,onComplete:function(){
+				self.yellow3.visible=false;
+				self.yellow3.alpha = 1.0;
+				self.hitCheck = true;
+			}});
+		}
+	});
+	self.tween = null;
+}
+mousey.prototype.showing=function(){
+	var self = this;
+	var index = 0;
+	self.tween = LTweenLite.to(self,0.25,{onStart:function(){
+		index++;
+		switch(index){
+			case 1:
+			case 3:
+				self.yellow1.visible = true;
+				self.yellow2.visible = false;
+				self.yellow3.visible = false;
+				break;
+			case 2:
+				self.yellow1.visible = false;
+				self.yellow2.visible = true;
+				self.yellow3.visible = false;
+				break;
+			case 4:
+				self.yellow1.visible = false;
+				self.yellow2.visible = false;
+				self.yellow3.visible = false;
+				LTweenLite.remove(self.tween);
+				break;
+		}
+	},loop:true});
+}
+//确定闯关
+function gameResults(bkg){
+	var resultLayer = new LSprite();
+	backLayer.addChild(resultLayer);
+	resultLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	resultLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
+	var light = new LBitmap(new LBitmapData(imgList['light']));
+	light.y = 123;
+	light.x = 0;
+	resultLayer.addChild(light);
+	LTweenLite.to(light,8.0,{rotate:360,loop:true,onComplete:function(){
+		light.rotate=0;
+	}});
+	if(bkg=='gameError'){
+		light.visible =false;
+	}
+	//背景
+	var resultBkg = new LBitmap(new LBitmapData(imgList[bkg]));
+	resultBkg.y = 211;
+	resultBkg.x = (LGlobal.width-resultBkg.getWidth())/2;
+	resultLayer.addChild(resultBkg);
+	var comfirm = new LButton(new LBitmap(new LBitmapData(imgList['comfirm'])));
+	comfirm.y = 756;
+	comfirm.x = (LGlobal.width-comfirm.getWidth())/2;
+	resultLayer.addChild(comfirm);
+	comfirm.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		resultLayer.removeAllChild();
+		resultLayer.remove();
+		playCheck=true;
+		dScore.childList[0].text=0;
+		timenumber=30;
+		playNumber=1;
+		tCount.childList[0].text=timenumber+'s';
+	})
+}

@@ -168,6 +168,20 @@ var gameImg = [
 	{path:'img/dice4.png',type:'img',name:'dice4'},//骰子4
 	{path:'img/dice5.png',type:'img',name:'dice5'},//骰子5
 	{path:'img/dice6.png',type:'img',name:'dice6'},//骰子6
+	{path:'img/green0.png',type:'img',name:'green0'},//绿细菌0
+	{path:'img/green1.png',type:'img',name:'green1'},//绿细菌1
+	{path:'img/green2.png',type:'img',name:'green2'},//绿细菌2
+	{path:'img/yellow0.png',type:'img',name:'yellow0'},//黄细菌0
+	{path:'img/yellow1.png',type:'img',name:'yellow1'},//黄细菌1
+	{path:'img/yellow2.png',type:'img',name:'yellow2'},//黄细菌2
+	{path:'img/playing.png',type:'img',name:'playing'},//玩
+	{path:'img/mouseBkg.jpg',type:'img',name:'mouseBkg'},//地鼠背景
+	{path:'img/returnToHome.png',type:'img',name:'returnToHome'},//返回首页
+	{path:'img/s1.png',type:'img',name:'s1'},//+1
+	{path:'img/gameError.png',type:'img',name:'gameError'},//游戏结果
+	{path:'img/games1.png',type:'img',name:'games1'},//游戏结果
+	{path:'img/games2.png',type:'img',name:'games2'},//游戏结果
+	{path:'img/games3.png',type:'img',name:'games3'},//游戏结果
 ];
 //全局变量
 var backLayer,person,imgList;

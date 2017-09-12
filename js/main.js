@@ -173,14 +173,26 @@ function mainGame(){
 	wantToDice.y = 805;
 
 	wantToDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		// wantPop();
+		 wantPop();
 	});
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
 	backLayer.addChild(bigDice);//添加到背景层
 	bigDice.x = 233;
 	bigDice.y = 602;
-	
+	//摇骰子
+	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		if(shankOpen == true) {
+			shankOpen = false;
+			//服务器请求骰子数
+			var number = 5;//请求的步数
+			diceList[number].visible = true;
+			setTimeout(function(){
+				diceList[number].visible = false;
+				target.moving(number);
+			}, 1000);
+		}
+	});
 	//返回首页
 	var returnHomepage = new LButton(new LBitmap(new LBitmapData(imgList['returnHomepage'])));
 	returnHomepage.x = 45;
@@ -295,7 +307,12 @@ function mainGame(){
 	//获奖信息信息论
 	var banners = new Array(2);
 	var bannerCheck = false;
-	//请求获奖人信息
+	/*
+	 * banner[0]为第一个轮播数据
+	 * banner[1]为第二个轮播数据
+	 * 两个数据交替轮播
+	 */
+	//请求获奖人信息开始时请求获奖的信息
 	$.get('json/awardInfor.json',function(data){
 		banners[0] = new banner(673,302,data.information);
 		bannerLayer.addChild(banners[0]);
@@ -305,7 +322,9 @@ function mainGame(){
 	});
  	//检测是否轮播完毕
 	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
-		
+			/*
+			 * 判断上一轮轮播是否结束
+			 */
 			if(bannerCheck==false)
 			{
 				if(banners[0].getWidth()+banners[0].x<=700){
@@ -373,6 +392,9 @@ function mainGame(){
                 last_z = z;  
             }  
         }
+    //添加音乐
+	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
+	backLayer.addChild(music);
 }
 
 //我要骰子弹窗
@@ -438,7 +460,9 @@ function wantPop(){
 	invite.x = 86;
 	wantLayer.addChild(invite);
 	invite.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		
+		/*
+		 *personInvite为每天分享的次数
+		 */
 		if(personInvite==0)
 		{
 			gameOrInvite(true);
@@ -447,19 +471,22 @@ function wantPop(){
 		}
 		
 	});
-	//邀请好友
+	//挑战游戏：打地鼠
 	var challenge = new LButton( new LBitmap(new LBitmapData(imgList['challenge'])));
 	challenge.y = 876;
 	challenge.x = 361;
 	wantLayer.addChild(challenge);
 	challenge.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		
+		/*
+		 *personGame为每天挑战游戏的次数
+		 */
 		if(personGame==0)
 		{
 			gameOrInvite(false);
 		}else{
 			wantLayer.removeAllChild();
 			wantLayer.remove();
+			hitMouse();
 		}
 	});
 }
