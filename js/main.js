@@ -1,6 +1,7 @@
 //游戏界面初始化
 LInit(1000/60,"good",700,1135,main);
 //游戏入口函数
+
 function main(){
 	LGlobal.stageScale = LStageScaleMode.EXACT_FIT;//设置全屏变量
     LGlobal.screen(LStage.FULL_SCREEN);//设置全面适应
@@ -58,6 +59,10 @@ function gameStart(result){
 }
 //首页
 function setHomepage(){
+
+    AjaxR(window.link+'getToken','GET',false,function(res){
+        window.token=res.token;
+    });
 	//清除所有
 	backLayer.die();
 	backLayer.removeAllEventListener();
@@ -180,19 +185,7 @@ function mainGame(){
 	backLayer.addChild(bigDice);//添加到背景层
 	bigDice.x = 233;
 	bigDice.y = 602;
-	//摇骰子
-	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		if(shankOpen == true) {
-			shankOpen = false;
-			//服务器请求骰子数
-			var number = 5;//请求的步数
-			diceList[number].visible = true;
-			setTimeout(function(){
-				diceList[number].visible = false;
-				target.moving(number);
-			}, 1000);
-		}
-	});
+
 	//返回首页
 	var returnHomepage = new LButton(new LBitmap(new LBitmapData(imgList['returnHomepage'])));
 	returnHomepage.x = 45;
@@ -230,10 +223,7 @@ function mainGame(){
 	//文字摇一摇
 	var shankText = new setText(395,745,24,"摇一摇",'#ffffff');
 	backLayer.addChild(shankText);
-    shankText.addEventListener(LMouseEvent.MOUSE_DOWN,function(){  //模拟中奖
-    	window.l_ID=261;
-        giftCash('giftCash188');
-    });
+
 	//剩余
 	var remain = new setText(230,745,24,"剩余",'#ffffff');
 	backLayer.addChild(remain);
@@ -243,6 +233,7 @@ function mainGame(){
 	var target;
 
 	var step=0;
+
 	//向服务器请求个人信息数据
 	function getAuth(res,m){
         target = new Target(targetX[res.step],targetY[res.step],'target',0);
@@ -313,42 +304,42 @@ function mainGame(){
 	 * 两个数据交替轮播
 	 */
 	//请求获奖人信息开始时请求获奖的信息
-	$.get('json/awardInfor.json',function(data){
-		banners[0] = new banner(673,302,data.information);
-		bannerLayer.addChild(banners[0]);
-		LTweenLite.to(banners[0],60,{x:-banners[0].getWidth(),onComplete:function(){
-			banners[0].remove();
-		}});
-	});
+	// $.get('json/awardInfor.json',function(data){
+	// 	banners[0] = new banner(673,302,data.information);
+	// 	bannerLayer.addChild(banners[0]);
+	// 	LTweenLite.to(banners[0],60,{x:-banners[0].getWidth(),onComplete:function(){
+	// 		banners[0].remove();
+	// 	}});
+	// });
  	//检测是否轮播完毕
 	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
 			/*
 			 * 判断上一轮轮播是否结束
 			 */
-			if(bannerCheck==false)
-			{
-				if(banners[0].getWidth()+banners[0].x<=700){
-					$.get('json/awardInfor.json',function(data){
-						bannerCheck = true;
-						banners[1] = new banner(673,302,data.information1);
-						bannerLayer.addChild(banners[1]);
-						LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
-						banners[1].remove();					
-						}});
-					});
-				}
-			}else{
-				if(banners[1].getWidth()+banners[1].x<=700){
-					$.get('json/awardInfor.json',function(data){
-						bannerCheck = false;
-						banners[0] = new banner(673,302,data.information);
-						bannerLayer.addChild(banners[0]);
-						LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
-							banners[0].remove();
-						}});
-					});
-				}
-			}
+			// if(bannerCheck==false)
+			// {
+			// 	if(banners[0].getWidth()+banners[0].x<=700){
+			// 		// $.get('json/awardInfor.json',function(data){
+			// 		// 	bannerCheck = true;
+			// 		// 	banners[1] = new banner(673,302,data.information1);
+			// 		// 	bannerLayer.addChild(banners[1]);
+			// 		// 	LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
+			// 		// 	banners[1].remove();
+			// 		// 	}});
+			// 		// });
+			// 	}
+			// }else{
+			// 	if(banners[1].getWidth()+banners[1].x<=700){
+			// 		// $.get('json/awardInfor.json',function(data){
+			// 		// 	bannerCheck = false;
+			// 		// 	banners[0] = new banner(673,302,data.information);
+			// 		// 	bannerLayer.addChild(banners[0]);
+			// 		// 	LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
+			// 		// 		banners[0].remove();
+			// 		// 	}});
+			// 		// });
+			// 	}
+			// }
 			
 
 	}});
@@ -378,10 +369,13 @@ function mainGame(){
                 if (speed > SHAKE_THRESHOLD) {  
                     if(shankOpen==true)
                     {
-                    	shankOpen=false;
+                        shankOpen=false;
+                        alert(11);
+                        target.moving(15);
                 		//服务器请求
                 		var number = 5;
                 		diceList[number].visible = true;
+
                 		setTimeout(function(){
                 			diceList[number].visible = false;
                 		},1000);
