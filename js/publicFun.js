@@ -199,6 +199,7 @@ function hitMouse(){
 	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
 	backLayer.addChild(music);
 }
+//打地鼠
 function startPlaying(){
 	var mouseLayer = new LSprite();
 	backLayer.addChild(mouseLayer);
