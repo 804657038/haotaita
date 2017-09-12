@@ -93,8 +93,7 @@ Target.prototype.moving =function(number){
 		}
 	}else{
 		self.tween = bigAndSmall(self,2,2,1.0,0.1,0.2,true);
-		var step = self.step;
-		var cashMoney = "yuan1";
+		var step = self.step;		
 		setTimeout(function(){
 			switch(step){
 				case 3:
@@ -122,7 +121,9 @@ Target.prototype.moving =function(number){
 				break;
 				case 17:
 				case 23:
-					getCash(cashMoney);
+					//获取钱数
+					var cashMoney = 1;
+					getCash("yuan1",cashMoney);
 				break;
 				case 20:
 					giftCard('card1');

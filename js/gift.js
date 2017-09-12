@@ -122,7 +122,7 @@ function giftCash(name){
 	})
 }
 //现金
-function getCash(name){
+function getCash(name,n){
 	var giftLayer = new LSprite();
 	backLayer.addChild(giftLayer);
 	giftLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
@@ -137,7 +137,10 @@ function getCash(name){
 	cash.y = 350;
 	cash.x = (LGlobal.width-cash.getWidth())/2;
 	giftLayer.addChild(cash);
-	bigAndSmall(cash,2,2,1.5,0.1,0,true);
+//	bigAndSmall(cash,2,2,1.5,0.1,0,true);
+	
+	var moneytext = new setText(cash.x-16,390,48,n,'#f93849',true);
+	giftLayer.addChild(moneytext);
 	//红包提示
 	var redTips = new LBitmap(new LBitmapData(imgList["redTips"]));
 	redTips.y = 594;

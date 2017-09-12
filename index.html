@@ -42,7 +42,48 @@
 	</head>
 	<body>
 		<div id="good"></div>
+		<div id="friendGrit" style="display: none;">
+			<div class="friendGrit" >
+				<ul>
+					<li>
+						<div class="head">
+							<img src="img/headpic.png" />
+						</div>
+					</li>
+					<li>
+						<p class="name">xxxxxx</p>
+					</li>
+					<li>
+						<div class="geted">
+							<p>你的好友赠送你一张</p>
+							<div class="gifts">
+								<img src="img/coupon0.png" />
+							</div>
+						</div>
+						<div class="noget">
+							<p>该券已被领取</p>
+							<p>返回首页赢取大礼包</p>
+						</div>
+					</li>
+					<li>
+						<a href="###" class="nowget"><img src="img/nowget.png"/></a>
+						<a href="###" class="confirmBtn"><img src="img/confirmBtn.png"/></a>
+					</li>
+				</ul>
+			</div>
+			<div class="getResult" hidden="hidden">
+				<div class="getBoxF">
+					<img src="img/getfail.png" />
+					<a href="###" class="fine"></a>
+				</div>
+				<div class="getBoxS">
+					<img src="img/getsuccess.png" />
+					<a href="###" class="fine"></a>
+				</div>
+			</div>
+		</div>
 		<audio id="Jaudio"  preload loop="loop" src="music/bg.mp3" hidden="hidden"></audio >
+		<audio id="shanks"  preload loop="loop" src="music/shank.mp3" hidden="hidden"></audio>
 		<div id="store" hidden="hidden">
 			<div class="map">
 				<p>获取地图数据失败！</p>
@@ -135,5 +176,44 @@
 			    }, false);
 			}
 			audioAutoPlay('Jaudio');
+			audioAutoPlay('shanks',0);
+			$(function(){
+				//如果券已经被领取
+				var hasBeGet = false;
+				if(hasBeGet==true)
+				{
+					$('.geted').hide();
+					$('.noget').show();
+					$('.nowget').hide();
+					$('.confirmBtn').show();
+				}else{
+					$('.geted').show();
+					$('.noget').hide();
+					$('.nowget').show();
+					$('.confirmBtn').hide();
+				}
+				var getStatus = false;
+				$(document).on("touchstart",".nowget",function(){
+					//如果领取成功
+					$('.friendGrit').hide();
+					$('.getResult').show();
+					if(getStatus==true)
+					{
+						$('.getBoxS').show();
+						$('.getBoxF').hide();
+					}else{
+						$('.getBoxS').hide();
+						$('.getBoxF').show();
+					}
+				});
+				//好的按钮
+				$(document).on("touchstart",".fine",function(){
+					$('#friendGrit').hide();
+				});
+				//确定按钮
+				$(document).on("touchstart",".confirmBtn",function(){
+					$('#friendGrit').hide();
+				});
+			})
 	</script>
 </html>

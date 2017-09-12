@@ -379,11 +379,19 @@ function mainGame(){
                     if(shankOpen==true)
                     {
                     	shankOpen=false;
-                		//服务器请求
+                  		//先出现摇一摇的画面
+                		var shankLayer =shankingOne();
+                		//服务器请求到骰子数目
                 		var number = 5;
-                		diceList[number].visible = true;
+                		shankLayer.remove();//将要以摇一摇画面移除
+                		document.getElementById('shanks').pause();
+                		diceList[number].visible = true;//显示骰子
                 		setTimeout(function(){
+                			//一秒后把骰子数目移除
                 			diceList[number].visible = false;
+                			setTimeout(function(){
+                				target.moving(number);
+                			},500);
                 		},1000);
                     }
                 }  
@@ -460,34 +468,17 @@ function wantPop(){
 	invite.x = 86;
 	wantLayer.addChild(invite);
 	invite.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		/*
-		 *personInvite为每天分享的次数
-		 */
-		if(personInvite==0)
-		{
-			gameOrInvite(true);
-		}else{
-			shareToFriends();
-		}
-		
+		shareToFriends();
 	});
 	//挑战游戏：打地鼠
 	var challenge = new LButton( new LBitmap(new LBitmapData(imgList['challenge'])));
 	challenge.y = 876;
 	challenge.x = 361;
 	wantLayer.addChild(challenge);
-	challenge.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		/*
-		 *personGame为每天挑战游戏的次数
-		 */
-		if(personGame==0)
-		{
-			gameOrInvite(false);
-		}else{
-			wantLayer.removeAllChild();
-			wantLayer.remove();
-			hitMouse();
-		}
+	challenge.addEventListener(LMouseEvent.MOUSE_DOWN,function(){	
+		wantLayer.removeAllChild();
+		wantLayer.remove();
+		hitMouse();
 	});
 }
 //显示不能邀请和邀请

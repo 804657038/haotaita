@@ -182,6 +182,13 @@ var gameImg = [
 	{path:'img/games1.png',type:'img',name:'games1'},//游戏结果
 	{path:'img/games2.png',type:'img',name:'games2'},//游戏结果
 	{path:'img/games3.png',type:'img',name:'games3'},//游戏结果
+	{path:'img/shanking.png',type:'img',name:'shanking'},//摇一摇
+	{path:'img/headpic.png',type:'img',name:'headpic'},//头像
+	{path:'img/nowget.png',type:'img',name:'nowget'},//头像
+	{path:'img/getfail.png',type:'img',name:'getfail'},//领取失败
+	{path:'img/getsuccess.png',type:'img',name:'getsuccess'},//领取成功
+	{path:'img/confirmBtn.png',type:'img',name:'confirmBtn'},//确定
+	{path:'img/inviteFriends.png',type:'img',name:'inviteFriends'},//邀请好友
 ];
 //全局变量
 var backLayer,person,imgList;
