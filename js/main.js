@@ -236,7 +236,7 @@ function mainGame(){
 
 	//向服务器请求个人信息数据
 	function getAuth(res,m){
-        target = new Target(targetX[res.step],targetY[res.step],'target',0);
+        target = new Target(targetX[res.step],targetY[res.step],'target',res.step);
         if(m==true){
             target.moving(res.lattice);
 		}
@@ -284,9 +284,11 @@ function mainGame(){
 
         for(i=0;i<6;i++)
         {
-            diceList[i]=new LBitmap(new LBitmapData(imgList['dice'+(i+1)]));
-            diceLayer.addChild(diceList[i]);
-            diceLayer.visible=false;
+            diceList[i]=new LBitmap(new LBitmapData(imgList['dice'+(i+1)]));          
+            diceList[i].x=(LGlobal.width-diceList[i].getWidth())/2;
+            diceList[i].y=(LGlobal.height-diceList[i].getHeight())/2;
+            diceList[i].visible=false;
+            diceLayer.addChild(diceList[i]); 
         }
 	}
     AjaxR(window.link+'getAuth','GET',false,function(res){
@@ -340,8 +342,6 @@ function mainGame(){
 			// 		// });
 			// 	}
 			// }
-			
-
 	}});
 	//
 	/*
@@ -375,17 +375,20 @@ function mainGame(){
                 		var shankLayer =shankingOne();
                 		//服务器请求到骰子数目
                 		var number = 5;
-                		shankLayer.remove();//将要以摇一摇画面移除
-                		document.getElementById('shanks').pause();
-
-                		diceList[number].visible = true;//显示骰子
                 		setTimeout(function(){
-                			//一秒后把骰子数目移除
-                			diceList[number].visible = false;
-                			setTimeout(function(){
-                				target.moving(number);
-                			},500);
-                		},1000);
+                			shankLayer.remove();//将要以摇一摇画面移除
+	                		document.getElementById('shanks').pause();
+	                		diceList[number-1].visible = true;//显示骰子
+	                		diceList[number-1].alpha = 0;
+	                		LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+	                			LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
+		                			diceList[number-1].visible = false;
+			                			setTimeout(function(){
+			                				target.moving(number);
+			                			},500);
+		                		}});
+	                		}});
+                		},1500);
                     }
                 }  
                 last_x = x; 
