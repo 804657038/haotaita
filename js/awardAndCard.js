@@ -241,21 +241,24 @@ function myAward(){
 				if($.inArray(prize_id,ids1)>=0){
 					var name=prize_id==3?"packageBkgHug":"packageBkgBig";
                     var odd=data[i].logistics?data[i].logistics:false;
-
-                    awardLists[k]= new package(y,name,Packs[prize_id-1],odd,i,id);
+                    var has=false;
+					if(data[i].mobile){
+                        has=true;
+					}
+                    awardLists[k]= new package(y,name,Packs[prize_id-1],odd,i,id,has);
 				}else if(prize_id==6){
                     awardLists[k]= new redClass(y,data[i].redValue,i,id);
                 }else if($.inArray(prize_id,ids2)>=0){
 					var name="coupon"+prize_id;
 
 					var hasUse=data[i].mobile==null?"true":"false";
-					var hasD=data[i].status==1?"true":"false";
+
 					var has=false;
-					if(hasUse=="false"||hasD=="false"){
+					if(hasUse=="false"){
                         has=true;
 					}
 
-                    awardLists[k]= new Coupon(y,couponList[name],has,i,id,data[i].code);
+                    awardLists[k]= new Coupon(y,couponList[name],has,i,id,data[i].code,data[i].status);
 				}
 
                 activityLayer.addChild(awardLists[k]);
@@ -299,8 +302,9 @@ function redClass(y,money,order,index)
 * 	odd：订单号（number／false），
 * 	order：排序，
 * 	index：索引,
+* 	hasUse:是否已经填写地址
 * */
-function package(y,name,text,odd,order,index)
+function package(y,name,text,odd,order,index,hasUse)
 {
 	base(this,LSprite,[]);
 	var self = this;
@@ -328,10 +332,31 @@ function package(y,name,text,odd,order,index)
 		self.look.visible = false;
 		self.oddNumber.visible = false;
 	}
+	if(hasUse==true){
+        self.look.visible=true;
+        self.exchange.visible=false;
+	}else{
+        self.look.visible=false;
+        self.exchange.visible=true;
+	}
 	//查看详细
 	self.look.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		wordIndex = self.order;
 		$('#personInfor').show();
+
+        var box2=document.getElementById('personInfor').contentWindow.document.getElementById('box2');
+
+        AjaxR(window.link+'desc','GET',{type:2,id:self.index},function(res){
+            $(box2).find('.name').text("姓名："+res.name);
+            $(box2).find('.phone').text("手机："+res.mobile);
+            $(box2).find('.address').text("地址："+res.region);
+            if(res.msg){
+                $(box2).find('.word').text("留言："+res.msg);
+            }else{
+                $(box2).find('.word').css("display",'none');
+            }
+        });
+
 		document.getElementById('personInfor').contentWindow.document.getElementById('box2').style.display="block";
 		document.getElementById('personInfor').contentWindow.document.getElementById('box1').style.display="none";
 		document.getElementById('personInfor').contentWindow.document.getElementById('box3').style.display="none";
@@ -340,6 +365,8 @@ function package(y,name,text,odd,order,index)
 	//兑换礼物
 	self.exchange.addEventListener(LMouseEvent.MOUSE_DOWN,function(){		
 		wordIndex = self.order;
+		window.postType=1;
+		window.id=self.index;
 		$('#personInfor').show();
 		document.getElementById('personInfor').contentWindow.document.getElementById('box1').style.backgroundImage='url(img/awardBkg.jpg)';
 		document.getElementById('personInfor').contentWindow.document.getElementById('box2').style.display="none";
@@ -357,9 +384,10 @@ function package(y,name,text,odd,order,index)
 *   hasDonate:是否可赠送,
 *   order:排序，
 *   index:索引,
-*   code:卡券编码
+*   code:卡券编码,
+*   hasGift:是否赠送中 1：否，2：是
 * */
-function Coupon(y,name,hasUse,order,index,code)
+function Coupon(y,name,hasUse,order,index,code,hasGift)
 {
 	base(this,LSprite,[]);
 	var self = this;
@@ -387,6 +415,8 @@ function Coupon(y,name,hasUse,order,index,code)
 
 	//使用
 	self.use.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+
+        window.id=self.index;
 		if(name=="coupon000")
 		{
 			wordIndex = self.order;
@@ -411,13 +441,26 @@ function Coupon(y,name,hasUse,order,index,code)
 			document.getElementById('personInfor').contentWindow.document.getElementById('box4').style.display="block";
 		}
 	});
+	//查看
 	self.look.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		wordIndex = self.order;
+		var box2=document.getElementById('personInfor').contentWindow.document.getElementById('box2');
+
+        AjaxR(window.link+'desc','GET',{type:1,id:self.index},function(res){
+            $(box2).find('.name').text("姓名："+res.name);
+            $(box2).find('.phone').text("手机："+res.mobile);
+            $(box2).find('.address').text("地址："+res.region);
+            if(res.msg){
+                $(box2).find('.word').text("留言："+res.msg);
+			}else{
+                $(box2).find('.word').css("display",'none');
+			}
+		});
 		$('#personInfor').show();
 		document.getElementById('personInfor').contentWindow.document.getElementById('box2').style.display="block";
 		document.getElementById('personInfor').contentWindow.document.getElementById('box1').style.display="none";
 		document.getElementById('personInfor').contentWindow.document.getElementById('box3').style.display="none";
 		document.getElementById('personInfor').contentWindow.document.getElementById('box4').style.display="none";
+
 	});
 
 	//赠送礼物
@@ -443,6 +486,10 @@ function Coupon(y,name,hasUse,order,index,code)
 		self.donate.visible = true;
 		self.look.visible = false;
 	}
+    if(hasGift==2){
+        self.use.visible = false;
+        self.donate.visible = false;
+    }
 }
 //使用说明
 function showUseContent(){

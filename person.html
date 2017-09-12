@@ -14,7 +14,8 @@
 <!--		<script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>-->
 		<script src="js/jquery.min.js"></script>
 		<script src="https://cdn.bootcss.com/layer/3.0.3/layer.min.js"></script>
-<!--		<script src="js/layer.min.js"></script>-->
+
+        <script type="text/javascript" src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
 	</head>
 	<body>
 		<!--填写个人信息-->
@@ -36,13 +37,13 @@
 								<input type="text" placeholder="省/市/区" id="J_Address"/>
 							</li>
 							<li>
-								<textarea placeholder="请输详细街道地址"></textarea>
+								<textarea placeholder="请输详细街道地址" name="addres"></textarea>
 							</li>
 							<li>
-								<textarea placeholder="请输你的留言建议"></textarea>
+								<textarea placeholder="请输你的留言建议" name="msg"></textarea>
 							</li>
 							<li>
-								<a href="###" style="display: block;" id="submit"><img src="img/submit.png" /></a>
+								<a href="###" style="display: block;"><img src="img/submit.png" id="submit"/></a>
 							</li>
 						</ul>
 					</form>
@@ -59,16 +60,16 @@
 					<div  class="awardInfor">
 						<ul>
 							<li>
-								<p class="name">姓名：王志恒</p>
+								<p class="name">姓名：</p>
 							</li>
 							<li>
-								<p class="phone">手机：13792837465</p>
+								<p class="phone">手机：</p>
 							</li>
 							<li>
-								<p class="address">地址：广东省广州市海珠区琶洲商业广场11栋</p>
+								<p class="address">地址：</p>
 							</li>
 							<li>
-								<p class="word">留言：无的撒打按时撒所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所所·</p>
+								<p class="word">留言：·</p>
 							</li>
 						</ul>
 					</div>
@@ -91,19 +92,19 @@
 					<img src="img/inforClose.png" class="inforClose" />
 					<ul>
 						<li>
-							<input type="text" placeholder="请输入您的名字"/>
+							<input type="text" name="name" placeholder="请输入您的名字"/>
 						</li>
 						<li>
-							<input type="text" placeholder="请输入您的手机号码" maxlength="11" id="installPhone"/>
+							<input type="text" name="mobile" placeholder="请输入您的手机号码" maxlength="11" id="installPhone"/>
 						</li>
 						<li>
-							<input type="text" placeholder="省/市/区" id="installCity"/>
+							<input type="text"  placeholder="省/市/区" id="installCity"/>
 						</li>
 						<li>
-							<textarea placeholder="请输详细街道地址"></textarea>
+							<textarea placeholder="请输详细街道地址" name="addres"></textarea>
 						</li>
 						<li>
-							<a href="###" style="display: block;" id="installSubmit"><img src="img/submit.png" /></a>
+							<a href="###" style="display: block;" ><img src="img/submit.png" id="installSubmit" /></a>
 						</li>
 					</ul>
 				</div>
@@ -128,7 +129,7 @@
 								<input type="text" placeholder="省/市/区" id="setCity"/>
 							</li>
 							<li>
-								<a href="###" style="display: block;" id="setSubmit"><img src="img/submit.png" /></a>
+								<a href="###" style="display: block;" ><img src="img/submit.png" id="setSubmit" /></a>
 							</li>
 						</ul>
 					</form>
@@ -155,57 +156,99 @@
 				$('#box4 input').val("");
 				$('#box4 textarea').val("");
 			});
-			//运单提交
-			$(document).on(event,"#submit",function(){
-				//向服务器发送数据成功执行以下语句
-				//在我的奖品页面提交
 
-				if(window.parent.gameOrAward==false)
-				{
-					var self =window.parent.awardLists[window.parent.wordIndex];
-					self.exchange.visible = false;
-					self.look.visible = true;
-					layer.msg('信息已提交',{
-						time: 1500,
-						success:function(){
-							$('#box1 input').val("");
-							$('#box1 textarea').val("");
-						}
-					});
-				}else{
-					//在游戏页面直接提交
-					layer.msg('信息已提交',{
-						time: 1500,
-						success:function(){
-							$('#box1 input').val("");
-							$('#box1 textarea').val("");
-						}
-					});
-				}
-				
-			});
 			//购买类型提交
-			$(document).on("touchstart","#setSubmit",function(){
+			$(document).on(event,"#setSubmit",function(){
+                var id=window.parent.id;
+
 				//向服务器发送数据成功执行以下语句
 				var self =window.parent.awardLists[window.parent.wordIndex];
 				self.use.visible = false;
 				self.donate.visible = false;
 				self.look.visible = true;
-				layer.msg('信息已提交',{
-					time: 1500
-				});
+                window.parent.AjaxR(window.parent.link+'counpAdd','POST',{
+                    "__token__":window.parent.token,
+                    "id":id,
+                    "name":$('#box4').find("[name='name']").val(),
+                    "mobile":$('#box4').find("[name='phone']").val(),
+                    "setCity":$('#box4').find("#setCity").val()
+                },function(res){
+                    window.parent.token=res.token;
+                    if(res.code==1){
+                        layer.msg('信息已提交',{
+                            time: 1500
+                        });
+                        $('.inforClose').trigger(event);
+                    }else{
+                        layer.msg(res.msg,{
+                            time: 1500
+                        });
+                    }
+                });
 			});
-			//
-			$(document).on("touchstart","#installSubmit",function(){
+			//礼包兑换提交
+			$(document).on(event,"#submit",function(){
+                var id=window.parent.id;
+                var token=window.parent.token;
 				//向服务器发送数据成功执行以下语句
 				var self =window.parent.awardLists[window.parent.wordIndex];
-				self.use.visible = false;
-				self.donate.visible = false;
+				self.exchange.visible = false;
+//				self.donate.visible = false;
 				self.look.visible = true;
-				layer.msg('信息已提交',{
-					time: 1500
-				});
+
+                window.parent.AjaxR(window.parent.link+'lottAdd','POST',{
+                    "__token__":token,
+                    "id":id,
+                    "name":$('#box1').find("[name='name']").val(),
+                    "mobile":$('#box1').find("[name='phone']").val(),
+                    "region":$('#box1').find("#J_Address").val(),
+                    "addres":$('#box1').find("[name='addres']").val(),
+                    "msg":$('#box1').find("[name='msg']").val(),
+                },function(res){
+                    window.parent.token=res.token;
+                    if(res.code==1){
+                        layer.msg('信息已提交',{
+                            time: 1500
+                        });
+                        $('.inforClose').trigger(event);
+                    }else{
+                        layer.msg(res.msg,{
+                            time: 1500
+                        });
+                    }
+                });
 			});
+			//免单券
+            $(document).on(event,"#installSubmit",function(){
+                var id=window.parent.id;
+
+                //向服务器发送数据成功执行以下语句
+                var self =window.parent.awardLists[window.parent.wordIndex];
+                self.use.visible = false;
+                self.donate.visible = false;
+                self.look.visible = true;
+                window.parent.AjaxR(window.parent.link+'counpAdd','POST',{
+                    "__token__":window.parent.token,
+                    "id":id,
+                    "name":$('#box3').find("[name='name']").val(),
+                    "mobile":$('#box3').find("[name='mobile']").val(),
+                    "setCity":$('#box3').find("#installCity").val(),
+                    "addres":$('#box3').find("[name='addres']").val(),
+                    "type":2
+                },function(res){
+                    window.parent.token=res.token;
+                    if(res.code==1){
+                        layer.msg('信息已提交',{
+                            time: 1500
+                        });
+                        $('.inforClose').trigger(event);
+                    }else{
+                        layer.msg(res.msg,{
+                            time: 1500
+                        });
+                    }
+                });
+            });
 			//获取奖品详情
 			$.get('json/person.json',function(data){
 				if(data.awardInfor.length>0)
@@ -310,4 +353,5 @@
 	        });
 	    }();
 	</script>
+
 </html>
