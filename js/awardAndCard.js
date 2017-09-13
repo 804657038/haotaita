@@ -51,6 +51,9 @@ function myCard(){
             AllCardNumber+=num;
             cards[i] = new cardClass(42+i*128,860,i+1,num,!i,id);
             backLayer.addChild(cards[i]);
+            if(i==0){
+                window.gId=id;
+			}
             cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
                 var index = this.sp.index;
                	window.gId=this.sp.id;
@@ -88,8 +91,8 @@ function myCard(){
 	send.y = 1006;
 	backLayer.addChild(send);//添加到背景层
 	send.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		console.log(window.gId);
-		if(window.gId==0){
+
+		if(window.gId==0||window.gId==null){
             myAlert('请选择卡片');
 		}else{
             confirmCardSend();
@@ -476,13 +479,13 @@ function Coupon(y,name,hasUse,order,index,code,hasGift)
 
 	//赠送礼物
 	self.donate.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+        confirmCardSend2();
+        window.gId=self.index;
+        window.fxLink=window.link+"haotaitai2/index.html?id="+self.index+'&uid='+window.uid;
+        // self.use.visible = false;
+        // self.donate.visible = false;
 
-        window.title="您的好友给您赠送了一份礼物";
-        window.fxLink=window.link+"haotaitai/index.html?id="+self.index+'&uid='+window.uid;
-        window.hasGitf=true;
-        window.gType=2;
-        self.use.visible = false;
-        self.donate.visible = false;
+
         // AjaxR(window.link+'readyGive','POST',{id:self.index,"type":2,"__token__":window.token},function(res){
         	// if(res.code==1){
         	// 	alert(res.msg);
@@ -546,4 +549,48 @@ function showUseContent(){
 		uLayer.removeAllChild();
 		uLayer.remove();
 	});
+}
+//确定是否赠送
+function confirmCardSend2(){
+    var sendLayer = new LSprite();
+    backLayer.addChild(sendLayer);
+    sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+    sendLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
+    var comfirmCard = new LBitmap(new LBitmapData(imgList["comfirmCard"]));
+    comfirmCard.y = (LGlobal.height-comfirmCard.getHeight())/2;
+    comfirmCard.x = (LGlobal.width-comfirmCard.getWidth())/2;
+    sendLayer.addChild(comfirmCard);
+    //确认按钮
+    var fineLayer = new LSprite();
+    sendLayer.addChild(fineLayer);
+    fineLayer.graphics.drawRect(0,'#ffffff',[91,585,262,90],false,'rgba(0,0,0,0.75)');
+    fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+        sendLayer.removeAllChild();
+        sendLayer.remove();
+        enjoy2();
+    });
+    //取消按钮
+    var cancelLayer = new LSprite();
+    sendLayer.addChild(cancelLayer);
+    cancelLayer.graphics.drawRect(0,'#ffffff',[353,585,262,90],false,'rgba(0,0,0,0.75)');
+    cancelLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+        sendLayer.removeAllChild();
+        sendLayer.remove();
+    });
+}
+function enjoy2(){
+    var sendLayer = new LSprite();
+    backLayer.addChild(sendLayer);
+    sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+    sendLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
+    var inviteFriends = new LBitmap(new LBitmapData(imgList["inviteFriends"]));
+    sendLayer.addChild(inviteFriends);
+    //分享
+    //如果成功
+
+    window.title="您的好友给您赠送了一份礼物";
+
+    window.hasGitf=true;
+    window.gType=2;
+    doShare(sendLayer);
 }

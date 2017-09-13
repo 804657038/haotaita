@@ -54,7 +54,6 @@ function confirmCardSend(){
 	sendLayer.addChild(fineLayer);
 	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,262,90],false,'rgba(0,0,0,0.75)');
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-
 		sendLayer.removeAllChild();
 		sendLayer.remove();
 		enjoy();
@@ -100,15 +99,15 @@ function enjoy()
 	//分享
     //如果成功
     window.title="您的好友给您赠送了一份礼物";
-    window.fxLink=window.link+"haotaitai/index.html?id="+window.gId+'&uid='+window.uid+"&type=1";
+    window.fxLink=window.link+"haotaitai2/index.html?id="+window.gId+'&uid='+window.uid+"&type=1";
+
 	window.hasGitf=true;
     window.gType=1;
+    doShare(sendLayer);
     // AjaxR(window.link+'readyGive','POST',{id:window.gId,"type":1,"__token__":window.token},function(res){});
 	//
 	// sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 	// 	sendLayer.removeAllChild();
 	// 	sendLayer.remove();
-	//
-	//
 	// })
 }
