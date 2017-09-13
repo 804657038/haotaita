@@ -91,7 +91,19 @@
 		</div>
 		<audio id="Jaudio"  preload loop="loop" src="music/bg.mp3" hidden="hidden"></audio >
 		<audio id="shanks"  preload loop="loop" src="music/shank.mp3" hidden="hidden"></audio>
-
+		<!--通用弹窗-->
+		<div id="allPopWindow" style="display: none;">
+			<div class="allPopWindow">
+				<ul>
+					<li>
+						<p class="winTips">赠送成功</p>
+					</li>
+					<li>
+						<a href="###" class="ok">好的</a>
+					</li>
+				</ul>
+			</div>
+		</div>
 		<iframe id="personInfor" src="person.html" hidden="hidden"></iframe>
         
 	</body>	
@@ -206,7 +218,9 @@
                  });
             }
 			audioAutoPlay('shanks',0);
-
+			$(document).on('touchstart','.ok',function(){
+				$('#allPopWindow').hide();
+			});
 
 	</script>
 </html>

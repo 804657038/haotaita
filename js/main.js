@@ -59,6 +59,7 @@ function gameStart(result){
 //	ConposeMyCard();
 //	myAward();
 //	getDice();
+//giftCash('giftCash188');
 }
 //首页
 function setHomepage(){
@@ -245,6 +246,7 @@ function mainGame(){
 	wantToDice.y = 805;
 
 	wantToDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		 shankOpen=false;
 		 wantPop();
 	});
 	//大骰子
@@ -512,6 +514,7 @@ function wantPop(){
 	close.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		wantLayer.removeAllChild();
 		wantLayer.remove();
+		shankOpen=true;
 	});
 	//标题
 	var wantTitle = new LBitmap(new LBitmapData(imgList['wantTitle']));
@@ -573,6 +576,7 @@ function wantPop(){
 }
 //显示不能邀请和邀请
 function gameOrInvite(check){
+	shankOpen=true;
 	//check为真，表面开启邀请的
 	var okLayer = new LSprite();
 	backLayer.addChild(okLayer);

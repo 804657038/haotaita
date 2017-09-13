@@ -125,9 +125,11 @@ function shareToFriends(){
 	shareLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		shareLayer.removeAllChild();
 		shareLayer.remove();
-		console.log(window.shareNum);
+//		console.log(window.shareNum);
 		if(window.shareNum<=0){
             gameOrInvite(true);
+		}else{
+			shankOpen=true;
 		}
 	});
 	shareLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
