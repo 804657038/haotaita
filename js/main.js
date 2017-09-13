@@ -3,11 +3,18 @@ LInit(1000/60,"good",700,1135,main);
 //游戏入口函数
 
 function main(){
+
+    AjaxR(window.link+'getToken','GET',false,function(res){
+        window.token=res.token;
+        window.shareNum=res.shareNum;
+        window.uid=res.uid;
+    });
 	LGlobal.stageScale = LStageScaleMode.EXACT_FIT;//设置全屏变量
     LGlobal.screen(LStage.FULL_SCREEN);//设置全面适应
     backLayer = new LSprite();//创建背景层
     addChild(backLayer);//添加背景层到游戏环境中                         
     LLoadManage.load(loadImg,"",loading);//读取加载页面背景图片
+
 }
 //加载背景
 function loading(result){
@@ -64,16 +71,10 @@ function gameStart(result){
 //首页
 function setHomepage(){
 
-    AjaxR(window.link+'getToken','GET',false,function(res){
-        window.token=res.token;
-        window.shareNum=res.shareNum;
-        window.uid=res.uid;
-    });
     if(hasFirst==true){
         receive();
         hasFirst=false;
 	}
-
 
 	//清除所有
 	backLayer.die();
@@ -251,7 +252,38 @@ function mainGame(){
 	});
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
+	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+        AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
+            if(res.code==1){
+                var number = res.dice;
+                window.money=res.redValue;
+                window.id=res.id;
+                var shankLayer =shankingOne();
 
+                if(res.prize_id!=7){
+                    diceNumberWord.childList[0].text--;
+				}
+
+                setTimeout(function(){
+                    shankLayer.remove();//将要以摇一摇画面移除
+                    document.getElementById('shanks').pause();
+                    diceList[number-1].visible = true;//显示骰子
+                    diceList[number-1].alpha = 0;
+                    LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+                        LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
+                            diceList[number-1].visible = false;
+                            setTimeout(function(){
+                                target.moving(number);
+                            },500);
+                        }});
+                    }});
+                },1500);
+            }else{
+                alert(res.msg);
+            }
+
+        });
+	});
 
 	backLayer.addChild(bigDice);//添加到背景层
 	bigDice.x = 233;

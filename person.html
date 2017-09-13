@@ -165,10 +165,8 @@
                 var id=window.parent.id;
 
 				//向服务器发送数据成功执行以下语句
-				var self =window.parent.awardLists[window.parent.wordIndex];
-				self.use.visible = false;
-				self.donate.visible = false;
-				self.look.visible = true;
+
+
                 window.parent.AjaxR(window.parent.link+'counpAdd','POST',{
                     "__token__":window.parent.token,
                     "id":id,
@@ -182,6 +180,13 @@
                             time: 1500
                         });
                         $('.inforClose').trigger(event);
+
+                        if(window.parent.wordIndex){
+                            var self =window.parent.awardLists[window.parent.wordIndex];
+                            self.use.visible = false;
+                            self.donate.visible = false;
+                            self.look.visible = true;
+                        }
                     }else{
                         layer.msg(res.msg,{
                             time: 1500
@@ -194,10 +199,6 @@
                 var id=window.parent.id;
                 var token=window.parent.token;
 				//向服务器发送数据成功执行以下语句
-				var self =window.parent.awardLists[window.parent.wordIndex];
-				self.exchange.visible = false;
-//				self.donate.visible = false;
-				self.look.visible = true;
 
                 window.parent.AjaxR(window.parent.link+'lottAdd','POST',{
                     "__token__":token,
@@ -218,6 +219,13 @@
                             time: 1500
                         });
                         $('.inforClose').trigger(event);
+
+                        if(window.parent.wordIndex){
+                            var self =window.parent.awardLists[window.parent.wordIndex];
+                            self.exchange.visible = false;
+//				   self.donate.visible = false;
+                            self.look.visible = true;
+                        }
                     }else{
                         layer.msg(res.msg,{
                             time: 1500
