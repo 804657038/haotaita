@@ -442,7 +442,7 @@ function mainGame(){
                     {
                     	shankOpen=false;
                   		//先出现摇一摇的画面
-                		var shankLayer =shankingOne();
+
                 		//服务器请求到骰子数目
 
 						AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
@@ -450,6 +450,16 @@ function mainGame(){
                                 var number = res.dice;
                                 window.money=res.redValue;
                                 window.id=res.id;
+                                var shankLayer =shankingOne();
+
+                                if(res.dice>=10)
+                                {
+                                    diceNumberWord = new setText(287,743,26,res.diceNum,'#ffeb00',true);
+                                }else{
+                                    diceNumberWord = new setText(295,743,26,res.diceNum,'#ffeb00',true);
+                                }
+                                backLayer.addChild(diceNumberWord);
+
                                 setTimeout(function(){
                                     shankLayer.remove();//将要以摇一摇画面移除
                                     document.getElementById('shanks').pause();
