@@ -197,3 +197,40 @@ a{
 	top: 56%;
 	/*background-color: white;*/
 }
+/*通用弹窗*/
+#allPopWindow{
+	width:100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background-color: rgba(0,0,0,0.75);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	z-index: 102;
+}
+.allPopWindow{
+	width: 75%;
+	background-color: #fff7b1;
+	border-radius: 10px;
+	border:3px solid #d24f00;
+}
+.allPopWindow ul li:nth-child(1){
+	border: 1px solid #b2ac7c;
+}
+.allPopWindow .winTips{
+	text-align: center;
+	font-size: 18px;
+	line-height: 64px;
+	color: #333333;
+	font-weight: bold;
+}
+.allPopWindow .ok{
+	display: block;
+	width: 100%;
+	text-align: center;
+	font-size: 18px;
+	line-height: 50px;
+	color: #d24f00;
+}

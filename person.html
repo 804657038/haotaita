@@ -145,6 +145,10 @@
 //            var event="touchstart"；
             var event="click";
 			$(document).on(event,".inforClose",function(){
+				if(window.parent.gameOrAward==true)
+				{
+					window.parent.shankOpen=true;
+				}
 				window.parent.$('#personInfor').hide();
 				$('#box1 input').val("");
 				$('#box1 textarea').val("");
@@ -205,6 +209,10 @@
                     "msg":$('#box1').find("[name='msg']").val(),
                 },function(res){
                     window.parent.token=res.token;
+                    if(window.parent.gameOrAward==true)
+					{
+						window.parent.shankOpen=true;
+					}
                     if(res.code==1){
                         layer.msg('信息已提交',{
                             time: 1500
