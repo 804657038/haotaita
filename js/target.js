@@ -9,6 +9,16 @@ function Target(x,y,name,step){
 	self.img = new LBitmap(new LBitmapData(imgList[name]));
 	self.addChild(self.img);
 	self.tween = bigAndSmall(self,2,2,1.0,0.1,0.2,true);
+	//微信头像
+	var tou = new LBitmap(new LBitmapData(imgList['tou']));//实例化背景
+	tou.x=8;
+	tou.y=8;
+	tou.scaleX = 59/tou.getWidth();
+	tou.scaleY = 59/tou.getHeight();
+	var maskObj = new LSprite();
+    maskObj.graphics.drawArc(8, "#1166ff", [37, 37, 29, 0,Math.PI*2]);
+    tou.mask = maskObj;
+	self.addChild(tou);//添加到人物层
 }
 //设置变小
 Target.prototype.setSmall=function(){

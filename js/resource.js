@@ -190,6 +190,9 @@ var gameImg = [
 	{path:'img/confirmBtn.png',type:'img',name:'confirmBtn'},//确定
 	{path:'img/inviteFriends.png',type:'img',name:'inviteFriends'},//邀请好友
 	{path:'img/hasnotChoice.png',type:'img',name:'hasnotChoice'},//没有选择
+	{path:'http://192.168.1.92/tou.jpg',type:'img',name:'tou'},//微信地址
+	{path:'img/mouseTips.png',type:'img',name:'mouseTips'},//打地鼠提示
+	{path:'img/fight.png',type:'img',name:'fight'},//挑战
 	
 ];
 //全局变量

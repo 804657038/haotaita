@@ -203,6 +203,24 @@ function hitMouse(){
 	 //添加音乐
 	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
 	backLayer.addChild(music);
+	
+	//添加提示
+	var tipsLayer = new LSprite();
+	backLayer.addChild(tipsLayer);
+	tipsLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	tipsLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
+	//背景
+	var mouseTips = new LBitmap(new LBitmapData(imgList["mouseTips"]));
+	tipsLayer.addChild(mouseTips);
+	//开始挑战
+	var fight = new LButton(new LBitmap(new LBitmapData(imgList["fight"])));	
+	fight.y = 780;
+	fight.x = (LGlobal.width-fight.getWidth())/2;
+	tipsLayer.addChild(fight);
+	fight.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		tipsLayer.remove();
+		tipsLayer.removeAllChild();
+	});
 }
 //打地鼠
 function startPlaying(){
