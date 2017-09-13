@@ -34,6 +34,7 @@
                     error:function(XMLHttpRequest){
                         if(XMLHttpRequest.status==408){
                             window.location.href= window.link+"weixin";
+
                         }
                     }
                 });
@@ -44,7 +45,10 @@
                 var r = window.location.search.substr(1).match(reg);
                 if(r!=null)return  unescape(r[2]); return null;
             }
-
+            function myAlert(msg){
+                $('#allPopWindow').find('.winTips').text(msg);
+                $('#allPopWindow').show();
+            }
         </script>
 	</head>
 	<body>
@@ -99,7 +103,7 @@
 						<p class="winTips">赠送成功</p>
 					</li>
 					<li>
-						<a href="###" class="ok">好的</a>
+						<a href="javascript:;" class="ok">好的</a>
 					</li>
 				</ul>
 			</div>

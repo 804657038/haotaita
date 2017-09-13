@@ -22,9 +22,9 @@ Target.prototype.setSmall=function(){
 //
 //}
 //人物移动
-Target.prototype.moving =function(number){
+Target.prototype.moving =function(number,pcid){
 	var self = this;
-	
+	console.log(pcid);
 	if(number>0)
 	{
 		number--;
@@ -46,7 +46,7 @@ Target.prototype.moving =function(number){
 					self.sx = self.x;
 					self.sy = self.y;
 					self.step+=1;
-					self.moving(number);
+					self.moving(number,pcid);
 				}});
 				break;
 			case 3:
@@ -61,7 +61,7 @@ Target.prototype.moving =function(number){
 					self.sx = self.x;
 					self.sy = self.y;
 					self.step+=1;
-					self.moving(number);
+					self.moving(number,pcid);
 				}});
 				break;
 			case 16:
@@ -78,7 +78,7 @@ Target.prototype.moving =function(number){
 					self.sy = self.y;
 					self.step+=1;
 					self.step=self.step%26;
-					self.moving(number);
+					self.moving(number,pcid);
 				}});
 			break;
 			case 26:
@@ -87,7 +87,7 @@ Target.prototype.moving =function(number){
 					self.sy = self.y;
 					self.step+=1;
 					self.step=self.step%26;
-					self.moving(number);
+					self.moving(number,pcid);
 				}});
 			break;
 		}
@@ -95,9 +95,10 @@ Target.prototype.moving =function(number){
 		self.tween = bigAndSmall(self,2,2,1.0,0.1,0.2,true);
 		var step = self.step;		
 		setTimeout(function(){
+            var cardName='card'+pcid;
 			switch(step){
 				case 3:
-					giftCard('card1');
+					giftCard(cardName);
 				break;
 				case 5:
 				case 10:
@@ -114,10 +115,10 @@ Target.prototype.moving =function(number){
 					giftCash('giftCash388');
 				break;
 				case 13:
-					giftCard('card2');
+					giftCard(cardName);
 				break;
 				case 15:
-					giftCard('card3');
+					giftCard(cardName);
 				break;
 				case 17:
 				case 23:
@@ -126,10 +127,10 @@ Target.prototype.moving =function(number){
 					getCash("yuan1",cashMoney);
 				break;
 				case 20:
-					giftCard('card1');
+					giftCard(cardName);
 				break;
 				case 25:
-					giftCard('card1');
+					giftCard(cardName);
 				break;
 				default:
 					shankOpen=true;

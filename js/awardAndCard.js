@@ -54,6 +54,7 @@ function myCard(){
             cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
                 var index = this.sp.index;
                	window.gId=this.sp.id;
+
                 for(var i=0;i<5;i++)
                 {
                     if(i+1==index){
@@ -87,8 +88,9 @@ function myCard(){
 	send.y = 1006;
 	backLayer.addChild(send);//添加到背景层
 	send.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		console.log(window.gId);
 		if(window.gId==0){
-			alert('请选择卡片');
+            myAlert('请选择卡片');
 		}else{
             confirmCardSend();
 		}
