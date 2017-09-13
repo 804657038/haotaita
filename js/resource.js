@@ -216,7 +216,7 @@ for(var i=0;i<targetX.length;i++)
 	}
 }
 //摇一摇数据
-var SHAKE_THRESHOLD = 3000;
+var SHAKE_THRESHOLD = 2000;
 var last_update = 0;  
 var x = y = z = last_x = last_y = last_z = 0;  
 var gameOrAward;
