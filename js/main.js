@@ -277,7 +277,7 @@ function mainGame(){
                             },500);
                         }});
                     }});
-                },1500);
+                },1000);
             }else{
                 alert(res.msg);
             }
