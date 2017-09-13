@@ -189,6 +189,8 @@ var gameImg = [
 	{path:'img/getsuccess.png',type:'img',name:'getsuccess'},//领取成功
 	{path:'img/confirmBtn.png',type:'img',name:'confirmBtn'},//确定
 	{path:'img/inviteFriends.png',type:'img',name:'inviteFriends'},//邀请好友
+	{path:'img/hasnotChoice.png',type:'img',name:'hasnotChoice'},//没有选择
+	
 ];
 //全局变量
 var backLayer,person,imgList;

@@ -20,33 +20,24 @@ function sendError()
 		sendLayer.remove();
 	})
 }
-//确定个人信息
-function confirmPersonalInfor(){
+//没有选择卡片
+function noChoiceCard(){
 	var sendLayer = new LSprite();
 	backLayer.addChild(sendLayer);
 	sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
 	sendLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-	var comfirmPerson = new LBitmap(new LBitmapData(imgList["comfirmPerson"]));
+	var comfirmPerson = new LBitmap(new LBitmapData(imgList["hasnotChoice"]));
 	comfirmPerson.y = (LGlobal.height-comfirmPerson.getHeight())/2;
 	comfirmPerson.x = (LGlobal.width-comfirmPerson.getWidth())/2;
 	sendLayer.addChild(comfirmPerson);
-	//确认按钮
+	//好的按钮
 	var fineLayer = new LSprite();
 	sendLayer.addChild(fineLayer);
-	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,262,90],false,'rgba(0,0,0,0.75)');
+	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,524,90],false,'rgba(0,0,0,0.75)');
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		sendLayer.removeAllChild();
 		sendLayer.remove();
-		confirmCardSend();
-	});
-	//取消按钮
-	var cancelLayer = new LSprite();
-	sendLayer.addChild(cancelLayer);
-	cancelLayer.graphics.drawRect(0,'#ffffff',[353,585,262,90],false,'rgba(0,0,0,0.75)');
-	cancelLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		sendLayer.removeAllChild();
-		sendLayer.remove();
-	});
+	})
 }
 //确定是否赠送
 function confirmCardSend(){
