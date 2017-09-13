@@ -237,11 +237,11 @@ function startPlaying(){
                             diceNumberWord=res.dice;
                             if(dScore.childList[0].text>=30)
                             {
-                                gameResults('games3');
+                                gameResults('games3',1);
                             }else if(dScore.childList[0].text>=20){
-                                gameResults('games2');
+                                gameResults('games2',2);
                             }else if(dScore.childList[0].text>=10){
-                                gameResults('games1');
+                                gameResults('games1',3);
                             }else{
                                 gameResults('gameError');
                             }
@@ -481,7 +481,7 @@ mousey.prototype.showing=function(){
 	},loop:true});
 }
 //确定闯关
-function gameResults(bkg){
+function gameResults(bkg,number){
 	var resultLayer = new LSprite();
 	backLayer.addChild(resultLayer);
 	resultLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
@@ -489,13 +489,12 @@ function gameResults(bkg){
 	var light = new LBitmap(new LBitmapData(imgList['light']));
 	light.y = 123;
 	light.x = 0;
-	resultLayer.addChild(light);
+	resultLayer.addChild(light);	
 	LTweenLite.to(light,8.0,{rotate:360,loop:true,onComplete:function(){
 		light.rotate=0;
 	}});
-	if(bkg=='gameError'){
-		light.visible =false;
-	}
+	
+	
 	//背景
 	var resultBkg = new LBitmap(new LBitmapData(imgList[bkg]));
 	resultBkg.y = 211;
@@ -505,6 +504,12 @@ function gameResults(bkg){
 	comfirm.y = 756;
 	comfirm.x = (LGlobal.width-comfirm.getWidth())/2;
 	resultLayer.addChild(comfirm);
+	var ntext =  new setText(315,698,30,number,'#902a24',true);
+	resultLayer.addChild(ntext);
+	if(bkg=='gameError'){
+		light.visible =false;
+		ntext.visible = false;
+	}
 	comfirm.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		resultLayer.removeAllChild();
 		resultLayer.remove();
