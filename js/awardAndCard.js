@@ -43,16 +43,17 @@ function myCard(){
 	//添加小卡片
 	//向服务器请求个人数据
 	var cards = new Array(5);
-	AjaxR(window.link+'/getMyCard','GET',false,function(data){
+	AjaxR(window.link+'getMyCard','GET',false,function(data){
         for(var i=0;i<cards.length;i++)
         {
         	var num=data[i+1]?data[i+1].num:0;
-
+            var id=data[i+1]?data[i+1].id:0;
             AllCardNumber+=num;
-            cards[i] = new cardClass(42+i*128,860,i+1,num,!i);
+            cards[i] = new cardClass(42+i*128,860,i+1,num,!i,id);
             backLayer.addChild(cards[i]);
             cards[i].addEventListener(LMouseEvent.MOUSE_DOWN,function(){
                 var index = this.sp.index;
+               	window.gId=this.sp.id;
                 for(var i=0;i<5;i++)
                 {
                     if(i+1==index){
@@ -86,7 +87,11 @@ function myCard(){
 	send.y = 1006;
 	backLayer.addChild(send);//添加到背景层
 	send.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		confirmCardSend();
+		if(window.gId==0){
+			alert('请选择卡片');
+		}else{
+            confirmCardSend();
+		}
 	});
 	//使用说明
 	var useTipes = new LButton(new LBitmap(new LBitmapData(imgList['useTips'])));
@@ -469,15 +474,23 @@ function Coupon(y,name,hasUse,order,index,code,hasGift)
 
 	//赠送礼物
 	self.donate.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-        AjaxR(window.link+'readyGive','POST',{id:self.index,"type":2,"__token__":window.token},function(res){
-        	if(res.code==1){
-        		alert(res.msg);
-                self.use.visible = false;
-                self.donate.visible = false;
-			}else{
-        		alert("操作失败，请重新操作");
-			}
-		});
+
+        window.title="您的好友给您赠送了一份礼物";
+        window.fxLink=window.link+"haotaitai/index.html?id="+self.index+'&uid='+window.uid;
+        window.hasGitf=true;
+        window.gType=2;
+        self.use.visible = false;
+        self.donate.visible = false;
+        // AjaxR(window.link+'readyGive','POST',{id:self.index,"type":2,"__token__":window.token},function(res){
+        	// if(res.code==1){
+        	// 	alert(res.msg);
+         //        self.use.visible = false;
+         //        self.donate.visible = false;
+         //        window.fxLink=window.link+"haotaitai/index.html?id="+self.index+'&uid='+res.uid;
+		// 	}else{
+        	// 	alert("操作失败，请重新操作");
+		// 	}
+		// });
 
 	});
 	if(hasUse==true)

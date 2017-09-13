@@ -15,6 +15,7 @@ function sendError()
 	sendLayer.addChild(fineLayer);
 	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,524,90],false,'rgba(0,0,0,0.75)');
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+
 		sendLayer.removeAllChild();
 		sendLayer.remove();
 	})
@@ -62,6 +63,7 @@ function confirmCardSend(){
 	sendLayer.addChild(fineLayer);
 	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,262,90],false,'rgba(0,0,0,0.75)');
 	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+
 		sendLayer.removeAllChild();
 		sendLayer.remove();
 		enjoy();
@@ -105,14 +107,17 @@ function enjoy()
 	var inviteFriends = new LBitmap(new LBitmapData(imgList["inviteFriends"]));
 	sendLayer.addChild(inviteFriends);
 	//分享
-	sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		sendLayer.removeAllChild();
-		sendLayer.remove();
-		//如果成功
-		if(0){
-			sendSuccessful();
-		}else{
-			sendError();
-		}
-	})
+    //如果成功
+    window.title="您的好友给您赠送了一份礼物";
+    window.fxLink=window.link+"haotaitai/index.html?id="+window.gId+'&uid='+window.uid+"&type=1";
+	window.hasGitf=true;
+    window.gType=1;
+    // AjaxR(window.link+'readyGive','POST',{id:window.gId,"type":1,"__token__":window.token},function(res){});
+	//
+	// sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+	// 	sendLayer.removeAllChild();
+	// 	sendLayer.remove();
+	//
+	//
+	// })
 }

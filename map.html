@@ -7,17 +7,36 @@
     <link rel="stylesheet" href="css/index.css?v=2" />
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript">
-        window.link="http://www.haotaitai.cnm/";
+        window.link="hhttps://haotaitai.hengdikeji.com/";
 
     </script>
     <script type="text/javascript" src="js/lib.js"></script>
-    <script type="text/javascript" src="http://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
-    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=4ouritgUuGdmPMDcljgrnMBd"></script>
-    <script charset="utf-8" src="http://map.qq.com/api/js?v=2.exp&key=6DQBZ-26GWU-743VO-2OP6P-YWINS-CKFD3&libraries=convertor"></script>
+    <script type="text/javascript" src="https://static.runoob.com/assets/vue/1.0.11/vue.min.js"></script>
+    <script type="text/javascript" src="https://api.map.baidu.com/api?v=2.0&ak=4ouritgUuGdmPMDcljgrnMBd"></script>
+    <script charset="utf-8" src="https://map.qq.com/api/js?v=2.exp&key=6DQBZ-26GWU-743VO-2OP6P-YWINS-CKFD3&libraries=convertor"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script type="text/javascript">
+        $.get(window.link+'jssdk',function(res){
+            wx.config({
+                debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+                appId:res.appId, // 必填，公众号的唯一标识
+
+                timestamp: res.timestamp, // 必填，生成签名的时间戳
+
+                nonceStr:res.nonceStr, // 必填，生成签名的随机串
+
+                signature:res.signature,// 必填，签名，见附录1
+
+                jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','openLocation'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+
+            });
+
+        },"JSON")
+    </script>
 </head>
 <body>
 <div id="store">
-    <div class="map" id="map">
+    <div class="map" id="maps">
 <!--        <p>获取地图数据失败！</p>-->
     </div>
     <div class="storeBox">
@@ -62,8 +81,7 @@
 
     }
     var data={
-        // url:"http://hotata.hengdikeji.com/",
-        url:"http://www.haotaitai.cnm/",
+        url:"https://haotaitai.hengdikeji.com/",
         shopList:''
     };
     var all=new Vue({
@@ -128,7 +146,6 @@
 
             },
             daohan:function(x,y,title,addres){
-                alert(111);
                 wx.ready(function(){
                     wx.openLocation({
                         latitude:x, // 纬度，浮点数，范围为90 ~ -90

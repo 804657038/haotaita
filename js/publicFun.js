@@ -125,7 +125,10 @@ function shareToFriends(){
 	shareLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		shareLayer.removeAllChild();
 		shareLayer.remove();
-		gameOrInvite(true);
+		console.log(window.shareNum);
+		if(window.shareNum<=0){
+            gameOrInvite(true);
+		}
 	});
 	shareLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
 	//背景
@@ -199,6 +202,7 @@ function hitMouse(){
 	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
 	backLayer.addChild(music);
 }
+//打地鼠
 function startPlaying(){
 	var mouseLayer = new LSprite();
 	backLayer.addChild(mouseLayer);
@@ -223,27 +227,34 @@ function startPlaying(){
 				 */
 				if(timenumber==-1)
 				{
+					AjaxR(window.link+'games/',"POST",{
+						"fraction":dScore.childList[0].text,
+						"__token__":window.token
+					},function(res){
+						if(res.code==1){
+                            diceNumberWord=res.dice;
+                            if(dScore.childList[0].text>=30)
+                            {
+                                gameResults('games3');
+                            }else if(dScore.childList[0].text>=20){
+                                gameResults('games2');
+                            }else if(dScore.childList[0].text>=10){
+                                gameResults('games1');
+                            }else{
+                                gameResults('gameError');
+                            }
+						}else{
+                            if(dScore.childList[0].text>=10){
+                                gameResults('gameSuccess');
+                            }else{
+                                gameResults('gameError');
+                            }
+						}
+
+					});
 					LTweenLite.remove(daoshu);
 					//判断是否为今天第一次玩
-					if(playNumber==1)
-					{
-						if(dScore.childList[0].text>=10){
-							gameResults('gameSuccess');
-						}else{
-							gameResults('gameError');
-						}
-					}else{
-						if(dScore.childList[0].text>=30)
-						{
-							gameResults('games3');
-						}else if(dScore.childList[0].text>=20){
-							gameResults('games2');
-						}else if(dScore.childList[0].text>=10){
-							gameResults('games1');
-						}else{
-							gameResults('gameError');
-						}
-					}
+
 					
 				}else{
 					tCount.childList[0].text=timenumber+'s';

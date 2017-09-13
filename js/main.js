@@ -45,6 +45,9 @@ function loading(result){
 //加载进度条
 function loadPro(per){
 	person.x = 155+280*per/100;
+
+
+
 }
 //开始游戏
 function gameStart(result){
@@ -62,7 +65,15 @@ function setHomepage(){
 
     AjaxR(window.link+'getToken','GET',false,function(res){
         window.token=res.token;
+        window.shareNum=res.shareNum;
+        window.uid=res.uid;
     });
+    if(hasFirst==true){
+        receive();
+        hasFirst=false;
+	}
+
+
 	//清除所有
 	backLayer.die();
 	backLayer.removeAllEventListener();
@@ -128,6 +139,62 @@ function setHomepage(){
 	//开始游戏
 	start.addEventListener(LMouseEvent.MOUSE_DOWN,mainGame);
 }
+//赠品领取
+function receive(){
+    var id=GetQueryString('id');
+    var uid=GetQueryString('uid');
+    var type=GetQueryString('type')?GetQueryString('type'):2;
+
+    if(id && uid && uid !=window.uid){
+        AjaxR(window.link+'getGs','GET',{id:id,uid:uid,type:type},function(res){
+            $('#face').find('img').attr('src',res.face);
+            $('#nickname').text(res.nickName);
+            if(res.pimg){
+                $('.gifts').find('img').attr('src',res.pimg);
+                $('.geted').show();
+                $('.noget').hide();
+                $('.nowget').show();
+                $('.confirmBtn').hide();
+            }else{
+                $('.geted').hide();
+                $('.noget').show();
+                $('.nowget').hide();
+                $('.confirmBtn').show();
+            }
+        });
+
+        $('#friendGrit').show();
+    }
+    //如果券已经被领取
+
+    var ev="touchstart";
+    $(document).on(ev,".nowget",function(){
+        //如果领取成功
+        $('.friendGrit').hide();
+        $('.getResult').show();
+        AjaxR(window.link+'putGift','POST',{
+            "__token__":window.token,
+            "id":id,
+            "status":type
+        },function(res){
+            if(res.code==1){
+                $('.getBoxS').show();
+                $('.getBoxF').hide();
+            }else{
+                $('.getBoxS').hide();
+                $('.getBoxF').show();
+            }
+        });
+    });
+    //好的按钮
+    $(document).on(ev,".fine",function(){
+        $('#friendGrit').hide();
+    });
+    //确定按钮
+    $(document).on(ev,".confirmBtn",function(){
+        $('#friendGrit').hide();
+    });
+}
 //游戏主页面
 function mainGame(){
 	gameOrAward = true;
@@ -182,6 +249,8 @@ function mainGame(){
 	});
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
+
+
 	backLayer.addChild(bigDice);//添加到背景层
 	bigDice.x = 233;
 	bigDice.y = 602;
@@ -236,10 +305,8 @@ function mainGame(){
 
 	//向服务器请求个人信息数据
 	function getAuth(res,m){
-        target = new Target(targetX[res.step],targetY[res.step],'target',0);
-        if(m==true){
-            target.moving(res.lattice);
-		}
+        target = new Target(targetX[res.step],targetY[res.step],'target',res.step);
+
         backLayer.addChild(target);
         //设置骰子个数
 
@@ -284,9 +351,11 @@ function mainGame(){
 
         for(i=0;i<6;i++)
         {
-            diceList[i]=new LBitmap(new LBitmapData(imgList['dice'+(i+1)]));
-            diceLayer.addChild(diceList[i]);
-            diceLayer.visible=false;
+            diceList[i]=new LBitmap(new LBitmapData(imgList['dice'+(i+1)]));          
+            diceList[i].x=(LGlobal.width-diceList[i].getWidth())/2;
+            diceList[i].y=(LGlobal.height-diceList[i].getHeight())/2;
+            diceList[i].visible=false;
+            diceLayer.addChild(diceList[i]); 
         }
 	}
     AjaxR(window.link+'getAuth','GET',false,function(res){
@@ -304,15 +373,17 @@ function mainGame(){
 	 * 两个数据交替轮播
 	 */
 	//请求获奖人信息开始时请求获奖的信息
-
+	var plog1,plog2;
 	$.get(window.link+'plog',function(data){
 		banners[0] = new banner(673,302,data);
+        plog1=plog2=data;
 		bannerLayer.addChild(banners[0]);
 		LTweenLite.to(banners[0],60,{x:-banners[0].getWidth(),onComplete:function(){
 			banners[0].remove();
 		}});
 	});
  	//检测是否轮播完毕
+
 	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
 			/*
 			 * 判断上一轮轮播是否结束
@@ -320,28 +391,26 @@ function mainGame(){
 			if(bannerCheck==false)
 			{
 				if(banners[0].getWidth()+banners[0].x<=700){
-					$.get(window.link+'plog',function(data){
-						bannerCheck = true;
-						banners[1] = new banner(673,302,data);
-						bannerLayer.addChild(banners[1]);
-						LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
-						banners[1].remove();
-						}});
-					});
+                    bannerCheck = true;
+                    banners[1] = new banner(673,302,plog1);
+                    bannerLayer.addChild(banners[1]);
+                    LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
+                        banners[1].remove();
+                    }});
+
 				}
 			}else{
 				if(banners[1].getWidth()+banners[1].x<=700){
-					$.get(window.link+'plog',function(data){
-						bannerCheck = false;
-						banners[0] = new banner(673,302,data);
-						bannerLayer.addChild(banners[0]);
-						LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
-							banners[0].remove();
-						}});
-					});
+                    bannerCheck = false;
+                    banners[0] = new banner(673,302,plog2);
+                    bannerLayer.addChild(banners[0]);
+                    LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
+                        banners[0].remove();
+                    }});
+
 				}
 			}
-			
+
 
 	}});
 	//
@@ -357,7 +426,8 @@ function mainGame(){
             }  
         })();
 
-        function deviceMotionHandler(eventData) {  
+        function deviceMotionHandler(eventData) {
+
             var acceleration = eventData.accelerationIncludingGravity;  
             var curTime = new Date().getTime();  
             if ((curTime - last_update) > 100) {  
@@ -370,23 +440,37 @@ function mainGame(){
                 if (speed > SHAKE_THRESHOLD) {  
                     if(shankOpen==true)
                     {
-
                     	shankOpen=false;
                   		//先出现摇一摇的画面
                 		var shankLayer =shankingOne();
                 		//服务器请求到骰子数目
-                		var number = 5;
-                		shankLayer.remove();//将要以摇一摇画面移除
-                		document.getElementById('shanks').pause();
 
-                		diceList[number].visible = true;//显示骰子
-                		setTimeout(function(){
-                			//一秒后把骰子数目移除
-                			diceList[number].visible = false;
-                			setTimeout(function(){
-                				target.moving(number);
-                			},500);
-                		},1000);
+						AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
+							if(res.code==1){
+                                var number = res.dice;
+                                window.money=res.redValue;
+                                window.id=res.id;
+                                setTimeout(function(){
+                                    shankLayer.remove();//将要以摇一摇画面移除
+                                    document.getElementById('shanks').pause();
+                                    diceList[number-1].visible = true;//显示骰子
+                                    diceList[number-1].alpha = 0;
+                                    LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+                                        LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
+                                            diceList[number-1].visible = false;
+                                            setTimeout(function(){
+                                                target.moving(number);
+                                            },500);
+                                        }});
+                                    }});
+                                },1500);
+							}else{
+								alert(res.msg);
+							}
+
+						});
+
+
                     }
                 }  
                 last_x = x; 
@@ -445,15 +529,16 @@ function wantPop(){
 	//获取个人次数
 	var personInvite;
 	var personGame;
-	$.get('json/person.json',function(data){
-		personInvite=data.invite;
-		personGame=data.game;
-		LTweenLite.to(wantText[0],0.8,{x:250,rotate:0}).to(wantText[0],0.2,{x:190,rotate:0});
-		LTweenLite.to(wantText[2],0.8,{x:80,rotate:0}).to(wantText[2],0.2,{x:140,rotate:0,onComplete:function(){
-			LTweenLite.to(numberText[0],0.25,{alpha:1.0});
-			LTweenLite.to(numberText[2],0.75,{alpha:1.0});
-		}});
-	});
+    personInvite=window.shareNum;
+    personGame=1;
+    LTweenLite.to(wantText[0],0.8,{x:250,rotate:0}).to(wantText[0],0.2,{x:190,rotate:0});
+    LTweenLite.to(wantText[2],0.8,{x:80,rotate:0}).to(wantText[2],0.2,{x:140,rotate:0,onComplete:function(){
+        LTweenLite.to(numberText[0],0.25,{alpha:1.0});
+        LTweenLite.to(numberText[2],0.75,{alpha:1.0});
+    }});
+	// $.get('json/person.json',function(data){
+	//
+	// });
 	
 	
 	//邀请好友
@@ -462,7 +547,8 @@ function wantPop(){
 	invite.x = 86;
 	wantLayer.addChild(invite);
 	invite.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		shareToFriends();
+        window.hasGitf=false;
+        shareToFriends();
 	});
 	//挑战游戏：打地鼠
 	var challenge = new LButton( new LBitmap(new LBitmapData(imgList['challenge'])));

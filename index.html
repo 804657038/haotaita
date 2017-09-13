@@ -15,7 +15,8 @@
             window.fxDesc="";
             window.fxLink="";
             window.fxImg="";
-
+            window.shareNum=0; //分享测试
+            window.hasGitf=false; //是否赠送
             function AjaxR(url,type,data,callback){
                 $.ajax({
                     type:type,
@@ -52,18 +53,18 @@
 			<div class="friendGrit" >
 				<ul>
 					<li>
-						<div class="head">
-							<img src="img/headpic.png" />
+						<div class="head" id="face">
+							<img src="" />
 						</div>
 					</li>
 					<li>
-						<p class="name">xxxxxx</p>
+						<p class="name" id="nickname"></p>
 					</li>
 					<li>
 						<div class="geted">
 							<p>你的好友赠送你一张</p>
 							<div class="gifts">
-								<img src="img/coupon0.png" />
+								<img src="" />
 							</div>
 						</div>
 						<div class="noget">
@@ -90,70 +91,7 @@
 		</div>
 		<audio id="Jaudio"  preload loop="loop" src="music/bg.mp3" hidden="hidden"></audio >
 		<audio id="shanks"  preload loop="loop" src="music/shank.mp3" hidden="hidden"></audio>
-		<div id="store" hidden="hidden">
-			<div class="map">
-				<p>获取地图数据失败！</p>
-			</div>
-			<div class="storeBox">
-				<div class="storeList">
-					<ul>
-						<li>
-							<p class="storeName">五洲建材店</p>
-						</li>
-						<li>
-							<div class="storeAddress">
-								<p>广东省广州市天河区科韵路五洲建材...</p>
-								<p>101.6km</p>
-								<div class="clearBoth"></div>
-							</div>
-						</li>
-						<li>
-							<a href="###">打电话</a>
-							<a href="###">到这里</a>
-							<div class="clearl"></div>
-						</li>
-					</ul>
-				</div>
-				<div class="storeList">
-					<ul>
-						<li>
-							<p class="storeName">五洲建材店</p>
-						</li>
-						<li>
-							<div class="storeAddress">
-								<p>广东省广州市天河区科韵路五洲建材...</p>
-								<p>101.6km</p>
-								<div class="clearBoth"></div>
-							</div>
-						</li>
-						<li>
-							<a href="###">打电话</a>
-							<a href="###">到这里</a>
-							<div class="clearl"></div>
-						</li>
-					</ul>
-				</div>
-				<div class="storeList">
-					<ul>
-						<li>
-							<p class="storeName">五洲建材店</p>
-						</li>
-						<li>
-							<div class="storeAddress">
-								<p>广东省广州市天河区科韵路五洲建材...</p>
-								<p>101.6km</p>
-								<div class="clearBoth"></div>
-							</div>
-						</li>
-						<li>
-							<a href="###">打电话</a>
-							<a href="###">到这里</a>
-							<div class="clearl"></div>
-						</li>
-					</ul>
-				</div>
-			</div>
-		</div>
+
 		<iframe id="personInfor" src="person.html" hidden="hidden"></iframe>
         
 	</body>	
@@ -162,7 +100,7 @@
 	<script type="text/javascript" src="js/target.js" ></script>
 	<script type="text/javascript" src="js/musicBtn.js" ></script>
 	<script type="text/javascript" src="js/gift.js" ></script>
-	<script type="text/javascript" src="js/awardAndCard.js?v=15" ></script>
+	<script type="text/javascript" src="js/awardAndCard.js?v=17" ></script>
 	<script type="text/javascript" src="js/compose.js?v=3" ></script>
 	<script type="text/javascript" src="js/sendToFriend.js" ></script>
 	<script type="text/javascript" src="js/main.js?v=7" ></script>
@@ -201,14 +139,18 @@
                 });
             },"JSON");
             wx.ready(function () {
-
                 wx.onMenuShareTimeline({
                     title: window.fxTitle,
                     link: window.fxLink,
                     imgUrl:window.fxImg,
 
                     success: function (res) {
-                        share(2);
+                        if(window.hasGitf==true){
+                            zs();
+                        }else{
+                            share(2);
+                        }
+
                     },
                     cancel: function (res) {
                     },
@@ -222,7 +164,11 @@
                     desc:window.fxDesc,
                     imgUrl:window.fxImg,
                     success: function (res) {
-                        share(1);
+                        if(window.hasGitf==true){
+                            zs();
+                        }else{
+                            share(1);
+                        }
                     },
                     cancel: function (res) {
                     },
@@ -250,46 +196,17 @@
                     }
                 });
             }
-
+            function zs(){
+                 AjaxR(window.link+'readyGive','POST',{id:window.gId,"type":window.gType,"__token__":window.token},function(res){
+                 if(res.code==1){
+                        window.location.href="index.html?v="+Math.random();
+                 	}else{
+                 	   alert("分享失败，请重新分享");
+                 	}
+                 });
+            }
 			audioAutoPlay('shanks',0);
-			$(function(){
-				//如果券已经被领取
-				var hasBeGet = false;
-				if(hasBeGet==true)
-				{
-					$('.geted').hide();
-					$('.noget').show();
-					$('.nowget').hide();
-					$('.confirmBtn').show();
-				}else{
-					$('.geted').show();
-					$('.noget').hide();
-					$('.nowget').show();
-					$('.confirmBtn').hide();
-				}
-				var getStatus = false;
-				$(document).on("touchstart",".nowget",function(){
-					//如果领取成功
-					$('.friendGrit').hide();
-					$('.getResult').show();
-					if(getStatus==true)
-					{
-						$('.getBoxS').show();
-						$('.getBoxF').hide();
-					}else{
-						$('.getBoxS').hide();
-						$('.getBoxF').show();
-					}
-				});
-				//好的按钮
-				$(document).on("touchstart",".fine",function(){
-					$('#friendGrit').hide();
-				});
-				//确定按钮
-				$(document).on("touchstart",".confirmBtn",function(){
-					$('#friendGrit').hide();
-				});
-			})
+
 
 	</script>
 </html>
