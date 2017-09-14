@@ -94,7 +94,7 @@ function myCard(){
 
 		if(window.gId==0||window.gId==null){
 			$('#allPopWindow').show();
-			$('#allPopWindow .winTips').html('还没有幸运卡，<br/>赶紧去收集吧！');
+			$('#allPopWindow .winTips').html('还没有该卡片，<br/>赶紧去收集吧！');
 		}else{
             confirmCardSend();
 		}

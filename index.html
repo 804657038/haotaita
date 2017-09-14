@@ -9,8 +9,8 @@
 		<script src="js/jquery.min.js"></script>
         <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <script type="text/javascript">
-            window.link="https://haotaitai.hengdikeji.com/";
-//			window.link="https://haotaitai.hengdikeji.com/g/";
+//            window.link="https://haotaitai.hengdikeji.com/";
+			window.link="https://haotaitai.hengdikeji.com/g/";
             window.fxTitle="好太太-免单疯抢季";
             window.fxDesc="呼朋唤友赢超值大礼包";
             window.fxLink="https://haotaitai.hengdikeji.com/haotaitai2/index.html";
@@ -34,7 +34,6 @@
                     error:function(XMLHttpRequest){
                         if(XMLHttpRequest.status==408){
                             window.location.href= window.link+"weixin";
-
                         }
                     }
                 });
@@ -46,8 +45,12 @@
                 var r = window.location.search.substr(1).match(reg);
                 if(r!=null)return  unescape(r[2]); return null;
             }
-            function myAlert(msg){
+            function myAlert(msg,url){
                 $('#allPopWindow').find('.winTips').text(msg);
+                if(url){
+                    $('#allPopWindow').find('.ok').attr('href',url);
+                }
+
                 $('#allPopWindow').show();
             }
 
@@ -231,7 +234,9 @@
                     async: false,
                     success:function(datas){
                         if(datas.code==1){
-                            window.location.href="index.html?v="+Math.random();
+
+                            myAlert('分享成功，获得2枚骰子',"index.html?v="+Math.random());
+
                         }else{
                             myAlert(datas.msg);
                         }

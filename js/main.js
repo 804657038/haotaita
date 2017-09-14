@@ -121,6 +121,7 @@ function setHomepage(){
 
 	//免费
 	var noMoney = new LBitmap(new LBitmapData(imgList['noMoney']));
+
 	noMoney.x = 78;
 	noMoney.y = 385;
 	backLayer.addChild(noMoney);//添加到背景层
@@ -329,7 +330,7 @@ function mainGame(){
 	var target;
 
 	var step=0;
-	console.log(imgList['tou']);
+
 	//向服务器请求个人信息数据
 	function getAuth(res,m){
         target = new Target(targetX[res.step],targetY[res.step],'target',res.step);
