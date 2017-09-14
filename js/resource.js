@@ -189,6 +189,7 @@ var gameImg = [
 	{path:'img/fight.png',type:'img',name:'fight'},//挑战
 	{path:'music/hit.mp3',name:'hit'},//打地鼠声音
 	{path:'music/jump.wav',name:'jump'},//跳的声音
+
     {path:'img/szdql.gif',type:'img',name:'szdql'},//骰子gif
 ];
 //全局变量

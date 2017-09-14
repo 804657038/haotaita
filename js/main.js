@@ -246,35 +246,35 @@ function mainGame(){
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
 	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-        AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
-            if(res.code==1){
-                var number = res.dice;
-                window.money=res.redValue;
-                window.id=res.id;
-                var shankLayer =shankingOne();
-                var pid=res.pid;
-                if(res.prize_id!=7){
-                    diceNumberWord.childList[0].text--;
-                }
-                setTimeout(function(){
-                    shankLayer.remove();//将要以摇一摇画面移除
-                    document.getElementById('shanks').pause();
-                    diceList[number-1].visible = true;//显示骰子
-                    diceList[number-1].alpha = 0;
-                    LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
-                        LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
-                            diceList[number-1].visible = false;
-                            setTimeout(function(){
-                                target.moving(number,pid);
-                            },500);
-                        }});
-                    }});
-                },1000);
-            }else{
-                myAlert(res.msg);
-            }
-
-        });
+        // AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
+        //     if(res.code==1){
+        //         var number = res.dice;
+        //         window.money=res.redValue;
+        //         window.id=res.id;
+        //         var shankLayer =shankingOne();
+        //         var pid=res.pid;
+        //         if(res.prize_id!=7){
+        //             diceNumberWord.childList[0].text--;
+        //         }
+        //         setTimeout(function(){
+        //             shankLayer.remove();//将要以摇一摇画面移除
+        //             document.getElementById('shanks').pause();
+        //             diceList[number-1].visible = true;//显示骰子
+        //             diceList[number-1].alpha = 0;
+        //             LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+        //                 LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
+        //                     diceList[number-1].visible = false;
+        //                     setTimeout(function(){
+        //                         target.moving(number,pid);
+        //                     },500);
+        //                 }});
+        //             }});
+        //         },1000);
+        //     }else{
+        //         myAlert(res.msg);
+        //     }
+        //
+        // });
 
 	});
 
@@ -403,39 +403,40 @@ function mainGame(){
 	var plog1,plog2;
 	$.get(window.link+'plog',function(data){
 		banners[0] = new banner(673,302,data);
-        plog1=plog2=data;
+        plog1=data;
+        plog2=data;
 		bannerLayer.addChild(banners[0]);
 		LTweenLite.to(banners[0],50,{x:-banners[0].getWidth(),onComplete:function(){
 			banners[0].remove();
 		}});
 	});
  	//检测是否轮播完毕
-//	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
-//			/*
-//			 * 判断上一轮轮播是否结束
-//			 */
-//			if(bannerCheck==false)
-//			{
-//				if(banners[0].getWidth()+banners[0].x<=700){
-//                  bannerCheck = true;
-//                  banners[1] = new banner(673,302,plog1);
-//                  bannerLayer.addChild(banners[1]);
-//                  LTweenLite.to(banners[1],50,{x:-banners[1].getWidth(),onComplete:function(){
-//                      banners[1].remove();
-//                  }});
-//
-//				}
-//			}else{
-//				if(banners[1].getWidth()+banners[1].x<=700){
-//                  bannerCheck = false;
-//                  banners[0] = new banner(673,302,plog2);
-//                  bannerLayer.addChild(banners[0]);
-//                  LTweenLite.to(banners[0],50,{x:-banners[1].getWidth(),onComplete:function(){
-//                      banners[0].remove();
-//                  }});
-//				}
-//			}
-//	}});
+	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
+			/*
+			 * 判断上一轮轮播是否结束
+			 */
+			if(bannerCheck==false)
+			{
+				if(banners[0].getWidth()+banners[0].x<=700){
+                 bannerCheck = true;
+                 banners[1] = new banner(673,302,plog1);
+                 bannerLayer.addChild(banners[1]);
+                 LTweenLite.to(banners[1],50,{x:-banners[1].getWidth(),onComplete:function(){
+                     banners[1].remove();
+                 }});
+
+				}
+			}else{
+				if(banners[1].getWidth()+banners[1].x<=700){
+                 bannerCheck = false;
+                 banners[0] = new banner(673,302,plog2);
+                 bannerLayer.addChild(banners[0]);
+                 LTweenLite.to(banners[0],50,{x:-banners[1].getWidth(),onComplete:function(){
+                     banners[0].remove();
+                 }});
+				}
+			}
+	}});
 	//
 	/*
 	* @手机运动监听，摇一摇开始
