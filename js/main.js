@@ -21,40 +21,33 @@ function loading(result){
 	//背景
 	var loadingBkg = new LBitmap(new LBitmapData(result['loadingBkg']));//实例化背景
 	backLayer.addChild(loadingBkg);//添加到背景层
-	//身体
-	person = new LBitmap(new LBitmapData(result['person']));//实例化刘涛身体
-	person.x = 155;//刘涛身体位置x//155 280
-	person.y = 392;//刘涛身体位置y
-	backLayer.addChild(person);//添加到背景层
-	//加载框
-	var box = new LBitmap(new LBitmapData(result['box']));//实例化加载框
-	box.x = (LGlobal.width-box.getWidth())/2;//加载框位置x 
-	box.y = 538;//加载框位置y
-	backLayer.addChild(box);//添加到背景层
-	//加载条
-	var loading = new LBitmap(new LBitmapData(result['loading']));//实例化加载条
-	loading.x = (LGlobal.width-loading.getWidth())/2;//加载条位置x
-	loading.y = 548;//加载条位置y
-	backLayer.addChild(loading);//添加到背景层
-	LTweenLite.to(loading,0.4,{alpha:0.5,loop:true}).to(loading,0.4,{alpha:1.0});//加载条变化
 	//logo
 	var logo = new LBitmap(new LBitmapData(result['logo']));//实例化logo
 	logo.x = (LGlobal.width-logo.getWidth())/2;//logo位置x 
-	logo.y = 635;//logo位置y
+	logo.y = 1040;//logo位置y
 	backLayer.addChild(logo);//添加到背景层
-	LTweenLite.to(logo,0.6,{x:234.5,y:632,scaleX:1.1,scaleY:1.1,loop:true}).to(logo,0.6,{scaleX:1.0,scaleY:1.0,x:245,y:635});//加载条变化
+	bigAndSmall(logo,2,1,1.0,0.1,0,true);
 	//添加音乐
 	var music = new musicBtn(635,15,0.75,0.75,result['music']);
 	backLayer.addChild(music);
+	//加载进度
+	loadText = new setText(0,0,28,"0%",'#070907');
+	loadText.x = setwm(loadText,2);
+	loadText.y = 600;
+	backLayer.addChild(loadText);
+	//进度条
+	shape = new LShape();
+	backLayer.addChild(shape);
+	shape.graphics.drawRoundRect(false, "#f93849", [142, 557, 0, 20, 12], true, "#f93849");
 	//加载图片
     LLoadManage.load(gameImg,loadPro,gameStart);//读取加载页面背景图片
 }
 //加载进度条
 function loadPro(per){
-	person.x = 155+280*per/100;
-
-
-
+	loadText.childList[0].text = parseInt(per)+'%';
+	loadText.x = setwm(loadText,2);
+	shape.graphics.clear();
+	shape.graphics.drawRoundRect(false, "#f93849", [142, 557, 426*parseInt(per)/100, 20, 12], true, "#f93849");
 }
 //开始游戏
 function gameStart(result){
@@ -94,7 +87,6 @@ function setHomepage(){
 	start.x = 128;
 	start.y = 850;
 	backLayer.addChild(start);//添加到背景层
-	bigAndSmall(start,2,2,1.0,0.05,0,true);
 	
 	//我的背包
 	var backBag = new LButton(new LBitmap(new LBitmapData(imgList['backBag'])));
@@ -114,7 +106,7 @@ function setHomepage(){
 	awardSet.x = 483;
 	backLayer.addChild(awardSet);//添加到背景层
 	awardSet.addEventListener(LMouseEvent.MOUSE_DOWN,showAwardSet);
-	//提示
+	//晾衣架
 	var airer = new LBitmap(new LBitmapData(imgList['airer']));
 	airer.x = 88;
 	airer.y = 198;
@@ -126,14 +118,12 @@ function setHomepage(){
 	fesitial.x = 205;
 	fesitial.y = 260;
 	backLayer.addChild(fesitial);//添加到背景层
-	LTweenLite.to(fesitial,1.0,{x:215,y:250,loop:true}).to(fesitial,1.0,{x:205,y:260});
 
 	//免费
 	var noMoney = new LBitmap(new LBitmapData(imgList['noMoney']));
 	noMoney.x = 78;
 	noMoney.y = 385;
 	backLayer.addChild(noMoney);//添加到背景层
-	LTweenLite.to(noMoney,1.0,{x:64,y:381,scaleX:1.05,scaleY:1.05,loop:true}).to(noMoney,1.0,{x:78,y:385,scaleX:1.0,scaleY:1.0});
 	//添加音乐
 	var music = new musicBtn(15,LGlobal.height-60,0.75,0.75,imgList['music']);
 	backLayer.addChild(music);
@@ -213,8 +203,7 @@ function mainGame(){
 	backLayer.addChild(bannerLayer);
 	//填充图
 	var fillLayer = new LSprite();
-	backLayer.addChild(fillLayer);
-	
+	backLayer.addChild(fillLayer);	
 	var bkgleft = new LBitmap(new LBitmapData(imgList['bkgleft']));//实例化背景
 	fillLayer.addChild(bkgleft);//添加到背景层
 	bkgleft.y = 291;
@@ -232,24 +221,28 @@ function mainGame(){
 	var smallShank = new LBitmap(new LBitmapData(imgList['smallShank']));//实例化背景
 	backLayer.addChild(smallShank);//添加到背景层
 	smallShank.x = 395;
-	smallShank.y = 613;
+	smallShank.y = 595;
 	LTweenLite.to(smallShank,0.3,{rotate:20,loop:true}).to(smallShank,0.3,{rotate:-20});
-	//免费
-	var smallNoMoney = new LBitmap(new LBitmapData(imgList['smallNoMoney']));//实例化背景
-	backLayer.addChild(smallNoMoney);//添加到背景层
-	smallNoMoney.x = 126;
-	smallNoMoney.y = 140;
-	bigAndSmall(smallNoMoney,2,2,1.5,0.1,0,true);
-	//摇一摇事件
+	//我要骰子
 	var wantToDice = new LButton(new LBitmap(new LBitmapData(imgList['wantToDice'])));//实例化背景
 	backLayer.addChild(wantToDice);//添加到背景层
 	wantToDice.x = 239;
 	wantToDice.y = 805;
-
 	wantToDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		 shankOpen=false;
 		 wantPop();
 	});
+	//晾衣架
+	var gameAirer = new LBitmap(new LBitmapData(imgList['gameAirer']));
+	backLayer.addChild(gameAirer);//添加到背景层
+	gameAirer.x = 143;
+	gameAirer.y = 38;
+	LTweenLite.to(gameAirer,2.0,{x:158,y:23,loop:true}).to(gameAirer,2.0,{x:143,y:38});
+	//节日
+	var festival = new LBitmap(new LBitmapData(imgList['festival']));
+	backLayer.addChild(festival);//添加到背景层
+	festival.x = 279;
+	festival.y = 66;
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
 	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
@@ -413,41 +406,37 @@ function mainGame(){
 		banners[0] = new banner(673,302,data);
         plog1=plog2=data;
 		bannerLayer.addChild(banners[0]);
-		LTweenLite.to(banners[0],60,{x:-banners[0].getWidth(),onComplete:function(){
+		LTweenLite.to(banners[0],50,{x:-banners[0].getWidth(),onComplete:function(){
 			banners[0].remove();
 		}});
 	});
  	//检测是否轮播完毕
-
-	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
-			/*
-			 * 判断上一轮轮播是否结束
-			 */
-			if(bannerCheck==false)
-			{
-				if(banners[0].getWidth()+banners[0].x<=700){
-                    bannerCheck = true;
-                    banners[1] = new banner(673,302,plog1);
-                    bannerLayer.addChild(banners[1]);
-                    LTweenLite.to(banners[1],60,{x:-banners[1].getWidth(),onComplete:function(){
-                        banners[1].remove();
-                    }});
-
-				}
-			}else{
-				if(banners[1].getWidth()+banners[1].x<=700){
-                    bannerCheck = false;
-                    banners[0] = new banner(673,302,plog2);
-                    bannerLayer.addChild(banners[0]);
-                    LTweenLite.to(banners[0],60,{x:-banners[1].getWidth(),onComplete:function(){
-                        banners[0].remove();
-                    }});
-
-				}
-			}
-
-
-	}});
+//	LTweenLite.to(backLayer,2.0,{loop:true,onComplete:function(){
+//			/*
+//			 * 判断上一轮轮播是否结束
+//			 */
+//			if(bannerCheck==false)
+//			{
+//				if(banners[0].getWidth()+banners[0].x<=700){
+//                  bannerCheck = true;
+//                  banners[1] = new banner(673,302,plog1);
+//                  bannerLayer.addChild(banners[1]);
+//                  LTweenLite.to(banners[1],50,{x:-banners[1].getWidth(),onComplete:function(){
+//                      banners[1].remove();
+//                  }});
+//
+//				}
+//			}else{
+//				if(banners[1].getWidth()+banners[1].x<=700){
+//                  bannerCheck = false;
+//                  banners[0] = new banner(673,302,plog2);
+//                  bannerLayer.addChild(banners[0]);
+//                  LTweenLite.to(banners[0],50,{x:-banners[1].getWidth(),onComplete:function(){
+//                      banners[0].remove();
+//                  }});
+//				}
+//			}
+//	}});
 	//
 	/*
 	* @手机运动监听，摇一摇开始
@@ -553,7 +542,7 @@ function wantPop(){
 	bigAndSmall(wantTitle,2,2,1.0,0.1,0,true);
 	//文字
 	var wantText = [];
-	wantText[0] = new setText(190,530,24,"邀请好友，即可获得     枚骰子",'#fff7b1');
+	wantText[0] = new setText(142,530,24,"每天首次邀请好友，即可获得     枚骰子",'#fff7b1');
 	wantLayer.addChild(wantText[0]);
 	wantText[2] = new setText(120,755,24,"挑战小游戏，闯关成功可最多获得     枚骰子",'#fff7b1');
 	wantLayer.addChild(wantText[2]);
@@ -561,11 +550,11 @@ function wantPop(){
 	wantText[2].x = LGlobal.width;
 	//数量
 	var numberText = [];
-	numberText[0] = new setText(412,520,36,"2",'#ff2000',true);
+	numberText[0] = new setText(461,520,36,"2",'#ff2000',true);
 	numberText[0].alpha = 0;
 	wantLayer.addChild(numberText[0]);
 	
-	numberText[2] = new setText(488,746,36,"3",'#ff2000',true);
+	numberText[2] = new setText(487,746,36,"3",'#ff2000',true);
 	numberText[2].alpha = 0;
 	wantLayer.addChild(numberText[2]);
 	//获取个人次数
@@ -573,16 +562,11 @@ function wantPop(){
 	var personGame;
     personInvite=window.shareNum;
     personGame=1;
-    LTweenLite.to(wantText[0],0.8,{x:250,rotate:0}).to(wantText[0],0.2,{x:190,rotate:0});
+    LTweenLite.to(wantText[0],0.8,{x:280,rotate:0}).to(wantText[0],0.2,{x:142,rotate:0});
     LTweenLite.to(wantText[2],0.8,{x:60,rotate:0}).to(wantText[2],0.2,{x:120,rotate:0,onComplete:function(){
         LTweenLite.to(numberText[0],0.25,{alpha:1.0});
         LTweenLite.to(numberText[2],0.75,{alpha:1.0});
     }});
-	// $.get('json/person.json',function(data){
-	//
-	// });
-	
-	
 	//邀请好友
 	var invite = new LButton( new LBitmap(new LBitmapData(imgList['invite'])));
 	invite.y = 876;
@@ -598,46 +582,10 @@ function wantPop(){
 	challenge.x = 361;
 	wantLayer.addChild(challenge);
 	challenge.addEventListener(LMouseEvent.MOUSE_DOWN,function(){	
-		wantLayer.removeAllChild();
-		wantLayer.remove();
-		hitMouse();
+		hitMouse();	
+		document.getElementById('Jaudio').pause();
+		document.getElementById('mouseMusic').play();
 	});
-}
-//显示不能邀请和邀请
-function gameOrInvite(check){
-	shankOpen=true;
-	//check为真，表面开启邀请的
-	var okLayer = new LSprite();
-	backLayer.addChild(okLayer);
-	okLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	okLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.6)');
-	//背景
-	var okBkg = new LBitmap(new LBitmapData(imgList['okBkg']));
-	okBkg.x = (LGlobal.width-okBkg.getWidth())/2;
-	okBkg.y = (LGlobal.height-okBkg.getHeight())/2;
-	okLayer.addChild(okBkg);
-	if(check==true)
-	{
-		var overSharing = new LBitmap(new LBitmapData(imgList['overSharing']));
-		overSharing.y = okBkg.y+68;
-		overSharing.x = (LGlobal.width-overSharing.getWidth())/2;
-		okLayer.addChild(overSharing);
-	}else{
-		var tomorrow = new LBitmap(new LBitmapData(imgList['tomorrow']));
-		tomorrow.y = okBkg.y+68;
-		tomorrow.x = (LGlobal.width-tomorrow.getWidth())/2;
-		okLayer.addChild(tomorrow);
-	}
-	//好的按钮
-	var ok = new LButton(new LBitmap(new LBitmapData(imgList['ok'])));
-	ok.y = okBkg.y+188;
-	ok.x = (LGlobal.width-ok.getWidth())/2;
-	okLayer.addChild(ok);
-	bigAndSmall(ok,2,2,1.0,0.05,0,true);
-	ok.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		okLayer.removeAllChild();
-		okLayer.remove();
-	})
 }
 //规则说明
 function showRules(){

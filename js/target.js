@@ -19,6 +19,10 @@ function Target(x,y,name,step){
     maskObj.graphics.drawArc(8, "#1166ff", [37, 37, 29, 0,Math.PI*2]);
     tou.mask = maskObj;
 	self.addChild(tou);//添加到人物层
+	//跳的声音
+	self.sound = new LSound();
+	self.addChild(self.sound);
+	self.sound.load('music/jump.wav');
 }
 //设置变小
 Target.prototype.setSmall=function(){
@@ -39,6 +43,7 @@ Target.prototype.moving =function(number,pcid){
 	{
 		number--;
 		self.setSmall();
+		self.sound.play();
 		switch(self.step)
 		{
 			case 0:

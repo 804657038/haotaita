@@ -125,9 +125,10 @@ function shareToFriends(){
 	shareLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		shareLayer.removeAllChild();
 		shareLayer.remove();
-//		console.log(window.shareNum);
 		if(window.shareNum<=0){
-            gameOrInvite(true);
+//          gameOrInvite(true);
+			$('#allPopWindow').SHOW();
+			$('#allPopWindow .winTips').html('你已完成今天首次分享任务，<br/>再次分享不会获得骰子。');
 		}else{
 			shankOpen=true;
 		}
@@ -149,64 +150,37 @@ var dScore;
 var playNumber = 0;
 var playCheck = true;
 var timenumber = 30;
+var mouseLayer0;
+var hitSound;
 function hitMouse(){
-	//清除所有
-	backLayer.die();
-	backLayer.removeAllEventListener();
-	backLayer.removeAllChild();
-	//
-	var mouseLayer = new LSprite();
-	backLayer.addChild(mouseLayer);
-	mouseLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	mouseLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
+	//地鼠游戏层
+	mouseLayer0 = new LSprite();
+	backLayer.addChild(mouseLayer0);
+	mouseLayer0.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	mouseLayer0.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
 	//背景
 	var mouseBkg = new LBitmap(new LBitmapData(imgList["mouseBkg"]));
-	mouseLayer.addChild(mouseBkg);
-	//返回首页
-	var returnToHome = new LButton(new LBitmap(new LBitmapData(imgList["returnToHome"])));
-	mouseLayer.addChild(returnToHome);
-	returnToHome.y = 1010;
-	returnToHome.x = 82;
-	returnToHome.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		if(playCheck==true)
-		{
-			playCheck=false;
-			setHomepage();			
-		}
-	});
-	//玩
-	var playing = new LButton(new LBitmap(new LBitmapData(imgList["playing"])));
-	mouseLayer.addChild(playing);
-	playing.y = 1010;
-	playing.x = 365;
-	playing.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		//playnumber为每天打地鼠的次数
-		if(playCheck==true)
-		{
-			playCheck=false;
-			startPlaying();			
-		}
-	});
-	//
+	mouseLayer0.addChild(mouseBkg);
+	//时间和分数文本
 	tCount = new setText(180,51,30,timenumber+"s",'#eb6855',true);
-	backLayer.addChild(tCount);
+	mouseLayer0.addChild(tCount);
 	dScore = new setText(180,111,30,0,'#ffa500',true);
-	backLayer.addChild(dScore);
+	mouseLayer0.addChild(dScore);
 	//
 	for(var i=0;i<greenx.length;i++)
 	{
 		mouseylist[i] = new mousey(yellowx[i],yellowy[i])
-		mouseLayer.addChild(mouseylist[i]);
+		mouseLayer0.addChild(mouseylist[i]);
 		mouseglist[i] = new mouse(greenx[i],greeny[i])
-		mouseLayer.addChild(mouseglist[i]);
+		mouseLayer0.addChild(mouseglist[i]);
 	}
 	 //添加音乐
 	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
-	backLayer.addChild(music);
+	mouseLayer0.addChild(music);
 	
 	//添加提示
 	var tipsLayer = new LSprite();
-	backLayer.addChild(tipsLayer);
+	mouseLayer0.addChild(tipsLayer);
 	tipsLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
 	tipsLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],false,'rgba(0,0,0,0.75)');
 	//背景
@@ -214,13 +188,19 @@ function hitMouse(){
 	tipsLayer.addChild(mouseTips);
 	//开始挑战
 	var fight = new LButton(new LBitmap(new LBitmapData(imgList["fight"])));	
-	fight.y = 780;
+	fight.y = 810;
 	fight.x = (LGlobal.width-fight.getWidth())/2;
 	tipsLayer.addChild(fight);
+	bigAndSmall(fight,2,2,1.2,0.05,0,true);
 	fight.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		tipsLayer.remove();
 		tipsLayer.removeAllChild();
+		startPlaying();
 	});
+	//添加打的声音
+	hitSound = new LSound();
+	mouseLayer0.addChild(hitSound);
+	hitSound.load('music/hit.mp3');
 }
 //打地鼠
 function startPlaying(){
@@ -334,6 +314,7 @@ function mouse(x,y){
 	self.green1.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(self.hitCheck == true)
 		{
+			hitSound.play();
 			self.hitCheck = false;
 			LTweenLite.remove(self.tween);
 			self.green1.visible = false;
@@ -356,6 +337,7 @@ function mouse(x,y){
 	self.green2.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(self.hitCheck == true)
 		{
+			hitSound.play();
 			self.hitCheck = false;
 			LTweenLite.remove(self.tween);
 			self.green1.visible = false;
@@ -430,6 +412,7 @@ function mousey(x,y){
 	self.yellow1.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(self.hitCheck == true)
 		{
+			hitSound.play();
 			self.hitCheck = false;
 			LTweenLite.remove(self.tween);
 			self.yellow1.visible = false;
@@ -452,6 +435,7 @@ function mousey(x,y){
 	self.yellow2.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(self.hitCheck == true)
 		{
+			hitSound.play();
 			self.hitCheck = false;
 			LTweenLite.remove(self.tween);
 			self.yellow1.visible = false;
@@ -528,6 +512,9 @@ function gameResults(bkg,number){
 		light.visible =false;
 		ntext.visible = false;
 	}
+	if(bkg=='gameSuccess'){
+		ntext.visible = false;
+	}
 	comfirm.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		resultLayer.removeAllChild();
 		resultLayer.remove();
@@ -535,6 +522,10 @@ function gameResults(bkg,number){
 		dScore.childList[0].text=0;
 		timenumber=30;
 		tCount.childList[0].text=timenumber+'s';
+		mouseLayer0.removeAllChild();
+		mouseLayer0.remove();
+		document.getElementById('Jaudio').play();
+		document.getElementById('mouseMusic').pause();
 	})
 }
 //摇一摇
