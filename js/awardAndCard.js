@@ -93,7 +93,7 @@ function myCard(){
 	send.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 
 		if(window.gId==0||window.gId==null){
-			$('#allPopWindow').SHOW();
+			$('#allPopWindow').show();
 			$('#allPopWindow .winTips').html('还没有幸运卡，<br/>赶紧去收集吧！');
 		}else{
             confirmCardSend();
