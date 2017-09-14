@@ -10,7 +10,8 @@
 		<script src="js/jquery.min.js"></script>
         <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <script type="text/javascript">
-            window.link="https://haotaitai.hengdikeji.com/";
+//          window.link="https://haotaitai.hengdikeji.com/";
+			window.link="https://haotaitai.hengdikeji.com/g/";
             window.fxTitle="好太太-免单疯抢季";
             window.fxDesc="呼朋唤友赢超值大礼包";
             window.fxLink="https://haotaitai.hengdikeji.com/haotaitai2/index.html";
@@ -162,14 +163,20 @@
 				</div>
 			</div>
 		</div>
+		<!--背景音乐-->
 		<audio id="Jaudio"  preload loop="loop" src="music/bg.mp3" hidden="hidden"></audio >
+		<!--摇一摇-->
 		<audio id="shanks"  preload loop="loop" src="music/shank.mp3" hidden="hidden"></audio>
+		<!--打地鼠背景音乐-->
+		<audio id="mouseMusic"  preload src="music/bgm.mp3" hidden="hidden"></audio>
+		<!--得到结果-->
+		<audio id="getDice"  preload src="music/getDice.wav" hidden="hidden"></audio>
 		<!--通用弹窗-->
 		<div id="allPopWindow" style="display: none;">
 			<div class="allPopWindow">
 				<ul>
 					<li>
-						<p class="winTips">赠送成功</p>
+						<p class="winTips">赠送成功<br/>水电费十点</p>
 					</li>
 					<li>
 						<a href="javascript:;" class="ok">好的</a>
@@ -192,6 +199,7 @@
 	<script type="text/javascript" src="js/sendToFriend.js" ></script>
 	<script type="text/javascript" src="js/main.js?v=8" ></script>
 	<script>
+			//音乐
 			function audioAutoPlay(id,v){
 			    var audio = document.getElementById(id);
 			    audio.play();
@@ -208,8 +216,10 @@
 			    }, false);
 			}
 			audioAutoPlay('Jaudio');
-
-
+			audioAutoPlay('shanks',0);
+			audioAutoPlay('getDice',0);
+			audioAutoPlay('mouseMusic',0);
+			
             function share(type){
                 $.ajax({
                     url:window.link+"share/"+type,
@@ -238,7 +248,7 @@
                  	}
                  });
             }
-			audioAutoPlay('shanks',0);
+			//关闭弹窗
 			$(document).on('touchstart','.ok',function(){
 				$('#allPopWindow').hide();
 			});

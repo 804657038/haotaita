@@ -52,13 +52,28 @@ a{
 	background-color: white;
 	border-radius: 3%;
 }
-.storeBox .storeList .storeName{
+/*修改的开始*/
+.storeBox .storeList .storeName{	
 	margin-left: 2.5%;
 	font-size: 18px;
 	line-height: 44px;
 	padding-top: 10px;
-	font-weight: bold;
+	/*font-weight: bold;*/
+	width: 72.5%;
+	float: left;
 }
+.storeBox .storeList .km{
+	margin-top: 25px;
+	line-height: 20px;
+	text-indent: 18px;
+	width: 22.5%;
+	margin-right: 2.5%;
+	float: right;
+	background: url(../img/address.png) no-repeat left center;
+	text-indent: 18px;
+	background-size: auto 100%;
+}
+/*修改的结束*/
 .storeBox .storeList .storeAddress{	
 	font-size: 14px;
 	line-height: 36px;
@@ -67,12 +82,12 @@ a{
 	padding-bottom: 10px;
 }
 .storeBox .storeList .storeAddress p:nth-child(1){
-	width: 70%;
+	/*width: 70%;*/
 	float: left;
 	margin-left: 2.5%;
 	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
 }
-.storeBox .storeList .storeAddress p:nth-child(2){
+/*.storeBox .storeList .storeAddress p:nth-child(2){
 	width: 25%;
 	float: right;
 	background: url(../img/address.png) no-repeat;
@@ -81,15 +96,16 @@ a{
 	margin-top: 8px;
 	background-size: auto 100%;
 	margin-right: 2.5%;
-}
+}*/
+/*修改了大小*/
 .storeList ul li:nth-child(3) a{
-	height: 60px;
+	height: 45px;
 	width: 49.5%;
 	float: left;
 	font-size: 16px;
 	font-weight: bold;
 	text-align: center;
-	line-height: 60px;
+	line-height: 45px;
 }
 .storeList ul li:nth-child(3) a:first-child{
 	border-right: 1px solid #cfcfcf;
@@ -221,10 +237,11 @@ a{
 }
 .allPopWindow .winTips{
 	text-align: center;
-	font-size: 18px;
-	line-height: 64px;
-	color: #333333;
-	font-weight: bold;
+    font-size: 18px;
+    line-height: 28px;
+    color: #333333;
+    font-weight: bold;
+    padding: 12px;
 }
 .allPopWindow .ok{
 	display: block;

@@ -45,11 +45,12 @@
             <ul>
                 <li>
                     <p class="storeName">{{item.tags}}</p>
+                    <p class="km">{{(item.distance/1000).toFixed(2)}}km</p>
+                    <div class="clearBoth"></div>
                 </li>
                 <li>
                     <div class="storeAddress">
-                        <p>{{item.address}}</p>
-                        <p>{{(item.distance/1000).toFixed(2)}}km</p>
+                        <p>{{item.address}}</p> 
                         <div class="clearBoth"></div>
                     </div>
                 </li>

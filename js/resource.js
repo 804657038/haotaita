@@ -1,10 +1,7 @@
 //预加载的图片
 var loadImg = [
-	{path:'img/person.png',type:'img',name:'person'},//刘涛
-	{path:'img/loading.png',type:'img',name:'loading'},//进度条
 	{path:'img/loadingBkg.jpg',type:'img',name:'loadingBkg'},//进度图背景
 	{path:'img/logo.png',type:'img',name:'logo'},//logo
-	{path:'img/box.png',type:'img',name:'box'},//加载框
 	{path:'img/music.png',type:'img',name:'music'}//音乐
 ];
 //需要加载的图片
@@ -42,7 +39,8 @@ var gameImg = [
 	{path:'img/star.png',type:'img',name:'star'},//星星
 	{path:'img/tips.png',type:'img',name:'tips'},//提示
 	{path:'img/know.png',type:'img',name:'know'},//知道了
-	{path:'img/smallNoMoney.png',type:'img',name:'smallNoMoney'},//免费
+	{path:'img/festival.png',type:'img',name:'festival'},//节日
+	{path:'img/gameAirer.png',type:'img',name:'gameAirer'},//游戏晾衣架
 	{path:'img/bigDice.png',type:'img',name:'bigDice'},//大骰子
 	{path:'img/challenge.png',type:'img',name:'challenge'},//挑战游戏
 	{path:'img/close.png',type:'img',name:'close'},//关闭
@@ -50,9 +48,6 @@ var gameImg = [
 	{path:'img/wantBkg.png',type:'img',name:'wantBkg'},//我要骰子背景
 	{path:'img/wantTitle.png',type:'img',name:'wantTitle'},//骰子标题
 	{path:'img/ok.png',type:'img',name:'ok'},//ok
-	{path:'img/okBkg.png',type:'img',name:'okBkg'},//ok背景
-	{path:'img/tomorrow.png',type:'img',name:'tomorrow'},//明天提示
-	{path:'img/overSharing.png',type:'img',name:'overSharing'},//邀请用完
 	{path:'img/bigHug.png',type:'img',name:'bigHug'},//ok
 	{path:'img/fiveEightGet.png',type:'img',name:'fiveEightGet'},//ok背景
 	{path:'img/goTip.png',type:'img',name:'goTip'},//明天提示
@@ -174,9 +169,7 @@ var gameImg = [
 	{path:'img/yellow0.png',type:'img',name:'yellow0'},//黄细菌0
 	{path:'img/yellow1.png',type:'img',name:'yellow1'},//黄细菌1
 	{path:'img/yellow2.png',type:'img',name:'yellow2'},//黄细菌2
-	{path:'img/playing.png',type:'img',name:'playing'},//玩
 	{path:'img/mouseBkg.jpg',type:'img',name:'mouseBkg'},//地鼠背景
-	{path:'img/returnToHome.png',type:'img',name:'returnToHome'},//返回首页
 	{path:'img/s1.png',type:'img',name:'s1'},//+1
 	{path:'img/gameError.png',type:'img',name:'gameError'},//游戏结果
 	{path:'img/games1.png',type:'img',name:'games1'},//游戏结果
@@ -190,7 +183,11 @@ var gameImg = [
 	{path:'img/confirmBtn.png',type:'img',name:'confirmBtn'},//确定
 	{path:'img/inviteFriends.png',type:'img',name:'inviteFriends'},//邀请好友
 	{path:'img/hasnotChoice.png',type:'img',name:'hasnotChoice'},//没有选择
-	
+	{path:'http://192.168.0.117/tou.jpg',type:'img',name:'tou'},//微信地址
+	{path:'img/mouseTips.png',type:'img',name:'mouseTips'},//打地鼠提示
+	{path:'img/fight.png',type:'img',name:'fight'},//挑战
+	{path:'music/hit.mp3',name:'hit'},//打地鼠声音
+	{path:'music/jump.wav',name:'jump'},//跳的声音
 ];
 //全局变量
 var backLayer,person,imgList;
@@ -203,6 +200,8 @@ var targetR = [46,47,47,0,46,45,0,0,0,0,0,0,0,45,46,47,0,47,46,0,0,0,0,0,0,46,0,
 var awardLists;
 var wordIndex = -1;
 var diceNumberWord;//骰子个数
+var loadText;//加载进度提示
+var shape;//进度条
 var shankOpen = false;
 for(var i=0;i<targetX.length;i++)
 {
