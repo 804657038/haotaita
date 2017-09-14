@@ -529,20 +529,3 @@ function gameResults(bkg,number){
 		document.getElementById('mouseMusic').pause();
 	})
 }
-//摇一摇
-function shankingOne(){
-	var shankLayer = new LSprite();
-	backLayer.addChild(shankLayer);
-	shankLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	shankLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-	//背景
-	var shanking = new LBitmap(new LBitmapData(imgList["shanking"]));
-
-	shanking.y = (LGlobal.height-shanking.getHeight())/2;
-	shanking.x = (LGlobal.width-shanking.getWidth())/2;
-	shankLayer.addChild(shanking);
-	shanking.rotate=-30;
-	LTweenLite.to(shanking,0.4,{rotate:30,loop:true}).to(shanking,0.4,{rotate:-30});
-	document.getElementById('shanks').play();
-	return shankLayer;
-}

@@ -224,3 +224,4 @@ var x = y = z = last_x = last_y = last_z = 0;
 var gameOrAward;
 var diceList = [];
 var hasFirst=true;
+var wechatHead;
