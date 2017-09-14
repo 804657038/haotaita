@@ -536,11 +536,12 @@ function shankingOne(){
 	shankLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
 	//背景
 	var shanking = new LBitmap(new LBitmapData(imgList["shanking"]));
+	
 	shanking.y = (LGlobal.height-shanking.getHeight())/2;
 	shanking.x = (LGlobal.width-shanking.getWidth())/2;
 	shankLayer.addChild(shanking);
 	shanking.rotate=-30;
-	LTweenLite.to(shanking,0.4,{rotate:30,loop:true}).to(shanking,0.4,{rotate:-30});
+	// LTweenLite.to(shanking,0.4,{rotate:30,loop:true}).to(shanking,0.4,{rotate:-30});
 	document.getElementById('shanks').play();
 	return shankLayer;
 }

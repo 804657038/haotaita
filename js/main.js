@@ -246,36 +246,35 @@ function mainGame(){
 	//大骰子
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
 	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-        // AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
-        //     if(res.code==1){
-        //         var number = res.dice;
-        //         window.money=res.redValue;
-        //         window.id=res.id;
-        //         var shankLayer =shankingOne();
-        //         var pid=res.pid;
-        //         if(res.prize_id!=7){
-        //             diceNumberWord.childList[0].text--;
-        //         }
-        //
-        //         setTimeout(function(){
-        //             shankLayer.remove();//将要以摇一摇画面移除
-        //             document.getElementById('shanks').pause();
-        //             diceList[number-1].visible = true;//显示骰子
-        //             diceList[number-1].alpha = 0;
-        //             LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
-        //                 LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
-        //                     diceList[number-1].visible = false;
-        //                     setTimeout(function(){
-        //                         target.moving(number,pid);
-        //                     },500);
-        //                 }});
-        //             }});
-        //         },1000);
-        //     }else{
-        //         myAlert(res.msg);
-        //     }
-        //
-        // });
+        AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
+            if(res.code==1){
+                var number = res.dice;
+                window.money=res.redValue;
+                window.id=res.id;
+                var shankLayer =shankingOne();
+                var pid=res.pid;
+                if(res.prize_id!=7){
+                    diceNumberWord.childList[0].text--;
+                }
+                setTimeout(function(){
+                    shankLayer.remove();//将要以摇一摇画面移除
+                    document.getElementById('shanks').pause();
+                    diceList[number-1].visible = true;//显示骰子
+                    diceList[number-1].alpha = 0;
+                    LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+                        LTweenLite.to(diceList[number-1],0.5,{delay:1.5,alpha:0,onComplete:function(){
+                            diceList[number-1].visible = false;
+                            setTimeout(function(){
+                                target.moving(number,pid);
+                            },500);
+                        }});
+                    }});
+                },1000);
+            }else{
+                myAlert(res.msg);
+            }
+
+        });
 
 	});
 
@@ -468,7 +467,6 @@ function mainGame(){
                   		//先出现摇一摇的画面
 
                 		//服务器请求到骰子数目
-
 						AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
                             if(res.code==1){
                                 var number = res.dice;
@@ -479,7 +477,6 @@ function mainGame(){
                                 if(res.prize_id!=7){
                                     diceNumberWord.childList[0].text--;
                                 }
-
                                 setTimeout(function(){
                                     shankLayer.remove();//将要以摇一摇画面移除
                                     document.getElementById('shanks').pause();
@@ -499,8 +496,6 @@ function mainGame(){
                             }
 
 						});
-
-
                     }
                 }  
                 last_x = x; 
