@@ -10,7 +10,9 @@ function Target(x,y,name,step){
 	self.addChild(self.img);
 	self.tween = bigAndSmall(self,2,2,1.0,0.1,0.2,true);
 	//微信头像
+
 	var tou = new LBitmap(new LBitmapData(imgList['tou']));//实例化背景
+
 	tou.x=8;
 	tou.y=8;
 	tou.scaleX = 59/tou.getWidth();

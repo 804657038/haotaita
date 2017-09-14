@@ -330,7 +330,7 @@ function mainGame(){
 	var target;
 
 	var step=0;
-
+	console.log(imgList['tou']);
 	//向服务器请求个人信息数据
 	function getAuth(res,m){
         target = new Target(targetX[res.step],targetY[res.step],'target',res.step);
