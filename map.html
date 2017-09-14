@@ -3,11 +3,11 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
-    <title>好太太</title>
+    <title>附近门店-好太太</title>
     <link rel="stylesheet" href="css/index.css?v=2" />
     <script src="js/jquery.min.js"></script>
     <script type="text/javascript">
-        window.link="hhttps://haotaitai.hengdikeji.com/";
+        window.link="https://haotaitai.hengdikeji.com/";
 
     </script>
     <script type="text/javascript" src="js/lib.js"></script>
@@ -146,6 +146,7 @@
 
             },
             daohan:function(x,y,title,addres){
+                console.log(x)
                 wx.ready(function(){
                     wx.openLocation({
                         latitude:x, // 纬度，浮点数，范围为90 ~ -90

@@ -234,14 +234,14 @@ function startPlaying(){
 						"__token__":window.token
 					},function(res){
 						if(res.code==1){
-                            diceNumberWord=res.dice;
+                            // diceNumberWord=res.dice;
                             if(dScore.childList[0].text>=30)
                             {
-                                gameResults('games3',1);
+                                gameResults('games3',res.dice);
                             }else if(dScore.childList[0].text>=20){
-                                gameResults('games2',2);
+                                gameResults('games2',res.dice);
                             }else if(dScore.childList[0].text>=10){
-                                gameResults('games1',3);
+                                gameResults('games1',res.dice);
                             }else{
                                 gameResults('gameError');
                             }
@@ -506,7 +506,7 @@ function gameResults(bkg,number){
 	resultLayer.addChild(comfirm);
 	var ntext =  new setText(315,698,30,number,'#902a24',true);
 	resultLayer.addChild(ntext);
-	if(bkg=='gameError'){
+	if(!number){
 		light.visible =false;
 		ntext.visible = false;
 	}
