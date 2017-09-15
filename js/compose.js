@@ -25,19 +25,9 @@ function ConposeMyCard(){
 		conposeTexts[i].y = 515;
 		conposeTexts[i].x = (LGlobal.width-conposeTexts[i].getWidth())/2;
 		backLayer.addChild(conposeTexts[i]);
-		conposeTexts[i].alpha = 0;
+		conposeTexts[i].visible = false;
 	}
-	conposeTexts[0].alpha = 1;
-	var conposeIndex = 0;
-	LTweenLite.to(backLayer,4.0,{loop:true,onComplete:function(){
-		LTweenLite.to(conposeTexts[conposeIndex],1.0,{alpha:0})
-		conposeIndex++;
-		if(conposeIndex==4)
-		{
-			conposeIndex=0;
-		}
-		LTweenLite.to(conposeTexts[conposeIndex],1.0,{alpha:1.0});
-	}});
+	conposeTexts[0].visible = true;
 	//我的卡片
 
 	for(var i=0;i<5;i++)
@@ -49,6 +39,34 @@ function ConposeMyCard(){
 			var index = this.sp.index;
 			this.sp.visible = false;
 			ConposeCardNumber--;
+			switch(ConposeCardNumber){
+				case 0:
+				case 1:
+					conposeTexts[0].visible=true;
+					conposeTexts[1].visible=false;
+					conposeTexts[2].visible=false;
+					conposeTexts[3].visible=false;
+					break;
+				case 2:
+					conposeTexts[0].visible=false;
+					conposeTexts[1].visible=true;
+					conposeTexts[2].visible=false;
+					conposeTexts[3].visible=false;
+					break;
+				case 3:
+				case 4:
+					conposeTexts[0].visible=false;
+					conposeTexts[1].visible=false;
+					conposeTexts[2].visible=true;
+					conposeTexts[3].visible=false;
+					break;
+				case 5:
+					conposeTexts[0].visible=false;
+					conposeTexts[1].visible=false;
+					conposeTexts[2].visible=false;
+					conposeTexts[3].visible=true;
+					break;
+			}
 			cards[index-1].hasCard.alpha = 1;
 			cards[index-1].cardBkg.alpha = 1;
 			cards[index-1].textNumber.alpha = 1;
@@ -85,6 +103,34 @@ function ConposeMyCard(){
                     if(this.sp.cardNumber>0)
                     {
                         ConposeCardNumber++;
+                        switch(ConposeCardNumber){
+							case 0:
+							case 1:
+								conposeTexts[0].visible=true;
+								conposeTexts[1].visible=false;
+								conposeTexts[2].visible=false;
+								conposeTexts[3].visible=false;
+								break;
+							case 2:
+								conposeTexts[0].visible=false;
+								conposeTexts[1].visible=true;
+								conposeTexts[2].visible=false;
+								conposeTexts[3].visible=false;
+								break;
+							case 3:
+							case 4:
+								conposeTexts[0].visible=false;
+								conposeTexts[1].visible=false;
+								conposeTexts[2].visible=true;
+								conposeTexts[3].visible=false;
+								break;
+							case 5:
+								conposeTexts[0].visible=false;
+								conposeTexts[1].visible=false;
+								conposeTexts[2].visible=false;
+								conposeTexts[3].visible=true;
+								break;
+						}
                         cardList[index-1].visible = true;
                         cardList[index-1].id=this.sp.id;
                         this.sp.cardNumber--;
