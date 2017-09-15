@@ -4,6 +4,7 @@ var ConposeCardNumber = 0;
 var cardList = [];
 function ConposeMyCard(){
 	//清除所有
+    ConposeCardNumber = 0;
 	backLayer.die();
 	backLayer.removeAllEventListener();
 	backLayer.removeAllChild();
