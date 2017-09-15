@@ -78,7 +78,6 @@ function setHomepage(){
         receive();
         hasFirst=false;
 	}
-
 	//清除所有
 	backLayer.die();
 	backLayer.removeAllEventListener();
@@ -97,7 +96,11 @@ function setHomepage(){
 	start.x = 128;
 	start.y = 850;
 	backLayer.addChild(start);//添加到背景层
-	
+	//内测阶段
+	var neice1 = new setText(100,1055,32,"内测阶段，活动开始时",'#ff0000');
+	backLayer.addChild(neice1);//添加到背景层
+	var neice2 = new setText(140,1092,32,"会清空所有数据",'#ff0000');
+	backLayer.addChild(neice2);//添加到背景层
 	//我的背包
 	var backBag = new LButton(new LBitmap(new LBitmapData(imgList['backBag'])));
 	backBag.x = 128;
