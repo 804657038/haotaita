@@ -99,7 +99,7 @@ function enjoy()
 	//分享
     //如果成功
     window.title="您的好友给您赠送了一份礼物";
-    window.fxLink=window.link+"haotaitai2/index.html?id="+window.gId+'&uid='+window.uid+"&type=1";
+    window.fxLink=window.link+"htt/index.html?id="+window.gId+'&uid='+window.uid+"&type=1";
 
 	window.hasGitf=true;
     window.gType=1;

@@ -482,7 +482,7 @@ function Coupon(y,name,hasUse,order,index,code,hasGift)
 	self.donate.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
         confirmCardSend2();
         window.gId=self.index;
-        window.fxLink=window.link+"haotaitai2/index.html?id="+self.index+'&uid='+window.uid;
+        window.fxLink=window.link+"htt/index.html?id="+self.index+'&uid='+window.uid;
         // self.use.visible = false;
         // self.donate.visible = false;
 
