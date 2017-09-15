@@ -11,7 +11,7 @@ function Target(x,y,name,step){
 	self.tween = bigAndSmall(self,2,2,1.0,0.1,0.2,true);
 	//微信头像
 
-	var tou = new LBitmap(new LBitmapData(imgList['tou']));//实例化背景
+	var tou = new LBitmap(new LBitmapData(wechatHead));//实例化背景
 
 	tou.x=8;
 	tou.y=8;
@@ -40,7 +40,6 @@ Target.prototype.setSmall=function(){
 //人物移动
 Target.prototype.moving =function(number,pcid){
 	var self = this;
-	console.log(pcid);
 	if(number>0)
 	{
 		number--;

@@ -98,13 +98,16 @@ function banner(x,y,texts)
 	var self=this;
 	self.x = x;
 	self.y = y;
+	self.textList = new Array(texts.length);
 	for(var i=0;i<texts.length;i++)
 	{
 		if(i==0)
 		{
-			self.addChild(new setText(0,0,20,texts[i],'#fff7b1'));
+			self.textList[i] = new setText(0,0,20,texts[i],'#fff7b1');
+			self.addChild(self.textList[i]);
 		}else{
-			self.addChild(new setText(texts[i].length*18*i+i*20,0,20,texts[i],'#fff7b1'));
+			self.textList[i] = new setText(self.textList[i-1].x+self.textList[i-1].getWidth()+20,0,20,texts[i],'#fff7b1');
+			self.addChild(self.textList[i]);
 		}
 	}
 }
@@ -528,21 +531,4 @@ function gameResults(bkg,number){
 		document.getElementById('Jaudio').play();
 		document.getElementById('mouseMusic').pause();
 	})
-}
-//摇一摇
-function shankingOne(){
-	var shankLayer = new LSprite();
-	backLayer.addChild(shankLayer);
-	shankLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	shankLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-	//背景
-	var shanking = new LBitmap(new LBitmapData(imgList["shanking"]));
-
-	shanking.y = (LGlobal.height-shanking.getHeight())/2;
-	shanking.x = (LGlobal.width-shanking.getWidth())/2;
-	shankLayer.addChild(shanking);
-	shanking.rotate=-30;
-	LTweenLite.to(shanking,0.4,{rotate:30,loop:true}).to(shanking,0.4,{rotate:-30});
-	document.getElementById('shanks').play();
-	return shankLayer;
 }
