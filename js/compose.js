@@ -3,6 +3,7 @@ var ConposeCardNumber = 0;
 //我的卡片
 var cardList = [];
 function ConposeMyCard(){
+	ConposeCardNumber = 0;
 	//清除所有
 	backLayer.die();
 	backLayer.removeAllEventListener();
