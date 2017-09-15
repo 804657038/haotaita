@@ -191,6 +191,12 @@ var gameImg = [
 	{path:'music/jump.wav',name:'jump'},//跳的声音
 
     {path:'img/szdql.gif',type:'img',name:'szdql'},//骰子gif
+    
+    {path:'img/sendMian.png',type:'img',name:'sendMian'},//送的免
+    {path:'img/sendDan.png',type:'img',name:'sendDan'},//送的单
+    {path:'img/sendFeng.png',type:'img',name:'sendFeng'},//送的疯
+    {path:'img/sendJi.png',type:'img',name:'sendJi'},//送的季
+    {path:'img/sendQiang.png',type:'img',name:'sendQiang'},//送的抢
 ];
 //全局变量
 var backLayer,person,imgList;

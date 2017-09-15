@@ -98,13 +98,16 @@ function banner(x,y,texts)
 	var self=this;
 	self.x = x;
 	self.y = y;
+	self.textList = new Array(texts.length);
 	for(var i=0;i<texts.length;i++)
 	{
 		if(i==0)
 		{
-			self.addChild(new setText(0,0,20,texts[i],'#fff7b1'));
+			self.textList[i] = new setText(0,0,20,texts[i],'#fff7b1');
+			self.addChild(self.textList[i]);
 		}else{
-			self.addChild(new setText(texts[i].length*18*i+i*20,0,20,texts[i],'#fff7b1'));
+			self.textList[i] = new setText(self.textList[i-1].x+self.textList[i-1].getWidth()+20,0,20,texts[i],'#fff7b1');
+			self.addChild(self.textList[i]);
 		}
 	}
 }

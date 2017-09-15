@@ -68,8 +68,7 @@ function setHomepage(){
     loader.addEventListener(LEvent.COMPLETE, function(event){
     	wechatHead=event.target;
     });
-    loader.load("http://192.168.100.16/tou.jpg", "bitmapData");
-
+    loader.load("http://192.168.0.117/tou.jpg", "bitmapData");
 	///
     if(hasFirst==true){
         receive();
@@ -433,7 +432,7 @@ function mainGame(){
 			 */
 			if(bannerCheck==false)
 			{
-				if(banners[0].getWidth()+banners[0].x<=700){
+				if(banners[0].getWidth()+banners[0].x<=680){
                  bannerCheck = true;
                  banners[1] = new banner(673,302,plog1);
                  bannerLayer.addChild(banners[1]);
@@ -443,7 +442,7 @@ function mainGame(){
 
 				}
 			}else{
-				if(banners[1].getWidth()+banners[1].x<=700){
+				if(banners[1].getWidth()+banners[1].x<=680){
                  bannerCheck = false;
                  banners[0] = new banner(673,302,plog2);
                  bannerLayer.addChild(banners[0]);
