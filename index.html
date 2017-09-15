@@ -9,8 +9,8 @@
 		<script src="js/jquery.min.js"></script>
         <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <script type="text/javascript">
-//            window.link="https://haotaitai.hengdikeji.com/";
-			window.link="https://haotaitai.hengdikeji.com/g/";
+            window.link="https://haotaitai.hengdikeji.com/";
+//			window.link="https://haotaitai.hengdikeji.com/g/";
             window.fxTitle="好太太-免单疯抢季";
             window.fxDesc="呼朋唤友赢超值大礼包";
             window.fxLink="https://haotaitai.hengdikeji.com/haotaitai2/index.html";
@@ -48,7 +48,7 @@
             function myAlert(msg,url){
                 $('#allPopWindow').find('.winTips').text(msg);
                 if(url){
-                    $('#allPopWindow').find('.ok').attr('href',url);
+                    $('#allPopWindow').find('.ok').attr({"href":url,"data-id":1});
                 }
 
                 $('#allPopWindow').show();
@@ -158,11 +158,11 @@
 				</ul>
 			</div>
 			<div class="getResult" hidden="hidden">
-				<div class="getBoxF">
+				<div class="getBoxF" style="display: none;">
 					<img src="img/getfail.png" />
 					<a href="###" class="fine"></a>
 				</div>
-				<div class="getBoxS">
+				<div class="getBoxS" style="display: none">
 					<img src="img/getsuccess.png" />
 					<a href="###" class="fine"></a>
 				</div>
@@ -233,11 +233,11 @@
                     data:{},
                     async: false,
                     success:function(datas){
-                        if(datas.code==1){
+                        if(datas.code==2){
 
                             myAlert('分享成功，获得2枚骰子',"index.html?v="+Math.random());
 
-                        }else{
+                        }else if(datas.code==0){
                             myAlert(datas.msg);
                         }
                     },
@@ -257,6 +257,11 @@
             }
 			//关闭弹窗
 			$(document).on('touchstart','.ok',function(){
+			    var href=$(this).attr('href');
+			    var data_id=$(this).attr('data-id');
+			    if(data_id==1){
+			        window.location.href=href;
+                }
 				$('#allPopWindow').hide();
 			});
 
