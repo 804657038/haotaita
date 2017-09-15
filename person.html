@@ -50,7 +50,7 @@
 			</div>
 		</div>
 		<!--奖品信息-->
-		<div  class="box" id="box2">
+		<div  class="box" id="box2" style="display: none;">
 			<div id="awards">
 				<div class="awards">
 					<img src="img/lookBkg.png" />
@@ -110,7 +110,7 @@
 			</div>
 		</div>
 		<!--填写型号-->
-		<div  class="box" id="box4">
+		<div  class="box" id="box4" style="display: none;">
 			<div id="set" >
 				<div class="set" >
 					<img src="img/seting.png" />
@@ -141,8 +141,19 @@
 	<script src="js/ydui.js"></script>
 	<script>
 		$(function(){
+			$(document).on('focusin','input',function(){
+				window.parent.$('#good').hide();
+			});
+			$(document).on('focusout','input',function(){
+				window.parent.$('#good').show();
+			});
+			$(document).on('focusin','textarea',function(){
+				window.parent.$('#good').hide();
+			});
+			$(document).on('focusout','textarea',function(){
+				window.parent.$('#good').show();
+			});
 			//我也要玩
-//            var event="touchstart"；
             var event="click";
 			$(document).on(event,".inforClose",function(){
 				if(window.parent.gameOrAward==true)
