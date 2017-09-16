@@ -213,78 +213,86 @@ function startPlaying(){
 	mouseLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
 	var timeCount = new setText(270,430,260,3,'#ffffff',true);
 	mouseLayer.addChild(timeCount);
-	var time = setInterval(function(){
+	document.getElementById('three').play();
+	var time = setInterval(function(){	
 		timeCount.childList["0"].text--;
+		if(timeCount.childList["0"].text==0)
+		{
+			document.getElementById('zero').play();
+		}
 		if(timeCount.childList["0"].text==-1)
 		{
 			clearInterval(time);
 			mouseLayer.remove();
-			mouseLayer.removeAllChild();	
-			var x1=-1;
-			var x2=-1;
-			var x3=-1;
-			var daoshu =  LTweenLite.to(backLayer,1.0,{onStart:function(){
-				/*
-				 * games3为3个骰子，games2为2个骰子，games1为1个骰子，gameError为0个骰子
-				 * 赢得骰子数发送到后台
-				 */
-				if(timenumber==-1)
-				{
-					AjaxR(window.link+'games/',"POST",{
-						"fraction":dScore.childList[0].text,
-						"__token__":window.token
-					},function(res){
-						if(res.code==1){
-                            // diceNumberWord=res.dice;
-                            if(dScore.childList[0].text>=30)
-                            {
-                                gameResults('games3',res.dice);
-                            }else if(dScore.childList[0].text>=20){
-                                gameResults('games2',res.dice);
-                            }else if(dScore.childList[0].text>=10){
-                                gameResults('games1',res.dice);
-                            }else{
-                                gameResults('gameError');
-                            }
-						}else{
-                            if(dScore.childList[0].text>=10){
-                                gameResults('gameSuccess');
-                            }else{
-                                gameResults('gameError');
-                            }
-						}
-
-					});
-					LTweenLite.remove(daoshu);
-					//判断是否为今天第一次玩
-
+			mouseLayer.removeAllChild();
+			setTimeout(function(){
 					
-				}else{
-					tCount.childList[0].text=timenumber+'s';
-					timenumber--;
-					x1=parseInt(Math.random()*3);
-					x2=3+parseInt(Math.random()*3);
-					x3=6+parseInt(Math.random()*3);
-					if(parseInt(Math.random()*2)==0)
+				var x1=-1;
+				var x2=-1;
+				var x3=-1;
+				var daoshu =  LTweenLite.to(backLayer,1.0,{onStart:function(){
+					/*
+					 * games3为3个骰子，games2为2个骰子，games1为1个骰子，gameError为0个骰子
+					 * 赢得骰子数发送到后台
+					 */
+					if(timenumber==-1)
 					{
-						mouseglist[x1].showing();
+						AjaxR(window.link+'games/',"POST",{
+							"fraction":dScore.childList[0].text,
+							"__token__":window.token
+						},function(res){
+							if(res.code==1){
+	                            // diceNumberWord=res.dice;
+	                            if(dScore.childList[0].text>=30)
+	                            {
+	                                gameResults('games3',res.dice);
+	                            }else if(dScore.childList[0].text>=20){
+	                                gameResults('games2',res.dice);
+	                            }else if(dScore.childList[0].text>=10){
+	                                gameResults('games1',res.dice);
+	                            }else{
+	                                gameResults('gameError');
+	                            }
+							}else{
+	                            if(dScore.childList[0].text>=10){
+	                                gameResults('gameSuccess');
+	                            }else{
+	                                gameResults('gameError');
+	                            }
+							}
+	
+						});
+						LTweenLite.remove(daoshu);
+						//判断是否为今天第一次玩
+	
+						
 					}else{
-						mouseylist[x1].showing();
-					}
-					if(parseInt(Math.random()*2)==0)
-					{
-						mouseylist[x2].showing();
-					}else{
-						mouseglist[x2].showing();
-					}
-					if(parseInt(Math.random()*2)==0)
-					{
-						mouseglist[x3].showing();
-					}else{
-						mouseylist[x3].showing();
-					}
-				}			
-			},loop:true});
+						tCount.childList[0].text=timenumber+'s';
+						timenumber--;
+						x1=parseInt(Math.random()*3);
+						x2=3+parseInt(Math.random()*3);
+						x3=6+parseInt(Math.random()*3);
+						if(parseInt(Math.random()*2)==0)
+						{
+							mouseglist[x1].showing();
+						}else{
+							mouseylist[x1].showing();
+						}
+						if(parseInt(Math.random()*2)==0)
+						{
+							mouseylist[x2].showing();
+						}else{
+							mouseglist[x2].showing();
+						}
+						if(parseInt(Math.random()*2)==0)
+						{
+							mouseglist[x3].showing();
+						}else{
+							mouseylist[x3].showing();
+						}
+					}			
+				},loop:true});
+			},800);
 		}
 	},1000);
 }

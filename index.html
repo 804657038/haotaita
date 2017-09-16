@@ -176,6 +176,10 @@
 		<audio id="mouseMusic"  preload src="music/bgm.mp3" hidden="hidden"></audio>
 		<!--得到结果-->
 		<audio id="getDice"  preload src="music/getDice.wav" hidden="hidden"></audio>
+		<!--得到结果-->
+		<audio id="three"  preload src="music/three.wav" hidden="hidden"></audio>
+		<!--得到结果-->
+		<audio id="zero"  preload src="music/zero.wav" hidden="hidden"></audio>
 		<!--通用弹窗-->
 		<div id="allPopWindow" style="display: none;">
 			<div class="allPopWindow">
@@ -229,7 +233,8 @@
 			audioAutoPlay('shanks',0);
 			audioAutoPlay('getDice',0);
 			audioAutoPlay('mouseMusic',0);
-			
+			audioAutoPlay('three',0);
+			audioAutoPlay('zero',0);
             function share(type){
                 $.ajax({
                     url:window.link+"share/"+type,

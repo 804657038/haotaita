@@ -427,7 +427,7 @@ function mainGame(){
         plog1=data;
         plog2=data;
 		bannerLayer.addChild(banners[0]);
-		LTweenLite.to(banners[0],50,{x:-banners[0].getWidth(),onComplete:function(){
+		LTweenLite.to(banners[0],100,{x:-banners[0].getWidth(),onComplete:function(){
 			banners[0].remove();
 		}});
 	});
@@ -442,7 +442,7 @@ function mainGame(){
                  bannerCheck = true;
                  banners[1] = new banner(673,302,plog1);
                  bannerLayer.addChild(banners[1]);
-                 LTweenLite.to(banners[1],50,{x:-banners[1].getWidth(),onComplete:function(){
+                 LTweenLite.to(banners[1],100,{x:-banners[1].getWidth(),onComplete:function(){
                      banners[1].remove();
                  }});
 
@@ -452,7 +452,7 @@ function mainGame(){
                  bannerCheck = false;
                  banners[0] = new banner(673,302,plog2);
                  bannerLayer.addChild(banners[0]);
-                 LTweenLite.to(banners[0],50,{x:-banners[1].getWidth(),onComplete:function(){
+                 LTweenLite.to(banners[0],100,{x:-banners[1].getWidth(),onComplete:function(){
                      banners[0].remove();
                  }});
 				}
