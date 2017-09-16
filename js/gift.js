@@ -186,3 +186,42 @@ function getDice(){
 		shankOpen=true;
 	})
 }
+//其他步数弹窗
+function elsePop(num){
+	var giftLayer = new LSprite();
+	backLayer.addChild(giftLayer);
+	giftLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
+	giftLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
+	//背景
+	var elseBkg = new LBitmap(new LBitmapData(imgList["elseBkg"]));
+	elseBkg.y = (LGlobal.height-elseBkg.getHeight())/2;
+	elseBkg.x = (LGlobal.width-elseBkg.getWidth())/2;
+	giftLayer.addChild(elseBkg);
+	//确定按钮
+	var yes = new LButton(new LBitmap(new LBitmapData(imgList["yes"])));
+	yes.y = elseBkg.y+480;
+	yes.x = (LGlobal.width-yes.getWidth())/2;
+	giftLayer.addChild(yes);
+	yes.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
+		giftLayer.removeAllChild();
+		giftLayer.remove();
+		shankOpen=true;
+	});
+	//头像
+	var elsehead = new LBitmap(new LBitmapData(imgList["elsehead"+(num+1)]));
+	elsehead.y = elseBkg.y+110;
+	elsehead.x = (LGlobal.width-elsehead.getWidth())/2;
+	giftLayer.addChild(elsehead);
+	var textone = ["摇骰子之前要不要","梦里寻它千百度，","听说换只手摇中奖","摇的姿势一定要帅，","史上最遥远的距离就是"];
+	var texttwo = ["再洗一次手！","摇不出来我不服！","率会高一些！","换个姿势试试！","大奖近在眼前！"];
+	//文字提醒
+	var text1 = new setText(0,0,30,textone[num],"#fff7b1");
+	text1.x = (LGlobal.width-text1.getWidth())/2;
+	text1.y = elseBkg.y + 375;
+	giftLayer.addChild(text1);
+	//文字提醒
+	var text2 = new setText(0,0,30,texttwo[num],"#fff7b1");
+	text2.x = (LGlobal.width-text2.getWidth())/2;
+	text2.y = elseBkg.y + 415;
+	giftLayer.addChild(text2);
+}

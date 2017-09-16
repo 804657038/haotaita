@@ -53,6 +53,7 @@ function loadPro(per){
 function gameStart(result){
 	imgList = result;
 	setHomepage();//跳转首页
+//	elsePop();
 //	giftHug();
 //	giftCard('Gift4');
 //	myCard();

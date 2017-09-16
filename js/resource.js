@@ -197,6 +197,14 @@ var gameImg = [
     {path:'img/sendFeng.png',type:'img',name:'sendFeng'},//送的疯
     {path:'img/sendJi.png',type:'img',name:'sendJi'},//送的季
     {path:'img/sendQiang.png',type:'img',name:'sendQiang'},//送的抢
+    
+    {path:'img/elseBkg.png',type:'img',name:'elseBkg'},//没有奖品背景
+    {path:'img/elsehead1.png',type:'img',name:'elsehead1'},//调侃头像1
+    {path:'img/elsehead2.png',type:'img',name:'elsehead2'},//调侃头像2
+    {path:'img/elsehead3.png',type:'img',name:'elsehead3'},//调侃头像3
+    {path:'img/elsehead4.png',type:'img',name:'elsehead4'},//调侃头像4
+    {path:'img/elsehead5.png',type:'img',name:'elsehead5'},//调侃头像5
+    {path:'img/yes.png',type:'img',name:'yes'},//确定按钮
 ];
 //全局变量
 var backLayer,person,imgList;

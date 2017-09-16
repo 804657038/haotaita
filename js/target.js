@@ -149,7 +149,8 @@ Target.prototype.moving =function(number,pcid){
 					giftCard(cardName);
 				break;
 				default:
-					shankOpen=true;
+					var elsen = parseInt(Math.random()*5);
+					elsePop(elsen);
 				break;
 			}
 		},250);
