@@ -191,7 +191,7 @@ function hitMouse(){
 	tipsLayer.addChild(mouseTips);
 	//开始挑战
 	var fight = new LButton(new LBitmap(new LBitmapData(imgList["fight"])));	
-	fight.y = 810;
+	fight.y = 840;
 	fight.x = (LGlobal.width-fight.getWidth())/2;
 	tipsLayer.addChild(fight);
 	bigAndSmall(fight,2,2,1.2,0.05,0,true);
@@ -514,11 +514,19 @@ function gameResults(bkg,number){
 	resultBkg.x = (LGlobal.width-resultBkg.getWidth())/2;
 	resultLayer.addChild(resultBkg);
 	var comfirm = new LButton(new LBitmap(new LBitmapData(imgList['comfirm'])));
-	comfirm.y = 756;
+	comfirm.y = 766;
 	comfirm.x = (LGlobal.width-comfirm.getWidth())/2;
 	resultLayer.addChild(comfirm);
 	var ntext =  new setText(315,698,30,number,'#902a24',true);
 	resultLayer.addChild(ntext);
+	var tipText1 = new setText(0,683,30,"您今天已经获取3枚骰子",'#902a24',true);
+	tipText1.x = (LGlobal.width-tipText1.getWidth())/2;
+	resultLayer.addChild(tipText1);
+	tipText1.visible = false;
+	var tipText2 = new setText(0,717,30,"请明天再来",'#902a24',true);
+	tipText2.x = (LGlobal.width-tipText2.getWidth())/2;
+	tipText2.visible = false;
+	resultLayer.addChild(tipText2);
 	if(!number){
 		light.visible =false;
 		ntext.visible = false;
@@ -527,6 +535,8 @@ function gameResults(bkg,number){
 	}
 	if(bkg=='gameSuccess'){
 		ntext.visible = false;
+		tipText1.visible = true;
+		tipText2.visible = true;
 	}
 	comfirm.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		resultLayer.removeAllChild();
