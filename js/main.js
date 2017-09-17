@@ -188,11 +188,13 @@ function receive(){
             "status":type
         },function(res){
             if(res.code==1){
-                $('.getBoxS').show();
-                $('.getBoxF').hide();
+            	$('#friendGrit').hide();
+            	$('#allPopWindow').show();
+				$('#allPopWindow').find('.winTips').html("领取成功<br/>在“我的背包”里查看");
             }else{
-                $('.getBoxS').hide();
-                $('.getBoxF').show();
+            	$('#friendGrit').hide();
+                $('#allPopWindow').show();
+				$('#allPopWindow').find('.winTips').html("领取失败<br/>来晚了，该券已被领取");
             }
         });
     });

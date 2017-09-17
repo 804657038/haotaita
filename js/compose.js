@@ -156,7 +156,8 @@ function ConposeMyCard(){
 	conposing.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(ConposeCardNumber<2)
 		{
-			conposeErrors();
+			$('#allPopWindow').show();
+			$('#allPopWindow').find('.winTips').html("合成奖品需要两张以上<br/>幸运卡（包含两张）");
 		}else{
 			confirmConposed();
 		}
@@ -172,26 +173,6 @@ function ConposeMyCard(){
 	//添加音乐
 	var music = new musicBtn(LGlobal.width-60,15,0.75,0.75,imgList['music']);
 	backLayer.addChild(music);
-}
-//没有卡片
-function hasNoCard()
-{
-	var cardLayer = new LSprite();
-	backLayer.addChild(cardLayer);
-	cardLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	cardLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-	var noCards = new LBitmap(new LBitmapData(imgList["noCards"]));
-	noCards.y = (LGlobal.height-noCards.getHeight())/2;
-	noCards.x = (LGlobal.width-noCards.getWidth())/2;
-	cardLayer.addChild(noCards);
-	//好的按钮
-	var fineLayer = new LSprite();
-	cardLayer.addChild(fineLayer);
-	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,524,90],false,'rgba(0,0,0,0.75)');
-	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		cardLayer.removeAllChild();
-		cardLayer.remove();
-	})
 }
 //合成成功
 function composeSuccess(name)
@@ -238,43 +219,14 @@ function composeSuccess(name)
 		myCard();
 	});
 }
-//合成错误
-function conposeErrors()
-{
-	var cardLayer = new LSprite();
-	backLayer.addChild(cardLayer);
-	cardLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	cardLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-	var composeError = new LBitmap(new LBitmapData(imgList["composeError"]));
-	composeError.y = (LGlobal.height-composeError.getHeight())/2;
-	composeError.x = (LGlobal.width-composeError.getWidth())/2;
-	cardLayer.addChild(composeError);
-	//好的按钮
-	var fineLayer = new LSprite();
-	cardLayer.addChild(fineLayer);
-	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,524,90],false,'rgba(0,0,0,0.75)');
-	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		cardLayer.removeAllChild();
-		cardLayer.remove();
-	})
-}
 //是否合成
 function confirmConposed(){
-	var cardLayer = new LSprite();
-	backLayer.addChild(cardLayer);
-	cardLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-	cardLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-	var confirmCompose = new LBitmap(new LBitmapData(imgList["confirmCompose"]));
-	confirmCompose.y = (LGlobal.height-confirmCompose.getHeight())/2;
-	confirmCompose.x = (LGlobal.width-confirmCompose.getWidth())/2;
-	cardLayer.addChild(confirmCompose);
-	//确认按钮
-	var fineLayer = new LSprite();
-	cardLayer.addChild(fineLayer);
-	fineLayer.graphics.drawRect(0,'#ffffff',[91,585,262,90],false,'rgba(0,0,0,0.75)');
-	fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		cardLayer.removeAllChild();
-		cardLayer.remove();
+	$('#composePop').show();
+	$(document).on('touchstart','.no2',function(){
+		$('#composePop').hide();
+	});
+	$(document).on('touchstart','.yes2',function(){
+		$('#composePop').hide();
 		var ids=[];
 		for (i in cardList){
 			if(cardList[i].visible==true){
@@ -285,19 +237,10 @@ function confirmConposed(){
 			if(res.code==1){
                 composeSuccess("coupon"+res.msg);
 			}else{
-                conposeErrors();
+                $('#allPopWindow').show();
+				$('#allPopWindow').find('.winTips').html("合成失败");
 			}
 
 		});
-
-		
-	});
-	//取消按钮
-	var cancelLayer = new LSprite();
-	cardLayer.addChild(cancelLayer);
-	cancelLayer.graphics.drawRect(0,'#ffffff',[353,585,262,90],false,'rgba(0,0,0,0.75)');
-	cancelLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-		cardLayer.removeAllChild();
-		cardLayer.remove();
 	});
 }

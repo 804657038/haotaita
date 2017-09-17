@@ -95,11 +95,6 @@ var gameImg = [
 	{path:'img/samllCard555.png',type:'img',name:'samllCard555'},//小卡
 	{path:'img/cardNumber.png',type:'img',name:'cardNumber'},//卡数量背景
 	{path:'img/hasChoice.png',type:'img',name:'hasChoice'},//已经选择
-	{path:'img/noCards.png',type:'img',name:'noCards'},//没有卡片提示
-	{path:'img/comfirmCard.png',type:'img',name:'comfirmCard'},//确定是否赠送
-	{path:'img/comfirmPerson.png',type:'img',name:'comfirmPerson'},//确认个人信息
-	{path:'img/sendSuccess.png',type:'img',name:'sendSuccess'},//赠送成功
-	{path:'img/writeError.png',type:'img',name:'writeError'},//输入错误
 	{path:'img/continue.png',type:'img',name:'continue'},//继续
 	{path:'img/cancel.png',type:'img',name:'cancel'},//取消
 
@@ -108,8 +103,7 @@ var gameImg = [
 	{path:'img/coupon2.png',type:'img',name:'coupon9'},//688
 
 	{path:'img/continueCompose.png',type:'img',name:'continueCompose'},//继续合成
-	{path:'img/composeError.png',type:'img',name:'composeError'},//合成错误
-	{path:'img/confirmCompose.png',type:'img',name:'confirmCompose'},//是否合成
+
 	{path:'img/conposing.png',type:'img',name:'conposing'},//合成
 	{path:'img/conposeTitle.png',type:'img',name:'conposeTitle'},//合成标题
 	{path:'img/conposeBkg.jpg',type:'img',name:'conposeBkg'},//合成背景
@@ -178,11 +172,8 @@ var gameImg = [
 	{path:'img/shanking.png',type:'img',name:'shanking'},//摇一摇
 	{path:'img/headpic.png',type:'img',name:'headpic'},//头像
 	{path:'img/nowget.png',type:'img',name:'nowget'},//头像
-	{path:'img/getfail.png',type:'img',name:'getfail'},//领取失败
-	{path:'img/getsuccess.png',type:'img',name:'getsuccess'},//领取成功
 	{path:'img/confirmBtn.png',type:'img',name:'confirmBtn'},//确定
 	{path:'img/inviteFriends.png',type:'img',name:'inviteFriends'},//邀请好友
-	{path:'img/hasnotChoice.png',type:'img',name:'hasnotChoice'},//没有选择
 
 	{path:'img/headpic.png',type:'img',name:'tou'},//微信地址
 	{path:'img/mouseTips.png',type:'img',name:'mouseTips'},//打地鼠提示
@@ -205,6 +196,9 @@ var gameImg = [
     {path:'img/elsehead4.png',type:'img',name:'elsehead4'},//调侃头像4
     {path:'img/elsehead5.png',type:'img',name:'elsehead5'},//调侃头像5
     {path:'img/yes.png',type:'img',name:'yes'},//确定按钮
+    
+    {path:'img/yes1.png',type:'img',name:'yes1'},//是
+    {path:'img/no1.png',type:'img',name:'no1'},//否
 ];
 //全局变量
 var backLayer,person,imgList;

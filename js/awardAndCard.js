@@ -22,11 +22,13 @@ function myCard(){
 	myAwards.y = 35;
 	backLayer.addChild(myAwards);//添加到背景层
 	myAwards.addEventListener(LMouseEvent.MOUSE_DOWN,myAward);
+	bigAndSmall(myAwards,2,2,1.0,0.05,0,true);
 	//我的卡片
 	var myCards = new LBitmap(new LBitmapData(imgList['myCard']));
 	myCards.x = 415;
 	myCards.y = 35;
 	backLayer.addChild(myCards);//添加到背景层
+	bigAndSmall(myCards,2,2,1.0,0.05,0,true);
 	//我的卡片
 	var cardList = [];
 	for(var i=0;i<5;i++)
@@ -80,7 +82,8 @@ function myCard(){
 	compose.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		if(AllCardNumber==0)
 		{
-			hasNoCard();
+			$('#allPopWindow').show();
+			$('#allPopWindow').find('.winTips').html("还没有幸运卡，<br/>赶紧去收集吧！");
 		}else{
 			ConposeMyCard();
 		}
@@ -194,13 +197,14 @@ function myAward(){
 	myAwards.x = 155;
 	myAwards.y = 35;
 	backLayer.addChild(myAwards);//添加到背景层
+	bigAndSmall(myAwards,2,2,1.0,0.05,0,true);
 	//我的卡片
 	var myCards= new LButton(new LBitmap(new LBitmapData(imgList['myCard'])));
 	myCards.x = 415;
 	myCards.y = 35;
 	backLayer.addChild(myCards);//添加到背景层
 	myCards.addEventListener(LMouseEvent.MOUSE_DOWN,myCard);
-	
+	bigAndSmall(myCards,2,2,1.0,0.05,0,true);
 	
 	//测试
 	var activityLayer = new LSprite();
@@ -553,31 +557,15 @@ function showUseContent(){
 }
 //确定是否赠送
 function confirmCardSend2(){
-    var sendLayer = new LSprite();
-    backLayer.addChild(sendLayer);
-    sendLayer.addEventListener(LMouseEvent.MOUSE_DOWN,setNull);
-    sendLayer.graphics.drawRect(0,'#ffffff',[0,0,LGlobal.width,LGlobal.height],true,'rgba(0,0,0,0.75)');
-    var comfirmCard = new LBitmap(new LBitmapData(imgList["comfirmCard"]));
-    comfirmCard.y = (LGlobal.height-comfirmCard.getHeight())/2;
-    comfirmCard.x = (LGlobal.width-comfirmCard.getWidth())/2;
-    sendLayer.addChild(comfirmCard);
-    //确认按钮
-    var fineLayer = new LSprite();
-    sendLayer.addChild(fineLayer);
-    fineLayer.graphics.drawRect(0,'#ffffff',[91,585,262,90],false,'rgba(0,0,0,0.75)');
-    fineLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-        sendLayer.removeAllChild();
-        sendLayer.remove();
-        enjoy2();
-    });
-    //取消按钮
-    var cancelLayer = new LSprite();
-    sendLayer.addChild(cancelLayer);
-    cancelLayer.graphics.drawRect(0,'#ffffff',[353,585,262,90],false,'rgba(0,0,0,0.75)');
-    cancelLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
-        sendLayer.removeAllChild();
-        sendLayer.remove();
-    });
+	$('#sendPop').show();
+	$('#sendPop').find('.poptips').html("是否确定赠送卡券?");
+	$(document).on('touchstart','.yes1',function(){
+		$('#sendPop').hide();
+		enjoy2();
+	});
+	$(document).on('touchstart','.no1',function(){
+		$('#sendPop').hide();
+	});
 }
 function enjoy2(){
     var sendLayer = new LSprite();
