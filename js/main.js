@@ -264,39 +264,39 @@ function mainGame(){
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
 	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
         //服务器请求到骰子数目
-        // AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
-        //     if(res.code==1){
-        //         var number = res.dice;
-        //         window.money=res.redValue;
-        //         window.id=res.id;
-        //         var pid=res.pid;
-        //         document.getElementById('shanks').play();
-        //         $('#dice').show();
-        //         //
-        //         // if(res.prize_id!=7){
-        //         //
-        //         // }
-        //         diceNumberWord.childList[0].text=res.diceNum;
-        //         setTimeout(function(){
-        //             document.getElementById('shanks').pause();
-        //             $('#dice').hide();
-        //             document.getElementById('getDice').play();
-        //             diceList[number-1].visible = true;//显示骰子
-        //             diceList[number-1].alpha = 0;
-        //             LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
-        //                 LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
-        //                     diceList[number-1].visible = false;
-        //                     setTimeout(function(){
-        //                         target.moving(number,pid);
-        //                     },500);
-        //                 }});
-        //             }});
-        //         },2000);
-        //     }else{
-        //         myAlert(res.msg);
-        //     }
-        //
-        // });
+        AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
+            if(res.code==1){
+                var number = res.dice;
+                window.money=res.redValue;
+                window.id=res.id;
+                var pid=res.pid;
+                document.getElementById('shanks').play();
+                $('#dice').show();
+                //
+                // if(res.prize_id!=7){
+                //
+                // }
+                diceNumberWord.childList[0].text=res.diceNum;
+                setTimeout(function(){
+                    document.getElementById('shanks').pause();
+                    $('#dice').hide();
+                    document.getElementById('getDice').play();
+                    diceList[number-1].visible = true;//显示骰子
+                    diceList[number-1].alpha = 0;
+                    LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+                        LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
+                            diceList[number-1].visible = false;
+                            setTimeout(function(){
+                                target.moving(number,pid);
+                            },500);
+                        }});
+                    }});
+                },2000);
+            }else{
+                myAlert(res.msg);
+            }
+
+        });
 
 	});
 
