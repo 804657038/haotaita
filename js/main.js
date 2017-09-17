@@ -53,6 +53,7 @@ function loadPro(per){
 function gameStart(result){
 	imgList = result;
 	setHomepage();//跳转首页
+//	gameResults('gameSuccess');
 //	elsePop();
 //	giftHug();
 //	giftCard('Gift4');
@@ -566,7 +567,7 @@ function wantPop(){
 	var wantText = [];
 	wantText[0] = new setText(142,530,24,"每天首次邀请好友，即可获得     枚骰子",'#fff7b1');
 	wantLayer.addChild(wantText[0]);
-	wantText[2] = new setText(120,755,24,"挑战小游戏，闯关成功可最多获得     枚骰子",'#fff7b1');
+	wantText[2] = new setText(143,755,24,"挑战小游戏，每天最多可获得     枚骰子",'#fff7b1');
 	wantLayer.addChild(wantText[2]);
 	wantText[0].x = -wantText[0].getWidth();
 	wantText[2].x = LGlobal.width;
@@ -576,7 +577,7 @@ function wantPop(){
 	numberText[0].alpha = 0;
 	wantLayer.addChild(numberText[0]);
 	
-	numberText[2] = new setText(487,746,36,"3",'#ff2000',true);
+	numberText[2] = new setText(462,746,36,"3",'#ff2000',true);
 	numberText[2].alpha = 0;
 	wantLayer.addChild(numberText[2]);
 	//获取个人次数
@@ -585,7 +586,7 @@ function wantPop(){
     personInvite=window.shareNum;
     personGame=1;
     LTweenLite.to(wantText[0],0.8,{x:280,rotate:0}).to(wantText[0],0.2,{x:142,rotate:0});
-    LTweenLite.to(wantText[2],0.8,{x:60,rotate:0}).to(wantText[2],0.2,{x:120,rotate:0,onComplete:function(){
+    LTweenLite.to(wantText[2],0.8,{x:60,rotate:0}).to(wantText[2],0.2,{x:143,rotate:0,onComplete:function(){
         LTweenLite.to(numberText[0],0.25,{alpha:1.0});
         LTweenLite.to(numberText[2],0.75,{alpha:1.0});
     }});
