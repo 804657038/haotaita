@@ -593,5 +593,6 @@ function enjoy2(){
 
     window.hasGitf=true;
     window.gType=2;
+
     doShare(sendLayer);
 }

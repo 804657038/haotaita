@@ -260,7 +260,8 @@
             function zs(){
                  AjaxR(window.link+'readyGive','POST',{id:window.gId,"type":window.gType,"__token__":window.token},function(res){
                  if(res.code==1){
-                        window.location.href="index.html?v="+Math.random();
+                        myAlert("赠送成功","index.html?v="+Math.random());
+                      
                  	}else{
                      myAlert("分享失败，请重新分享");
                  	}
