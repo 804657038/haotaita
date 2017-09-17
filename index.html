@@ -9,8 +9,8 @@
 		<script src="js/jquery.min.js"></script>
         <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <script type="text/javascript">
-          window.link="https://haotaitai.hengdikeji.com/";
-//			window.link="https://haotaitai.hengdikeji.com/g/";
+//          window.link="https://haotaitai.hengdikeji.com/";
+			window.link="https://haotaitai.hengdikeji.com/g/";
             window.fxTitle="好太太-免单疯抢季";
             window.fxDesc="呼朋唤友赢超值大礼包";
             window.fxLink="https://haotaitai.hengdikeji.com/htt/index.html";
@@ -189,6 +189,7 @@
 					</li>
 					<li>
 						<a href="javascript:;" class="ok">好的</a>
+
 					</li>
 				</ul>
 			</div>
@@ -216,13 +217,13 @@
 			//音乐
 			function audioAutoPlay(id,v){
 			    var audio = document.getElementById(id);
-			    audio.play();
+//			    audio.play();
 			    if(v==0)
 			    {
 			    	audio.pause();
 			    }
 			    document.addEventListener("WeixinJSBridgeReady", function () {
-			            audio.play();
+//			            audio.play();
 			            if(v==0)
 					    {
 					    	audio.pause();

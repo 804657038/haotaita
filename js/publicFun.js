@@ -243,6 +243,7 @@ function startPlaying(){
 						},function(res){
 							if(res.code==1){
 	                            // diceNumberWord=res.dice;
+
 	                            if(dScore.childList[0].text>=30)
 	                            {
 	                                gameResults('games3',res.dice);
@@ -264,7 +265,6 @@ function startPlaying(){
 						});
 						LTweenLite.remove(daoshu);
 						//判断是否为今天第一次玩
-	
 						
 					}else{
 						tCount.childList[0].text=timenumber+'s';
@@ -522,8 +522,9 @@ function gameResults(bkg,number){
 	if(!number){
 		light.visible =false;
 		ntext.visible = false;
+	}else{
+        diceNumberWord.childList[0].text+=number;
 	}
-    diceNumberWord.childList[0].text+=number;
 	if(bkg=='gameSuccess'){
 		ntext.visible = false;
 	}
