@@ -4,18 +4,19 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
 		<title>删裆内侧阶段</title>
-		<link rel="stylesheet" href="css/index.css" />		
+		<link rel="stylesheet" href="css/index.css?v=1" />
 
 		<script src="js/jquery.min.js"></script>
         <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
         <script type="text/javascript">
-        window.link="https://haotaitai.hengdikeji.com/";
+            window.link="https://haotaitai.hengdikeji.com/";
 //			window.link="https://haotaitai.hengdikeji.com/g/";
             window.fxTitle="好太太-免单疯抢季";
             window.fxDesc="呼朋唤友赢超值大礼包";
             window.fxLink="https://haotaitai.hengdikeji.com/htt/index.html";
             window.fxImg="https://haotaitai.hengdikeji.com/htt/img/fxt.png";
             window.shareNum=0; //分享测试
+            window.hasShare=false; //分享测试
             window.hasGitf=false; //是否赠送
             function AjaxR(url,type,data,callback){
                 $.ajax({
@@ -235,15 +236,15 @@
 	<script type="text/javascript" src="js/target.js?v=7" ></script>
 	<script type="text/javascript" src="js/musicBtn.js?v=8" ></script>
 	<script type="text/javascript" src="js/gift.js?v=9" ></script>
-	<script type="text/javascript" src="js/awardAndCard.js?v=21" ></script>
-	<script type="text/javascript" src="js/compose.js?v=8" ></script>
-	<script type="text/javascript" src="js/sendToFriend.js?v=4" ></script>
-	<script type="text/javascript" src="js/main.js?v=14" ></script>
+	<script type="text/javascript" src="js/awardAndCard.js?v=23" ></script>
+	<script type="text/javascript" src="js/compose.js?v=9" ></script>
+	<script type="text/javascript" src="js/sendToFriend.js?v=5" ></script>
+	<script type="text/javascript" src="js/main.js?v=15" ></script>
 	<script>
 			//音乐
 			function audioAutoPlay(id,v){
 			    var audio = document.getElementById(id);
-//			    audio.play();
+			    audio.play();
 			    if(v==0)
 			    {
 			    	audio.pause();
@@ -275,7 +276,12 @@
                             myAlert('分享成功，获得2枚骰子',"index.html?v="+Math.random());
 
                         }else{
-                            myAlert(datas.msg);
+                           if(window.hasShare==true){
+                                $('#allPopWindow').show();
+ 			                    $('#allPopWindow .winTips').html('你已完成今天首次分享任务，<br/>再次分享不会获得骰子。');
+                           }else{
+                               myAlert(datas.msg);
+                           }
                         }
                     },
                     error: function(datas) {
