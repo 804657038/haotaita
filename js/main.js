@@ -130,7 +130,8 @@ function setHomepage(){
 
 	//节日
 	var fesitial = new LBitmap(new LBitmapData(imgList['fesitial']));
-	fesitial.x = 205;
+	fesitial.x = 190;
+	fesitial.scaleX =0.75;
 	fesitial.y = 260;
 	backLayer.addChild(fesitial);//添加到背景层
 
