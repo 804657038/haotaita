@@ -130,7 +130,7 @@ function shareToFriends(){
 		shareLayer.remove();
 		if(window.shareNum<=0){
 //          gameOrInvite(true);
-			$('#allPopWindow').SHOW();
+			$('#allPopWindow').show();
 			$('#allPopWindow .winTips').html('你已完成今天首次分享任务，<br/>再次分享不会获得骰子。');
 		}else{
 			shankOpen=true;
