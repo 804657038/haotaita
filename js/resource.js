@@ -53,11 +53,13 @@ var gameImg = [
 	{path:'img/goTip.png',type:'img',name:'goTip'},//明天提示
 	{path:'img/rightNowGet.png',type:'img',name:'rightNowGet'},//邀请用完
 	{path:'img/light.png',type:'img',name:'light'},//光
-	{path:'img/mainGift.png',type:'img',name:'Gift1'},//季卡
-	{path:'img/danGift.png',type:'img',name:'Gift2'},//季卡
-	{path:'img/fengGift.png',type:'img',name:'Gift3'},//季卡
-	{path:'img/qiangGift.png',type:'img',name:'Gift4'},//季卡
+
+	{path:'img/mainGift.png',type:'img',name:'Gift1'},//免卡
+	{path:'img/danGift.png',type:'img',name:'Gift2'},//单卡
+	{path:'img/fengGift.png',type:'img',name:'Gift3'},//疯卡
+	{path:'img/qiangGift.png',type:'img',name:'Gift4'},//抢卡
 	{path:'img/jiGift.png',type:'img',name:'Gift5'},//季卡
+
 	{path:'img/giftCash388.png',type:'img',name:'giftCash388'},//现金388
 	{path:'img/giftCash188.png',type:'img',name:'giftCash188'},//现金188
 	{path:'img/cashBkg.png',type:'img',name:'cashBkg'},//现金背景
@@ -70,11 +72,13 @@ var gameImg = [
 	{path:'img/send.png',type:'img',name:'send'},//送给好友
 	{path:'img/myAward.png',type:'img',name:'myAward'},//我的奖品
 	{path:'img/myCard.png',type:'img',name:'myCard'},//我的卡片
+
 	{path:'img/mianCard.png',type:'img',name:'card1'},//季卡
 	{path:'img/danCard.png',type:'img',name:'card2'},//季卡
 	{path:'img/fengCard.png',type:'img',name:'card3'},//季卡
 	{path:'img/qiangCard.png',type:'img',name:'card4'},//季卡
 	{path:'img/jiCard.png',type:'img',name:'card5'},//季卡
+
 	{path:'img/goHomepage.png',type:'img',name:'goHomepage'},//返回首页
 	{path:'img/compose.png',type:'img',name:'compose'},//我要合成
 	{path:'img/cardAwardBkg.jpg',type:'img',name:'cardAwardBkg'},//我的卡片和奖品背景
@@ -231,7 +235,7 @@ var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/);
 
 var SHAKE_THRESHOLD = 2000;
 if(isiOS==true){
-    SHAKE_THRESHOLD=1000;
+    SHAKE_THRESHOLD=500;
 }
 var last_update = 0;  
 var x = y = z = last_x = last_y = last_z = 0;  

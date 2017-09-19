@@ -111,7 +111,7 @@ Target.prototype.moving =function(number,pcid){
 		self.tween = bigAndSmall(self,2,2,1.0,0.1,0.2,true);
 		var step = self.step;		
 		setTimeout(function(){
-            var cardName='card'+pcid;
+            var cardName='Gift'+pcid;
 			switch(step){
 				case 3:
 					giftCard(cardName);
