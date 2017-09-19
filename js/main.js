@@ -274,7 +274,7 @@ function mainGame(){
         //         window.money=res.redValue;
         //         window.id=res.id;
         //         var pid=res.pid;
-                   document.getElementById('shanks').play();
+        //            document.getElementById('shanks').play();
         //         $('#dice').show();
         //         //
         //         // if(res.prize_id!=7){
