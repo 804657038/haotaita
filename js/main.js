@@ -274,28 +274,32 @@ function mainGame(){
         //         window.money=res.redValue;
         //         window.id=res.id;
         //         var pid=res.pid;
-        //         document.getElementById('shanks').play();
+                   document.getElementById('shanks').play();
         //         $('#dice').show();
         //         //
         //         // if(res.prize_id!=7){
         //         //
         //         // }
-        //         diceNumberWord.childList[0].text=res.diceNum;
-        //         setTimeout(function(){
-        //             document.getElementById('shanks').pause();
-        //             $('#dice').hide();
-        //             document.getElementById('getDice').play();
-        //             diceList[number-1].visible = true;//显示骰子
-        //             diceList[number-1].alpha = 0;
-        //             LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
-        //                 LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
-        //                     diceList[number-1].visible = false;
-        //                     setTimeout(function(){
-        //                         target.moving(number,pid);
-        //                     },500);
-        //                 }});
-        //             }});
-        //         },2000);
+//      			number =2;
+////                 diceNumberWord.childList[0].text=res.diceNum;
+//                 setTimeout(function(){
+//                     document.getElementById('shanks').pause();
+//                     $('#dice').hide();
+//                     document.getElementById('getDice').play();
+//                     diceList[number-1].visible = true;//显示骰子
+//                     diceList[number-1].alpha = 0;
+//						diceList[number-1].rotate = -30;
+//						LTweenLite.to(diceList[number-1],0.5,{rotate:30,loop:true}).to(diceList[number-1],0.5,{rotate:-30,loop:true});
+//                     LTweenLite.to(diceList[number-1],1.5,{alpha:1.0,onComplete:function(){
+//                         LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
+//                             diceList[number-1].visible = false;
+//                             diceList[number-1].alpha = 1;
+//                             setTimeout(function(){
+//                                 target.moving(number,pid);
+//                             },500);
+//                         }});
+//                     }});
+//                 },2000);
         //     }else{
         //         myAlert(res.msg);
         //     }
@@ -512,10 +516,12 @@ function mainGame(){
 									$('#dice').hide();
 									document.getElementById('getDice').play();
                                     diceList[number-1].visible = true;//显示骰子
-                                    diceList[number-1].alpha = 0;
-                                    LTweenLite.to(diceList[number-1],0.5,{alpha:1.0,onComplete:function(){
+                                    diceList[number-1].rotate = -30;
+									LTweenLite.to(diceList[number-1],0.5,{rotate:30,loop:true}).to(diceList[number-1],0.5,{rotate:-30,loop:true});
+                                    LTweenLite.to(diceList[number-1],1.5,{alpha:1.0,onComplete:function(){
                                         LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
                                             diceList[number-1].visible = false;
+                                            diceList[number-1].alpha=1.0;
                                             setTimeout(function(){
                                                 target.moving(number,pid);
                                             },500);

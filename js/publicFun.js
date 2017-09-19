@@ -155,7 +155,7 @@ var tCount;
 var dScore;
 var playNumber = 0;
 var playCheck = true;
-var timenumber = 30;
+var timenumber = 20;
 var mouseLayer0;
 var hitSound;
 function hitMouse(){
@@ -546,7 +546,7 @@ function gameResults(bkg,number){
 		resultLayer.remove();
 		playCheck=true;
 		dScore.childList[0].text=0;
-		timenumber=30;
+		timenumber=20;
 		tCount.childList[0].text=timenumber+'s';
 		mouseLayer0.removeAllChild();
 		mouseLayer0.remove();
