@@ -352,3 +352,50 @@ img{
 	left: 29.32%;
 	bottom: 20%;
 }
+
+#allPopWindow{
+	width:100%;
+	height: 100%;
+	position: absolute;
+	left: 0;
+	background-color: rgba(0,0,0,0.75);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+	display: -webkit-flex;
+	-webkit-align-items: center;
+	-webkit-justify-content: center;
+	-webkit-flex-direction: column;
+	z-index: 102;
+}
+.allPopWindow{
+	width: 75%;
+	border-radius: 5px;
+	border:5px solid #fff7b1;
+	background-color: #fff7b1;
+}
+.allPopWindowin{
+	width: 100%;
+	height: 100%;
+	background-color: #ffa500;
+	border-radius: 10px;
+}
+.allPopWindow .winTips{
+	text-align: center;
+	font-size: 16px;
+	line-height: 24px;
+	color: #fff7b1;
+	padding: 6% 0% 3%;
+}
+.allPopWindow .allPopWindowin .ok{
+	display: inline-block;
+	width: 46.6%;
+	margin: 0 auto;
+	margin-top: 3%;
+	margin-bottom: 6%;
+}
+.allPopWindow .allPopWindowin .ok img{
+	display: block;
+	width: 100%;
+}
