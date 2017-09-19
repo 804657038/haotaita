@@ -125,13 +125,16 @@ function longCardClass(x,y,cardOrder){
 function shareToFriends(){
 	var shareLayer = new LSprite();
 	backLayer.addChild(shareLayer);
+	window.hasShare=true;
 	shareLayer.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
 		shareLayer.removeAllChild();
 		shareLayer.remove();
+
 		if(window.shareNum<=0){
+
 //          gameOrInvite(true);
-			$('#allPopWindow').show();
-			$('#allPopWindow .winTips').html('你已完成今天首次分享任务，<br/>再次分享不会获得骰子。');
+// 			$('#allPopWindow').show();
+// 			$('#allPopWindow .winTips').html('你已完成今天首次分享任务，<br/>再次分享不会获得骰子。');
 		}else{
 			shankOpen=true;
 		}

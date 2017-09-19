@@ -74,7 +74,7 @@ a{
 	margin-right: 2.5%;
 	float: right;
 	background: url(../img/address.png) no-repeat left center;
-	text-indent: 18px;
+	font-size: 13px;
 	background-size: auto 100%;
 }
 /*修改的结束*/
@@ -89,7 +89,10 @@ a{
 	/*width: 70%;*/
 	float: left;
 	margin-left: 2.5%;
-	overflow: hidden;white-space: nowrap;text-overflow: ellipsis;
+	overflow: hidden;
+	/*white-space: nowrap;*/
+	text-overflow: ellipsis;
+	word-wrap: break-word;
 }
 /*.storeBox .storeList .storeAddress p:nth-child(2){
 	width: 25%;
@@ -106,7 +109,7 @@ a{
 	height: 45px;
 	width: 49.5%;
 	float: left;
-	font-size: 16px;
+	font-size: 13px;
 	font-weight: bold;
 	text-align: center;
 	line-height: 45px;
@@ -116,13 +119,15 @@ a{
 	background: url(../img/phone.png) no-repeat;
 	background-position-y: center;
 	background-position-x: 31%;
-	text-indent:14%;
+	text-indent:7%;
+	background-size: 13%;
 }
 .storeList ul li:nth-child(3) a:nth-child(2){
 	background: url(../img/go.png) no-repeat;
 	background-position-y: center;
 	background-position-x: 30%;
-	text-indent:15%;
+	text-indent:8%;
+	background-size: 20%;
 }
 /*内嵌框*/
 #personInfor{

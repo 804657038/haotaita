@@ -369,7 +369,9 @@ function package(y,name,text,odd,order,index,hasUse)
             $(box2).find('.name').text("姓名："+res.name);
             $(box2).find('.phone').text("手机："+res.mobile);
             $(box2).find('.address').text("地址："+res.region);
+            $(box2).find('.model').css("display",'none');
             if(res.msg){
+                $(box2).find('.word').css("display",'block');
                 $(box2).find('.word').text("留言："+res.msg);
             }else{
                 $(box2).find('.word').css("display",'none');
@@ -468,6 +470,14 @@ function Coupon(y,name,hasUse,order,index,code,hasGift)
             $(box2).find('.name').text("姓名："+res.name);
             $(box2).find('.phone').text("手机："+res.mobile);
             $(box2).find('.address').text("地址："+res.region);
+
+            if(res.model){
+                $(box2).find('.model').css("display",'block');
+
+                $(box2).find('.model').text("型号："+res.model);
+            }else{
+                $(box2).find('.model').css("display",'none');
+            }
             if(res.msg){
                 $(box2).find('.word').text("留言："+res.msg);
 			}else{

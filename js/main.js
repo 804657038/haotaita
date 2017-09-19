@@ -74,7 +74,7 @@ function setHomepage(){
 
         loader.load(res.face, "bitmapData");
     });
-
+    window.hasShare=false;
 	///
     if(hasFirst==true){
         receive();
