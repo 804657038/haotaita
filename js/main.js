@@ -98,11 +98,13 @@ function setHomepage(){
 	start.x = 128;
 	start.y = 850;
 	backLayer.addChild(start);//添加到背景层
+
 	//内测阶段
-	var neice1 = new setText(100,1055,32,"内测阶段，活动开始时",'#ff0000');
-	backLayer.addChild(neice1);//添加到背景层
-	var neice2 = new setText(140,1092,32,"会清空所有数据",'#ff0000');
-	backLayer.addChild(neice2);//添加到背景层
+	// var neice1 = new setText(100,1055,32,"内测阶段，活动开始时",'#ff0000');
+	// backLayer.addChild(neice1);//添加到背景层
+	// var neice2 = new setText(140,1092,32,"会清空所有数据",'#ff0000');
+	// backLayer.addChild(neice2);//添加到背景层
+
 	//我的背包
 	var backBag = new LButton(new LBitmap(new LBitmapData(imgList['backBag'])));
 	backBag.x = 128;
@@ -265,7 +267,7 @@ function mainGame(){
 	festival.x = 279;
 	festival.y = 66;
 	//光
-	var light= new LBitmap(new LBitmapData(imgList['light']));
+	light= new LBitmap(new LBitmapData(imgList['light']));
 	backLayer.addChild(light);//添加到背景层
 	light.x = (LGlobal.width-light.getWidth())/2;
 	light.y = (LGlobal.height-light.getHeight())/2;
@@ -274,53 +276,6 @@ function mainGame(){
 	var bigDice = new LButton(new LBitmap(new LBitmapData(imgList['bigDice'])));//实例化背景
 	bigDice.addEventListener(LMouseEvent.MOUSE_DOWN,function(){
         //服务器请求到骰子数目
-        // AjaxR(window.link+'lottery',"POST",{"__token__":window.token},function(res){
-        //     if(res.code==1){
-        //         var number = res.dice;
-        //         window.money=res.redValue;
-        //         window.id=res.id;
-        //         var pid=res.pid;
-//                 document.getElementById('shanks').play();
-        //         $('#dice').show();
-        //         //
-        //         // if(res.prize_id!=7){
-        //         //
-        //         // }
-//      			number =2;
-////                 diceNumberWord.childList[0].text=res.diceNum;
-//                 setTimeout(function(){
-//                     document.getElementById('shanks').pause();
-//                     $('#dice').hide();
-//                     document.getElementById('getDice').play();
-//                     diceList[number-1].visible = true;//显示骰子
-////                     diceList[number-1].alpha = 0;
-//						light.visible = true;
-//						var lightTween = LTweenLite.to(light,6.0,{rotate:360,loop:true,onComplete:function(){
-//							light.rotate=0;
-//						}});
-//						diceList[number-1].rotate = -30;
-//						var diceTween =  LTweenLite.to(diceList[number-1],0.5,{rotate:30,loop:true}).to(diceList[number-1],0.5,{rotate:-30,loop:true});
-//                     LTweenLite.to(diceList[number-1],1.5,{alpha:1.0,onComplete:function(){
-//                     		LTweenLite.to(light,0.5,{delay:2.5,alpha:0});
-//                         LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
-//                             LTweenLite.remove(lightTween);
-//                             LTweenLite.remove(diceTween);
-//                             light.visible = false;
-//                             light.alpha = 1;
-//                             diceList[number-1].visible = false;
-//                             diceList[number-1].alpha = 1;
-//                             light.rotate=0;
-//                             setTimeout(function(){
-//                                 target.moving(number,pid);
-//                             },500);
-//                         }});
-//                     }});
-//                 },2000);
-        //     }else{
-        //         myAlert(res.msg);
-        //     }
-        //
-        // });
 
 	});
 
@@ -371,8 +326,6 @@ function mainGame(){
 	backLayer.addChild(remain);
 	var ge = new setText(325,745,24,"个",'#ffffff');
 	backLayer.addChild(ge);
-	//目标人物	
-	var target;
 
 	var step=0;
 
@@ -534,14 +487,13 @@ function mainGame(){
                                     diceList[number-1].visible = true;//显示骰子
                                     diceList[number-1].rotate = -30;
                                     light.visible = true;
-									var lightTween = LTweenLite.to(light,6.0,{rotate:360,loop:true,onComplete:function(){
+									var lightTween = LTweenLite.to(light,4.0,{rotate:360,onComplete:function(){
 										light.rotate=0;
 									}});
 									var diceTween =  LTweenLite.to(diceList[number-1],0.5,{rotate:30,loop:true}).to(diceList[number-1],0.5,{rotate:-30,loop:true});			
                                     LTweenLite.to(diceList[number-1],1.5,{alpha:1.0,onComplete:function(){
                                         LTweenLite.to(light,0.5,{delay:2.5,alpha:0});
                                         LTweenLite.to(diceList[number-1],0.5,{delay:2.5,alpha:0,onComplete:function(){
-                                            LTweenLite.remove(lightTween);
 				                            LTweenLite.remove(diceTween);
 				                            light.visible = false;
 				                            light.alpha = 1;

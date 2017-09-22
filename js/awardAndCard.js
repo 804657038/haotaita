@@ -342,6 +342,7 @@ function package(y,name,text,odd,order,index,hasUse)
 	self.exchange.x = 488;
 	self.exchange.y = 35;
 	self.addChild(self.exchange);
+
 	self.oddNumber = new setText(135,62,24,"运输单号：","#333333",true);
 	self.addChild(self.oddNumber);
 	if(odd){
@@ -349,7 +350,8 @@ function package(y,name,text,odd,order,index,hasUse)
 		self.oddNumber.childList["0"].text = "运输单号："+odd;
 	}else{
 		self.look.visible = false;
-		self.oddNumber.visible = false;
+        self.oddNumber.childList["0"].text = "运输单号：暂无";
+		// self.oddNumber.visible = false;
 	}
 	if(hasUse==true){
         self.look.visible=true;

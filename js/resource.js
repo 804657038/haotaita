@@ -244,3 +244,7 @@ var diceList = [];
 var hasFirst=true;
 var wechatHead;
 
+//目标人物
+var target;
+//光
+var light;

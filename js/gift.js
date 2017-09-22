@@ -139,7 +139,8 @@ function getCash(name,n){
 	giftLayer.addChild(cash);
 //	bigAndSmall(cash,2,2,1.5,0.1,0,true);
 	
-	var moneytext = new setText(cash.x-16,390,48,n,'#f93849',true);
+	// var moneytext = new setText(cash.x-16,390,48,n,'#f93849',true);
+	var moneytext = new setText(cash.x-52,395,36,n,'#f93849',true); //2017/09/21
 	giftLayer.addChild(moneytext);
 	//红包提示
 	var redTips = new LBitmap(new LBitmapData(imgList["redTips"]));
